@@ -92,6 +92,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_WINDLL;GraficosEngine_Exports;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)lib\glm;$(ProjectDir)lib\GLFW\include;$(ProjectDir)lib\GLEW\include;$(ProjectDir)lib\glm;$(ProjectDir)lib</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
