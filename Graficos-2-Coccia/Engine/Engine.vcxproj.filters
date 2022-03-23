@@ -49,6 +49,12 @@
     <Filter Include="Window">
       <UniqueIdentifier>{853dbf4a-5b8f-414a-b251-0ee8240d79db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FPCamera">
+      <UniqueIdentifier>{52f596c3-8cc5-400e-b3d8-1d191f9d0a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TPCamera">
+      <UniqueIdentifier>{00bb5ff5-3375-4d9f-a6d6-c42236b638f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp">

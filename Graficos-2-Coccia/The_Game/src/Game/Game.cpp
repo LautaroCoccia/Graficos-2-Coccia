@@ -30,7 +30,7 @@ namespace Engine
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
 
-		SetCamera(CameraType::Perspective, 0.1f, 100.0f);
+		SetCamera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600);
 		SetCameraPosition(0, 0, 5);
 
 		// --------------------------------

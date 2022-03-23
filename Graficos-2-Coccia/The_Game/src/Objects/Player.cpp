@@ -46,7 +46,23 @@ namespace Engine
 		
 			SetPosition(_transform.position.x + (_speed * deltaTime), _transform.position.y, _transform.position.z);
 		}
-		else
+		else if (Input::GetKey(Keycode::I))
+		{
+			GetAnimation()->UpdateFrame(deltaTime);
+				DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));
+				SetRotationY(0);
+
+				SetPosition(_transform.position.x , _transform.position.y, _transform.position.z + (_speed * deltaTime));
+		}
+		else if (Input::GetKey(Keycode::K))
+		{
+			GetAnimation()->UpdateFrame(deltaTime);
+			DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));
+			SetRotationY(0);
+
+			SetPosition(_transform.position.x, _transform.position.y, _transform.position.z - (_speed * deltaTime));
+		}
+		else 
 		{
 			//GetAnimation()->UpdateFrame(deltaTime);
 			DrawAnimation(GetAnimation()->GetUVs(36));

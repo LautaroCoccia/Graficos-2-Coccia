@@ -144,9 +144,9 @@ namespace Engine
 		glDeleteBuffers(1, &ebo);
 	}
 
-	void Renderer::SetCameraValues(CameraType type, float near, float far)
+	void Renderer::SetCameraValues(CameraType type, float near, float far, float height,float width)
 	{
-		_camera->SetCameraValues(type, near, far);
+		_camera->SetCameraValues(type, near, far,height,width);
 	}
 
 	void Renderer::SetCameraPosition(float x, float y, float z)
