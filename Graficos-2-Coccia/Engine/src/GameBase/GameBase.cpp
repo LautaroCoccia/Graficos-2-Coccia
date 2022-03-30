@@ -14,6 +14,7 @@ namespace Engine
 		_window = new Window();
 		_renderer = new Renderer();
 		_collisionManager = new CollisionManager();
+		_camera = new Camera();
 	}
 
 	GameBase::~GameBase()
@@ -24,6 +25,11 @@ namespace Engine
 			delete _renderer;
 		if (_collisionManager != NULL)
 			delete _collisionManager;
+		if (_camera != NULL)
+		{
+			delete _camera;
+			_camera = NULL;
+		}
 	}
 
 	int GameBase::StartEngine(int width, int height, const char* windowName) 
@@ -39,7 +45,7 @@ namespace Engine
 		_window->InitWindow();
 
 		Input::SetWindow(_window->ReturnWindow());
-
+		_renderer->SetActualCamera(_camera);
 		_renderer->InitGlew();
 		_renderer->CreateShader();
 	}
@@ -71,12 +77,13 @@ namespace Engine
 
 	void GameBase::SetCamera(CameraType type, float near, float far, float height, float width)
 	{
-		_renderer->SetCameraValues(type, near, far, height,width);
+		_camera->SetCameraValues(type, near, far, height,width);
+		_renderer->SetActualCamera(_camera);
 	}
 
 	void GameBase::SetCameraPosition(float x, float y, float z)
 	{
-		_renderer->SetCameraPosition(x, y, z);
+		_camera->SetCameraPosition(x, y, z);
 	}
 
 	Renderer* GameBase::GetRenderer()

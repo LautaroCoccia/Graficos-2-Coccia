@@ -18,7 +18,7 @@ namespace Engine
 		Renderer* _renderer;
 		Window* _window;
 		CollisionManager* _collisionManager;
-
+		Camera* _camera;
 	public:
 		GameBase();
 		~GameBase();

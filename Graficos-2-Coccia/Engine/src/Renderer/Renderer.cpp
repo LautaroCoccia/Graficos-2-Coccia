@@ -20,11 +20,11 @@ namespace Engine
 			_shader = NULL;
 		}
 		
-		if (_camera != NULL)
-		{
-			delete _camera;
-			_camera = NULL;
-		}
+		//if (_camera != NULL)
+		//{
+		//	delete _camera;
+		//	_camera = NULL;
+		//}
 	}
 
 	int Renderer::InitGlew()
@@ -144,7 +144,7 @@ namespace Engine
 		glDeleteBuffers(1, &ebo);
 	}
 
-	void Renderer::SetCameraValues(CameraType type, float near, float far, float height,float width)
+	/*void Renderer::SetCameraValues(CameraType type, float near, float far, float height, float width)
 	{
 		_camera->SetCameraValues(type, near, far,height,width);
 	}
@@ -152,12 +152,16 @@ namespace Engine
 	void Renderer::SetCameraPosition(float x, float y, float z)
 	{
 		_camera->SetCameraPosition(x, y, z);
-	}
+	}*/
 
 	// ----------------------------
 
 	unsigned int Renderer::GetShader() 
 	{
 		return _shader->GetShader();
+	}
+	void Renderer::SetActualCamera(Camera* camera)
+	{
+		_camera = camera;
 	}
 }
