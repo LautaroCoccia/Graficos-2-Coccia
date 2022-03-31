@@ -40,6 +40,7 @@ namespace Engine
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glEnable(GL_DEPTH_TEST);
 
 		_window->CreateWindow(width, height, windowName, NULL);
 		_window->InitWindow();
@@ -61,7 +62,8 @@ namespace Engine
 
 			/* Swap front and back buffers */
 			_window->SwapBuffers();
-
+			//ver donde poner esto 
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			/* Poll for and process events */
 			glfwPollEvents();
 		}

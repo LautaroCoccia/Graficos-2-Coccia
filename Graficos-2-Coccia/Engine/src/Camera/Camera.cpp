@@ -11,8 +11,16 @@ namespace Engine
 		_view = glm::mat4(1.0f);
 
 		_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+
+		_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+		_cameraDirection = glm::normalize(_cameraPos - _cameraTarget);
+		
+		_up = glm::vec3(0.0f, 1.0f, 0.0f);
+		_cameraRight = glm::normalize(glm::cross(_up, _cameraDirection));
+		
+		_cameraUp = glm::cross(_cameraDirection, _cameraRight);
+		
 		_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-		_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	}
 
 	Camera::~Camera()
@@ -71,4 +79,8 @@ namespace Engine
 		_cameraPos = glm::vec3(x, y, z);
 	}
 
+	void Camera::CameraInput(float deltaTime)
+	{
+		
+	}
 }
