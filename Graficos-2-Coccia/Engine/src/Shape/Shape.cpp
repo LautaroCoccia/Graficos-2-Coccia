@@ -1,6 +1,6 @@
 #include "Shape.h"
 #include <iostream>
-
+using namespace std;
 namespace Engine
 {
 	Shape::Shape(Renderer* renderer) : Entity(renderer)
@@ -23,7 +23,7 @@ namespace Engine
 
 			_vertex = _triangleVertex;
 			_vertexSize = sizeof(_triangleVertex);
-
+			cout << "Triangle" << endl;
 			_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
 			_renderer->SetIndexBuffer(_vertexSize, _indexTris, _ebo);
 			break;
@@ -31,7 +31,7 @@ namespace Engine
 		case TypeOfShape::Quad:
 			_vertex = _quadVertex;
 			_vertexSize = sizeof(_quadVertex);
-
+			cout << "Quad" << endl;
 			_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
 			_renderer->SetIndexBuffer(_vertexSize, _indexPos, _ebo);
 			break;

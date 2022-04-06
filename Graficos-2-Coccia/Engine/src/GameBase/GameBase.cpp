@@ -25,11 +25,7 @@ namespace Engine
 			delete _renderer;
 		if (_collisionManager != NULL)
 			delete _collisionManager;
-		if (_camera != NULL)
-		{
-			delete _camera;
-			_camera = NULL;
-		}
+		
 	}
 
 	int GameBase::StartEngine(int width, int height, const char* windowName) 

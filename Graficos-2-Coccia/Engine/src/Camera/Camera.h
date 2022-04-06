@@ -4,6 +4,7 @@
 #include <string>
 #include "glm\glm\mat4x4.hpp"
 #include "..\Shader\Shader.h"
+#include "..\Window\Window.h"
 #include "..\Export\Export.h"
 
 namespace Engine
@@ -19,6 +20,7 @@ namespace Engine
 		unsigned int _modelInd;
 		unsigned int _viewInd;
 		unsigned int _projectionInd;
+		const float cameraSpeed = 0.05f; // adjust accordingly
 
 		glm::mat4 _projection;
 		glm::mat4 _view;
@@ -32,6 +34,7 @@ namespace Engine
 		glm::vec3 _up;
 	public:
 		Camera();
+		Camera(CameraType type, float near, float far, float height, float width);
 		~Camera();
 
 		//void UpdateCameraVectors();
@@ -39,9 +42,13 @@ namespace Engine
 		void UpdateMVP(glm::mat4 model);
 		void SetIndex(unsigned int shaderId);
 		void SetCameraValues(CameraType type, float near, float far, float height, float width);
-
+		void LookAt(glm::vec3 target);
 		void SetCameraPosition(float x, float y, float z);
-		void CameraInput(float deltaTime);
+		void SetCameraRotation(float x, float y, float z);
+		void SetCameraRotation(glm::vec3 vec);
+		void SetCameraDirection(float x, float y, float z);
+		void DefaultSettings();
+		void CameraInput(GLFWwindow* window);
 	};
 }
 

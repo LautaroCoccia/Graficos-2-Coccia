@@ -7,37 +7,16 @@ namespace Engine
 {
 	Camera::Camera()
 	{
-		_projection = glm::mat4(1.0f);
-		_view = glm::mat4(1.0f);
-
-		_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-
-		_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-		_cameraDirection = glm::normalize(_cameraPos - _cameraTarget);
-		
-		_up = glm::vec3(0.0f, 1.0f, 0.0f);
-		_cameraRight = glm::normalize(glm::cross(_up, _cameraDirection));
-		
-		_cameraUp = glm::cross(_cameraDirection, _cameraRight);
-		
-		_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+		DefaultSettings();
 	}
-
+	Camera::Camera(CameraType type, float near, float far, float height, float width)
+	{
+		SetCameraValues(type, near, far, height, width);
+	}
 	Camera::~Camera()
 	{
 
 	}
-
-	//void Camera::UpdateCameraVectors()
-	//{
-	//	  glm::vec3 front;
-	//	  front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	//	  front.y = sin(glm::radians(pitch));
-	//	  front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	//	  cameraFront = glm::normalize(front);
-	//	  right = glm::normalize(glm::cross(cameraFront, cameraUp));
-	//	  up = glm::normalize(glm::cross(right, cameraFront));
-	//}
 
 	void Camera::UpdateView()
 	{
@@ -74,13 +53,54 @@ namespace Engine
 		_view = glm::mat4(1.0f);
 	}
 
+	void Camera::LookAt(glm::vec3 target)
+	{
+		_view = glm::lookAt(_cameraPos, target, _cameraUp);
+	}
 	void Camera::SetCameraPosition(float x, float y, float z)
 	{
 		_cameraPos = glm::vec3(x, y, z);
 	}
-
-	void Camera::CameraInput(float deltaTime)
+	void Camera::SetCameraRotation(float x, float y, float z)
 	{
+
+	}
+	void Camera::SetCameraRotation(glm::vec3 vec)
+	{
+
+	}
+	void Camera::SetCameraDirection(float x, float y, float z)
+	{
+		_cameraDirection = glm::normalize(_cameraPos - glm::vec3(x, y, z));
+		UpdateView();
+	}
+	void Camera::DefaultSettings()
+	{
+
+		_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+
+		_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+		_up = glm::vec3(0.0f, 1.0f, 0.0f);
 		
+		_cameraDirection = glm::normalize(_cameraPos - _cameraTarget);
+		_cameraUp = glm::cross(_cameraDirection, _cameraRight);
+		_cameraRight = glm::normalize(glm::cross(_up, _cameraDirection));
+
+
+		_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+
+		_projection = glm::perspective(glm::radians(45.0f), 1200.0f / 600.0f, 0.1f, 100.0f);
+		_view = glm::lookAt(_cameraPos, _cameraTarget, _up);
+	}
+	void Camera::CameraInput(GLFWwindow* window)
+	{
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			_cameraPos += cameraSpeed * _cameraFront;
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			_cameraPos -= cameraSpeed * _cameraFront;
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
 	}
 }

@@ -10,7 +10,7 @@ namespace Engine
 		_wall1 = NULL;
 		_wall2 = NULL;
 		_box = NULL;
-	//	_camera = NULL;
+		_camera = NULL;
 	}
 
 	Game::~Game()
@@ -23,16 +23,16 @@ namespace Engine
 			delete _wall2;
 		if (_box != NULL)
 			delete _box;
+		if (_camera != NULL)
+			delete _camera;
 	}
 
 	void Game::Start()
 	{
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
-
-		SetCamera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600);
-		SetCameraPosition(0, 0, 5);
-
+		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600);
+		_camera->SetCameraPosition(0, 0, 5);  
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer());
@@ -54,7 +54,7 @@ namespace Engine
 		GetCollisionManager()->AddNewObject(_wall2);
 		
 		// --------------------------------
-		
+
 		//_box = new Sprite(GetRenderer());
 		//_box->InitTexture();
 		//_box->ImportTexture("res/crate1_diffuse.png");
@@ -82,7 +82,6 @@ namespace Engine
 		//_roboBob->Move(deltaTime);
 		
 		GetCollisionManager()->CheckAllCollisions();
-
 		_wall1->Draw();
 		_wall2->Draw();
 		//_box->Draw();
