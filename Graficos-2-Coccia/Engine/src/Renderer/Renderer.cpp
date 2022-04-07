@@ -20,11 +20,10 @@ namespace Engine
 			_shader = NULL;
 		}
 		
-		//if (_camera != NULL)
-		//{
-		//	delete _camera;
-		//	_camera = NULL;
-		//}
+		if (_camera != NULL)
+		{
+			_camera = NULL;
+		}
 	}
 
 	int Renderer::InitGlew()
@@ -88,7 +87,7 @@ namespace Engine
 		_shader->SetShader("../Engine/shaders/Vertex.shader", "../Engine/shaders/Fragment.shader");
 		glUseProgram(_shader->GetShader());
 
-		_camera->SetIndex(_shader->GetShader());
+		SetIndex(_shader->GetShader());
 	}
 	
 	void Renderer::BindTexture(unsigned int& texture)
@@ -124,7 +123,7 @@ namespace Engine
 		glUseProgram(_shader->GetShader());
 		glUniformMatrix4fv(modelUniform, 1, GL_FALSE, glm::value_ptr(model));
 
-		_camera->UpdateMVP(model);
+		UpdateMVP(model);
 
 		glUseProgram(0);
 	}
@@ -155,13 +154,26 @@ namespace Engine
 	}*/
 
 	// ----------------------------
-
+	void Renderer::UpdateMVP(glm::mat4 model)
+	{
+		_camera->UpdateView();
+		glUniformMatrix4fv(_modelInd, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(_viewInd, 1, GL_FALSE, glm::value_ptr(_camera->GetView()));
+		glUniformMatrix4fv(_projectionInd, 1, GL_FALSE, glm::value_ptr(_camera->GetProjection()));
+	}
+	void Renderer::SetIndex(unsigned int shaderId)
+	{
+		_modelInd = glGetUniformLocation(shaderId, "model");
+		_viewInd = glGetUniformLocation(shaderId, "view");
+		_projectionInd = glGetUniformLocation(shaderId, "projection");
+	}
 	unsigned int Renderer::GetShader() 
 	{
 		return _shader->GetShader();
 	}
-	void Renderer::SetActualCamera(Camera* camera)
+	void Renderer::SetCurrentCamera(Camera* camera)
 	{
 		_camera = camera;
+		//std::cout << "_camara pos: " << _camera << " camera: " << camera << std::endl;
 	}
 }

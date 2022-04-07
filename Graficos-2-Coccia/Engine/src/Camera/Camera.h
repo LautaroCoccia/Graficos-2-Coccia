@@ -17,9 +17,7 @@ namespace Engine
 	class EXPORT_API Camera
 	{
 	private:
-		unsigned int _modelInd;
-		unsigned int _viewInd;
-		unsigned int _projectionInd;
+		
 		const float cameraSpeed = 0.05f; // adjust accordingly
 
 		glm::mat4 _projection;
@@ -39,8 +37,8 @@ namespace Engine
 
 		//void UpdateCameraVectors();
 		void UpdateView();
-		void UpdateMVP(glm::mat4 model);
-		void SetIndex(unsigned int shaderId);
+		//void UpdateMVP(glm::mat4 model);
+		//void SetIndex(unsigned int shaderId);
 		void SetCameraValues(CameraType type, float near, float far, float height, float width);
 		void LookAt(glm::vec3 target);
 		void SetCameraPosition(float x, float y, float z);
@@ -48,7 +46,9 @@ namespace Engine
 		void SetCameraRotation(glm::vec3 vec);
 		void SetCameraDirection(float x, float y, float z);
 		void DefaultSettings();
-		void CameraInput(GLFWwindow* window);
+		void CameraInput();
+		glm::mat4 GetView();
+		glm::mat4 GetProjection();
 	};
 }
 

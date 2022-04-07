@@ -31,11 +31,16 @@ namespace Engine
 	{
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
-		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600);
-		_camera->SetCameraPosition(0, 0, 5);  
+		_camera = new Camera(CameraType::Ortho, 0.1f, 100.0f, 1200, 600);
+		//_camera->LookAt(glm::vec3(0, 0, 0));
+		//_camera->SetCameraPosition(0, 0, 3); 
+		
+		GetRenderer()->SetCurrentCamera(_camera);
+
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer());
+
 		_wall1->InitTexture();
 		_wall1->ImportTexture("res/wall.jpg");
 		_wall1->SetPosition(0, 0, 0);
@@ -44,7 +49,6 @@ namespace Engine
 		GetCollisionManager()->AddNewObject(_wall1);
 		
 		// --------------------------------
-
 		_wall2 = new Sprite(GetRenderer());
 		_wall2->InitTexture();
 		_wall2->ImportTexture("res/wall.jpg");
@@ -80,7 +84,7 @@ namespace Engine
 	void Game::Update(float deltaTime)
 	{
 		//_roboBob->Move(deltaTime);
-		
+		_camera->CameraInput();
 		GetCollisionManager()->CheckAllCollisions();
 		_wall1->Draw();
 		_wall2->Draw();

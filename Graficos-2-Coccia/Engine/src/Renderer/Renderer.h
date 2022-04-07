@@ -17,6 +17,9 @@ namespace Engine
 	class EXPORT_API Renderer
 	{
 	private:
+		unsigned int _modelInd;
+		unsigned int _viewInd;
+		unsigned int _projectionInd;
 		Shader* _shader;
 		Camera* _camera;
 
@@ -39,8 +42,10 @@ namespace Engine
 
 		//void SetCameraValues(CameraType type, float near, float far, float height, float width);
 		//void SetCameraPosition(float x, float y, float z);
+		void SetIndex(unsigned int shaderId);
+		void UpdateMVP(glm::mat4 model);
 		unsigned int GetShader();
-		void SetActualCamera(Camera* camera);
+		void SetCurrentCamera(Camera* camera);
 	};
 }
 #endif

@@ -42,7 +42,7 @@ namespace Engine
 		_window->InitWindow();
 
 		Input::SetWindow(_window->ReturnWindow());
-		_renderer->SetActualCamera(_camera);
+		_renderer->SetCurrentCamera(_camera);
 		_renderer->InitGlew();
 		_renderer->CreateShader();
 	}
@@ -54,8 +54,9 @@ namespace Engine
 			/* Render here */
 			_window->ClearWindow(r, g, b, a);
 			Time::DeltaTime(deltaTime);
-			Update(deltaTime); // --> Aca se utiliza un metodo virtual para poder dibujar los objetos del Game.cpp
 
+			Update(deltaTime); // --> Aca se utiliza un metodo virtual para poder dibujar los objetos del Game.cpp
+			
 			/* Swap front and back buffers */
 			_window->SwapBuffers();
 			//ver donde poner esto 
@@ -76,7 +77,7 @@ namespace Engine
 	void GameBase::SetCamera(CameraType type, float near, float far, float height, float width)
 	{
 		_camera->SetCameraValues(type, near, far, height,width);
-		_renderer->SetActualCamera(_camera);
+		//_renderer->SetCurrentCamera(_camera);
 	}
 
 	void GameBase::SetCameraPosition(float x, float y, float z)
