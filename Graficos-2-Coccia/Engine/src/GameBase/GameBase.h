@@ -3,6 +3,7 @@
 
 #include "../Window/Window.h"
 #include "../Renderer/Renderer.h"
+#include "../FPCamera/FPCamera.h"
 #include "../Shape/Shape.h"
 #include "../Sprite/Sprite.h"
 #include "../Animation/Animation.h"
@@ -19,6 +20,7 @@ namespace Engine
 		Window* _window;
 		CollisionManager* _collisionManager;
 		Camera* _camera;
+
 	public:
 		GameBase();
 		~GameBase();

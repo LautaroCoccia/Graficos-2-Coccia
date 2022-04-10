@@ -46,7 +46,7 @@ namespace Engine
 		void SetCameraRotation(glm::vec3 vec);
 		void SetCameraDirection(float x, float y, float z);
 		void DefaultSettings();
-		void CameraInput();
+		void CameraInput(float deltaTime);
 		glm::mat4 GetView();
 		glm::mat4 GetProjection();
 	};

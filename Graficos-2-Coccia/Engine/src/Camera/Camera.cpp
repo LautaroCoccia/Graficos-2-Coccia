@@ -2,7 +2,7 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include "glm\gtc\type_ptr.hpp"
-#include "../GameBase/GameBase.h"
+#include "../Input/Input.h"
 
 namespace Engine
 {
@@ -95,7 +95,7 @@ namespace Engine
 		_view = glm::lookAt(_cameraPos, _cameraPos +_cameraTarget, _up);
 		_view = glm::mat4(1.0f);
 	}
-	void Camera::CameraInput()
+	void Camera::CameraInput(float deltaTime)
 	{
 		if (Input::GetKey(Keycode::W))
 			_cameraPos += cameraSpeed * _cameraFront;

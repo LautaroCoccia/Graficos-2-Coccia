@@ -154,6 +154,7 @@
     <ClCompile Include="src\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="src\Entity2D\Entity2D.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
+    <ClCompile Include="src\FPCamera\FPCamera.cpp" />
     <ClCompile Include="src\GameBase\GameBase.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\Entity2D\Entity2D.h" />
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Export\Export.h" />
+    <ClInclude Include="src\FPCamera\FPCamera.h" />
     <ClInclude Include="src\GameBase\GameBase.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />

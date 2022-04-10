@@ -10,7 +10,7 @@ namespace Engine
 		_wall1 = NULL;
 		_wall2 = NULL;
 		_box = NULL;
-		_camera = NULL;
+		_fpCamera = NULL;
 	}
 
 	Game::~Game()
@@ -23,19 +23,19 @@ namespace Engine
 			delete _wall2;
 		if (_box != NULL)
 			delete _box;
-		if (_camera != NULL)
-			delete _camera;
+		if (_fpCamera != NULL)
+			delete _fpCamera;
 	}
 
 	void Game::Start()
 	{
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
-		_camera = new Camera(CameraType::Ortho, 0.1f, 100.0f, 1200, 600);
+		_fpCamera = new FPCamera(CameraType::Ortho, 0.1f, 100.0f, 1200, 600);
 		//_camera->LookAt(glm::vec3(0, 0, 0));
 		//_camera->SetCameraPosition(0, 0, 3); 
 		
-		GetRenderer()->SetCurrentCamera(_camera);
+		GetRenderer()->SetCurrentCamera(_fpCamera);
 
 		// --------------------------------
 		
@@ -84,7 +84,7 @@ namespace Engine
 	void Game::Update(float deltaTime)
 	{
 		//_roboBob->Move(deltaTime);
-		_camera->CameraInput();
+		_fpCamera->CameraInput();
 		GetCollisionManager()->CheckAllCollisions();
 		_wall1->Draw();
 		_wall2->Draw();
