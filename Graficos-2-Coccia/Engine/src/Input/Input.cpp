@@ -21,4 +21,12 @@ namespace Engine
 	{
 		return (glfwGetKey(_window, key) == GLFW_RELEASE);
 	}
+	/*glm::vec2 Input::GetMouseCallback()
+	{
+		//glfwSetCursorPosCallback(_window, mousePos);
+	}*/
+	GLFWwindow* Input::GetWindow()
+	{
+		return _window;
+	}
 }

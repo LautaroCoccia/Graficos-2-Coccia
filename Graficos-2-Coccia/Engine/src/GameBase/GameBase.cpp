@@ -42,6 +42,7 @@ namespace Engine
 		_window->InitWindow();
 
 		Input::SetWindow(_window->ReturnWindow());
+		glfwSetInputMode(_window->ReturnWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		_renderer->SetCurrentCamera(_camera);
 		_renderer->InitGlew();
 		_renderer->CreateShader();

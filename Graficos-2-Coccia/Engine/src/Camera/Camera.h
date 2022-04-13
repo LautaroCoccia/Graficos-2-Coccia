@@ -30,6 +30,10 @@ namespace Engine
 		glm::vec3 _cameraDirection;
 		glm::vec3 _cameraRight;
 		glm::vec3 _up;
+
+		glm::vec3 _direction;
+
+		
 	public:
 		Camera();
 		Camera(CameraType type, float near, float far, float height, float width);

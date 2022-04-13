@@ -6,6 +6,15 @@
 
 namespace Engine
 {
+	static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
+	float _yaw = -90.f;
+	float _pitch = 0.0f;
+	float _lastX = 800.f / 2;
+	float _lastY = 600.f / 2;
+
+	bool _firstMouse = true;
+
+	float _sensitivity = 1.5f;
 	Camera::Camera()
 	{
 		DefaultSettings();
@@ -78,7 +87,11 @@ namespace Engine
 	}
 	void Camera::DefaultSettings()
 	{
+		_yaw = -90;//esto tiene que ser asi.
 
+		_direction.x = cos(glm::radians(_yaw));
+		_direction.z = sin(glm::radians(_yaw));
+	
 		_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 
 		_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -95,6 +108,34 @@ namespace Engine
 		_view = glm::lookAt(_cameraPos, _cameraPos +_cameraTarget, _up);
 		_view = glm::mat4(1.0f);
 	}
+	
+	void MouseCallback(GLFWwindow* window, double xpos, double ypos)
+	{
+		if (_firstMouse)
+		{
+			_lastX = xpos;
+			_lastY = ypos;
+			_firstMouse = false;
+		}
+
+		float xoffset = xpos - _lastX;
+		float yoffset = _lastY - ypos; // reversed since y-coordinates go from bottom to top
+		_lastX = xpos;
+		_lastY = ypos;
+
+		xoffset *= _sensitivity;
+		yoffset *= _sensitivity;
+
+		_yaw += xoffset;
+		_pitch += yoffset;
+
+		// make sure that when pitch is out of bounds, screen doesn't get flipped
+		if (_pitch > 89.0f)
+			_pitch = 89.0f;
+		if (_pitch < -89.0f)
+			_pitch = -89.0f;
+
+	}
 	void Camera::CameraInput(float deltaTime)
 	{
 		if (Input::GetKey(Keycode::W))
@@ -105,6 +146,16 @@ namespace Engine
 			_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
 		if (Input::GetKey(Keycode::D))
 			_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+
+		glfwSetCursorPosCallback(Input::GetWindow(), MouseCallback);
+		glfwSetInputMode(Input::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		
+		_direction.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+		_direction.y = sin(glm::radians(_pitch));
+		_direction.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+		_cameraFront = glm::normalize(_direction);
+		_cameraRight = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _cameraFront));
+		_cameraUp= glm::normalize(glm::cross(_cameraFront, _cameraRight));
 	}
 	glm::mat4 Camera::GetView()
 	{

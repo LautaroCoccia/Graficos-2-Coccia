@@ -84,7 +84,7 @@ namespace Engine
 	void Game::Update(float deltaTime)
 	{
 		//_roboBob->Move(deltaTime);
-		_fpCamera->CameraInput();
+		_fpCamera->CameraInput(deltaTime);
 		GetCollisionManager()->CheckAllCollisions();
 		_wall1->Draw();
 		_wall2->Draw();

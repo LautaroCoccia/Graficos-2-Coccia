@@ -2,6 +2,7 @@
 #define INPUT_H
 
 #include "../src/Export/Export.h"
+#include "glm\glm\mat4x4.hpp"
 
 struct GLFWwindow;
 
@@ -137,7 +138,10 @@ namespace Engine
 			static void SetWindow(GLFWwindow* window);
 			static bool GetKey(Keycode key);
 			static bool GetKeyUp(Keycode key);
+			static GLFWwindow* GetWindow();
+			//glm::vec2 GetMouseCallback();
+
 	};
 }
 
-#endif
+#endif 
