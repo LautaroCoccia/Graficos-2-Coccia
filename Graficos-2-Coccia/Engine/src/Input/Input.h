@@ -139,7 +139,7 @@ namespace Engine
 			static bool GetKey(Keycode key);
 			static bool GetKeyUp(Keycode key);
 			static GLFWwindow* GetWindow();
-			//glm::vec2 GetMouseCallback();
+			//void GetMouseCallback(GLFWcursorposfun mousePos);
 
 	};
 }

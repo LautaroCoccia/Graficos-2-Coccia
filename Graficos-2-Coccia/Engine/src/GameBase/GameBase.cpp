@@ -14,7 +14,7 @@ namespace Engine
 		_window = new Window();
 		_renderer = new Renderer();
 		_collisionManager = new CollisionManager();
-		_camera = new Camera();
+		//_camera = new Camera();
 	}
 
 	GameBase::~GameBase()
@@ -36,7 +36,6 @@ namespace Engine
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glEnable(GL_DEPTH_TEST);
 
 		_window->CreateWindow(width, height, windowName, NULL);
 		_window->InitWindow();
@@ -61,6 +60,7 @@ namespace Engine
 			/* Swap front and back buffers */
 			_window->SwapBuffers();
 			//ver donde poner esto 
+
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			/* Poll for and process events */
 			glfwPollEvents();
@@ -75,9 +75,9 @@ namespace Engine
 
 	//===========================================
 
-	void GameBase::SetCamera(CameraType type, float near, float far, float height, float width)
+	void GameBase::SetCamera(CameraType type, float near, float far, float height, float width,float sensibility)
 	{
-		_camera->SetCameraValues(type, near, far, height,width);
+		_camera->SetCameraValues(type, near, far, height,width, sensibility);
 		//_renderer->SetCurrentCamera(_camera);
 	}
 

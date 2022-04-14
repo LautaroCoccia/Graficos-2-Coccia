@@ -7,6 +7,7 @@
 namespace Engine
 {
 	static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
+
 	float _yaw = -90.f;
 	float _pitch = 0.0f;
 	float _lastX = 800.f / 2;
@@ -14,16 +15,19 @@ namespace Engine
 
 	bool _firstMouse = true;
 
-	float _sensitivity = 1.5f;
+	float _sensitivity = 0.5f;
+
 	Camera::Camera()
 	{
 		DefaultSettings();
 	}
-	Camera::Camera(CameraType type, float near, float far, float height, float width)
+
+	Camera::Camera(CameraType type, float near, float far, float height, float width, float sensibility)
 	{
 		DefaultSettings();
 		//SetCameraValues(type, near, far, height, width);
 	}
+
 	Camera::~Camera()
 	{
 
@@ -49,12 +53,20 @@ namespace Engine
 		_projectionInd = glGetUniformLocation(shaderId, "projection");
 	}*/
 
-	void Camera::SetCameraValues(CameraType type, float near, float far,float height, float width)
+	void Camera::SetCameraValues(CameraType type, float near, float far,float height, float width, float sensibility)
 	{
 		switch (type)
 		{
 		case CameraType::Perspective:
 			_projection = glm::perspective(glm::radians(45.0f), height / width, near, far);
+			_yaw = -90.f;
+			_pitch = 0.0f;
+			_lastX = width / 2;
+			_lastY = height / 2;
+
+			_firstMouse = true;
+
+			_sensitivity = sensibility;
 			break;
 
 		case CameraType::Ortho:
@@ -63,7 +75,6 @@ namespace Engine
 		}
 		_view = glm::mat4(1.0f);
 	}
-
 	void Camera::LookAt(glm::vec3 target)
 	{
 		_view = glm::lookAt(_cameraPos, _cameraPos + target, _cameraUp);
@@ -71,6 +82,10 @@ namespace Engine
 	void Camera::SetCameraPosition(float x, float y, float z)
 	{
 		_cameraPos = glm::vec3(x, y, z);
+	}
+	void Camera::SetCameraPosition(glm::vec3 position)
+	{
+		_cameraPos = position;
 	}
 	void Camera::SetCameraRotation(float x, float y, float z)
 	{
@@ -85,9 +100,20 @@ namespace Engine
 		_cameraDirection = glm::normalize(_cameraPos - glm::vec3(x, y, z));
 		UpdateView();
 	}
+	void Camera::SetCameraMode(CameraMode mode)
+	{
+		_currentMode = mode;
+	}
 	void Camera::DefaultSettings()
 	{
-		_yaw = -90;//esto tiene que ser asi.
+		_yaw = -90.f;
+		_pitch = 0.0f;
+		_lastX = 800.f / 2;
+		_lastY = 600.f / 2;
+
+		_firstMouse = true;
+
+		_sensitivity = 0.5f;
 
 		_direction.x = cos(glm::radians(_yaw));
 		_direction.z = sin(glm::radians(_yaw));
@@ -107,9 +133,10 @@ namespace Engine
 		_projection = glm::perspective(glm::radians(45.0f), 1200.0f / 600.0f, 0.1f, 100.0f);
 		_view = glm::lookAt(_cameraPos, _cameraPos +_cameraTarget, _up);
 		_view = glm::mat4(1.0f);
+
+		_currentMode = CameraMode::FlyCam;
 	}
-	
-	void MouseCallback(GLFWwindow* window, double xpos, double ypos)
+	void Camera::MouseCallback(GLFWwindow* window, double xpos, double ypos)
 	{
 		if (_firstMouse)
 		{
@@ -138,24 +165,36 @@ namespace Engine
 	}
 	void Camera::CameraInput(float deltaTime)
 	{
-		if (Input::GetKey(Keycode::W))
-			_cameraPos += cameraSpeed * _cameraFront;
-		if (Input::GetKey(Keycode::S))
-			_cameraPos -= cameraSpeed * _cameraFront;
-		if (Input::GetKey(Keycode::A))
-			_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
-		if (Input::GetKey(Keycode::D))
-			_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
-
-		glfwSetCursorPosCallback(Input::GetWindow(), MouseCallback);
-		glfwSetInputMode(Input::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		switch (_currentMode)
+		{
+		case Engine::CameraMode::FlyCam:
+			if (Input::GetKey(Keycode::W))
+				_cameraPos += cameraSpeed * _cameraFront;
+			if (Input::GetKey(Keycode::S))
+				_cameraPos -= cameraSpeed * _cameraFront;
+			if (Input::GetKey(Keycode::A))
+				_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+			if (Input::GetKey(Keycode::D))
+				_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+			break;
+		case Engine::CameraMode::FPCamera:
+			break;
+		case Engine::CameraMode::TPCamera:
+			break;
+		default:
+			break;
+		}
 		
+
+		glfwSetInputMode(Input::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetCursorPosCallback(Input::GetWindow(), MouseCallback);
 		_direction.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 		_direction.y = sin(glm::radians(_pitch));
 		_direction.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 		_cameraFront = glm::normalize(_direction);
 		_cameraRight = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _cameraFront));
-		_cameraUp= glm::normalize(glm::cross(_cameraFront, _cameraRight));
+		_cameraUp = glm::normalize(glm::cross(_cameraFront, _cameraRight));
+
 	}
 	glm::mat4 Camera::GetView()
 	{
@@ -164,5 +203,9 @@ namespace Engine
 	glm::mat4 Camera::GetProjection()
 	{
 		return _projection;
+	}
+	glm::vec3 Camera::GetRotation()
+	{
+		return glm::vec3 (_direction.x, 0, _direction.z);
 	}
 }

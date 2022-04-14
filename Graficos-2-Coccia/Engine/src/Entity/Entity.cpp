@@ -17,6 +17,10 @@ namespace Engine
 
 		_isTrigger = false;
 		_isStatic = false;
+		_transform.forward = glm::vec3(0, 0, 1);
+		_transform.up = glm::vec3(0, 1, 0);
+		_transform.right = glm::vec3(0, 1, 0);
+		
 	}
 
 	Entity::~Entity()
@@ -164,7 +168,10 @@ namespace Engine
 	{
 		_isStatic = state;
 	}
-
+	glm::vec3 Entity::GetPosition()
+	{
+		return _transform.position;
+	}
 	bool Entity::GetTriggerState()
 	{
 		return _isTrigger;

@@ -13,7 +13,7 @@ namespace Engine
 		Sprite* _wall1;
 		Sprite* _wall2;
 		Sprite* _box;
-		FPCamera* _fpCamera;
+		Camera* _camera;
 		Player* _roboBob;
 
 	public:

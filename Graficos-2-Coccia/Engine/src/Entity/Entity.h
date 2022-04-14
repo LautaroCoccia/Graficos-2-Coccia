@@ -24,6 +24,10 @@ namespace Engine
 		glm::vec3 preb_position;
 		glm::vec3 preb_rotation;
 		glm::vec3 preb_scale;
+
+		glm::vec3 forward;
+		glm::vec3 up;
+		glm::vec3 right;
 	};
 
 	struct GeneralMatrix
@@ -34,6 +38,7 @@ namespace Engine
 		glm::mat4 rotateY;
 		glm::mat4 rotateZ;
 		glm::mat4 scale;
+
 	};
 
 	class EXPORT_API Entity 
@@ -78,6 +83,9 @@ namespace Engine
 
 		void SetTriggerState(bool state);
 		void SetStaticState(bool state);
+		
+		glm::vec3 GetPosition();
+
 		bool GetTriggerState();
 		bool GetStaticState();
 

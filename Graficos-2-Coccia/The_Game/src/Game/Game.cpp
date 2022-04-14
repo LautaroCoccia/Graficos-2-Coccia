@@ -10,7 +10,7 @@ namespace Engine
 		_wall1 = NULL;
 		_wall2 = NULL;
 		_box = NULL;
-		_fpCamera = NULL;
+		_camera = NULL;
 	}
 
 	Game::~Game()
@@ -23,19 +23,20 @@ namespace Engine
 			delete _wall2;
 		if (_box != NULL)
 			delete _box;
-		if (_fpCamera != NULL)
-			delete _fpCamera;
+		if (_camera != NULL)
+			delete _camera;
 	}
 
 	void Game::Start()
 	{
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
-		_fpCamera = new FPCamera(CameraType::Ortho, 0.1f, 100.0f, 1200, 600);
+		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
+		_camera->SetCameraMode(CameraMode::FlyCam);
 		//_camera->LookAt(glm::vec3(0, 0, 0));
 		//_camera->SetCameraPosition(0, 0, 3); 
 		
-		GetRenderer()->SetCurrentCamera(_fpCamera);
+		GetRenderer()->SetCurrentCamera(_camera);
 
 		// --------------------------------
 		
@@ -43,19 +44,20 @@ namespace Engine
 
 		_wall1->InitTexture();
 		_wall1->ImportTexture("res/wall.jpg");
-		_wall1->SetPosition(0, 0, 0);
-		_wall1->SetRotation(0, 0, 0);
+		_wall1->SetPosition(0, -1, 0);
+		_wall1->SetRotation(90, 0, 0);
+		_wall1->SetScale(10,10,10);
 		_wall1->SetStaticState(true);
-		GetCollisionManager()->AddNewObject(_wall1);
+		//GetCollisionManager()->AddNewObject(_wall1);
 		
 		// --------------------------------
-		_wall2 = new Sprite(GetRenderer());
-		_wall2->InitTexture();
-		_wall2->ImportTexture("res/wall.jpg");
-		_wall1->SetRotation(0, 0, 0);
-		_wall2->SetPosition(0, -1, 0);
-		_wall2->SetStaticState(true);
-		GetCollisionManager()->AddNewObject(_wall2);
+		//_wall2 = new Sprite(GetRenderer());
+		//_wall2->InitTexture();
+		//_wall2->ImportTexture("res/wall.jpg");
+		//_wall2->SetRotation(0, 0, 0);
+		//_wall2->SetPosition(0, -1, 0);
+		//_wall2->SetStaticState(true);
+		//GetCollisionManager()->AddNewObject(_wall2);
 		
 		// --------------------------------
 
@@ -67,13 +69,15 @@ namespace Engine
 
 		// --------------------------------
 
-		//_roboBob = new Player(GetRenderer(), ivec2(9,5), 2);
-		//_roboBob->GetAnimation()->AddFrame(0.5, 0, 7);
-		//
-		//_roboBob->InitTexture();
-		//_roboBob->ImportTexture("res/character_robot_sheet.png");
-		//_roboBob->SetPosition(-1.8, 0, 0);
-		//GetCollisionManager()->AddNewObject(_roboBob);
+		_roboBob = new Player(GetRenderer(), ivec2(9,5), 2,_camera);
+		_roboBob->GetAnimation()->AddFrame(0.5, 0, 7);
+		
+		_roboBob->InitTexture();
+		_roboBob->ImportTexture("res/character_robot_sheet.png");
+		_roboBob->SetPosition(-1.8, 0, 0);
+		GetCollisionManager()->AddNewObject(_roboBob);
+
+		//_camera->SetEntity(_roboBob);
 	}
 	
 	void Game::Play()
@@ -83,11 +87,13 @@ namespace Engine
 
 	void Game::Update(float deltaTime)
 	{
+		//_camera->SetCameraPosition(_roboBob->_transform.position);
 		//_roboBob->Move(deltaTime);
-		_fpCamera->CameraInput(deltaTime);
+		_camera->CameraInput(deltaTime);
+		
 		GetCollisionManager()->CheckAllCollisions();
 		_wall1->Draw();
-		_wall2->Draw();
+		//_wall2->Draw();
 		//_box->Draw();
 	}
 
