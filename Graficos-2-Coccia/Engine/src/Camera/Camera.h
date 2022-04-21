@@ -23,7 +23,7 @@ namespace Engine
 	{
 	private:
 		
-		const float cameraSpeed = 0.01f; // adjust accordingly
+		const float cameraSpeed = 10.0f; // adjust accordingly
 
 		glm::mat4 _projection;
 		glm::mat4 _view;
@@ -33,10 +33,11 @@ namespace Engine
 		glm::vec3 _cameraUp;
 		glm::vec3 _cameraTarget;
 		glm::vec3 _cameraDirection;
+		glm::vec3 _cameraRotation;
 		glm::vec3 _cameraRight;
 		glm::vec3 _up;
 
-		glm::vec3 _direction;
+		glm::vec3 _camPos;
 		CameraMode _currentMode;
 
 	public:

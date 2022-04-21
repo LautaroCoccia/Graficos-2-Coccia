@@ -3,7 +3,7 @@
 #include "GLFW/glfw3.h"
 #include "glm\gtc\type_ptr.hpp"
 #include "../Input/Input.h"
-
+#include <iostream>
 namespace Engine
 {
 	static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
@@ -115,9 +115,10 @@ namespace Engine
 
 		_sensitivity = 0.5f;
 
-		_direction.x = cos(glm::radians(_yaw));
-		_direction.z = sin(glm::radians(_yaw));
+		_cameraDirection.x = cos(glm::radians(_yaw));
+		_cameraDirection.z = sin(glm::radians(_yaw));
 	
+		_camPos = glm::vec3(0, 0, 3);
 		_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 
 		_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -161,13 +162,25 @@ namespace Engine
 			_pitch = 89.0f;
 		if (_pitch < -89.0f)
 			_pitch = -89.0f;
-
+		
 	}
 	void Camera::CameraInput(float deltaTime)
 	{
+		glfwSetInputMode(Input::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetCursorPosCallback(Input::GetWindow(), MouseCallback);
+
+
 		switch (_currentMode)
 		{
 		case Engine::CameraMode::FlyCam:
+			_cameraDirection.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			_cameraDirection.y = sin(glm::radians(_pitch));
+			_cameraDirection.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			
+			_cameraFront = glm::normalize(_cameraDirection);
+			_cameraRight = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _cameraFront));
+			_cameraUp = glm::normalize(glm::cross(_cameraFront, _cameraRight));
+			
 			if (Input::GetKey(Keycode::W))
 				_cameraPos += cameraSpeed * _cameraFront;
 			if (Input::GetKey(Keycode::S))
@@ -176,25 +189,56 @@ namespace Engine
 				_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
 			if (Input::GetKey(Keycode::D))
 				_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+
 			break;
 		case Engine::CameraMode::FPCamera:
+			glRotatef(-_pitch, 1.0, 0.0, 0.0); // Along X axis
+			glRotatef(-_yaw, 0.0, 1.0, 0.0);    //Along Y axis
+
+			_cameraDirection.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			_cameraDirection.y = sin(glm::radians(_pitch));
+			_cameraDirection.z = sin(glm::radians(_yaw))  * cos(glm::radians(_pitch));
+			
+			_cameraFront = glm::normalize(_cameraDirection);
+			_cameraRight = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _cameraFront));
+			_cameraUp = glm::normalize(glm::cross(_cameraFront, _cameraRight));
+			
+			if (Input::GetKey(Keycode::W))
+			{
+				_camPos.x += cos(glm::radians(_yaw + 90)) * cameraSpeed * deltaTime;
+				_camPos.z -= sin(glm::radians(_yaw + 90)) * cameraSpeed * deltaTime;
+				//_cameraPos += cameraSpeed * _cameraFront;	 
+
+			}
+			if (Input::GetKey(Keycode::S))
+			{
+				_camPos.x -= cos(glm::radians( (_yaw) )) * cameraSpeed * deltaTime;
+				_camPos.z += sin(glm::radians( (_yaw) )) * cameraSpeed * deltaTime;
+				//_cameraPos -= cameraSpeed * _cameraFront;
+			}
+			if (Input::GetKey(Keycode::A))
+			{
+				_camPos.x += cos(glm::radians((_yaw - 90))) * cameraSpeed * deltaTime;
+				_camPos.z -= sin(glm::radians((_yaw - 90))) * cameraSpeed * deltaTime;
+				//_cameraPos += _cameraRight * cameraSpeed * deltaTime;
+			}
+			if (Input::GetKey(Keycode::D))
+			{
+				_camPos.x += cos(glm::radians((_yaw + 90 - 90))) * cameraSpeed * deltaTime;
+				_camPos.z -= sin(glm::radians((_yaw + 90 - 90))) * cameraSpeed * deltaTime;
+				//_cameraPos -= _cameraRight * cameraSpeed * deltaTime;
+			}
+			//glRotatef(-_pitch, 1.0, 0.0, 0.0);
+			//glRotatef(-_yaw, 0.0, 1.0, 0.0);    //Along Y axis
+
+			glTranslatef(-_camPos.x, 0.0, -_camPos.z);
+			_cameraPos = _camPos;
 			break;
 		case Engine::CameraMode::TPCamera:
 			break;
 		default:
 			break;
 		}
-		
-
-		glfwSetInputMode(Input::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		glfwSetCursorPosCallback(Input::GetWindow(), MouseCallback);
-		_direction.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-		_direction.y = sin(glm::radians(_pitch));
-		_direction.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-		_cameraFront = glm::normalize(_direction);
-		_cameraRight = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _cameraFront));
-		_cameraUp = glm::normalize(glm::cross(_cameraFront, _cameraRight));
-
 	}
 	glm::mat4 Camera::GetView()
 	{
@@ -206,6 +250,6 @@ namespace Engine
 	}
 	glm::vec3 Camera::GetRotation()
 	{
-		return glm::vec3 (_direction.x, 0, _direction.z);
+		return glm::vec3 (_cameraDirection.x, 0, _cameraDirection.z);
 	}
 }

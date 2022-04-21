@@ -32,7 +32,7 @@ namespace Engine
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
-		_camera->SetCameraMode(CameraMode::FlyCam);
+		_camera->SetCameraMode(CameraMode::FPCamera);
 		//_camera->LookAt(glm::vec3(0, 0, 0));
 		//_camera->SetCameraPosition(0, 0, 3); 
 		
@@ -61,11 +61,11 @@ namespace Engine
 		
 		// --------------------------------
 
-		//_box = new Sprite(GetRenderer());
-		//_box->InitTexture();
-		//_box->ImportTexture("res/crate1_diffuse.png");
-		//_box->SetPosition(0, 0, 0);
-		//GetCollisionManager()->AddNewObject(_box);
+		_box = new Sprite(GetRenderer());
+		_box->InitTexture();
+		_box->ImportTexture("res/crate1_diffuse.png");
+		_box->SetPosition(0, 0, 0);
+		GetCollisionManager()->AddNewObject(_box);
 
 		// --------------------------------
 
