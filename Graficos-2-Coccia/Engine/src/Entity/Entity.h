@@ -3,7 +3,6 @@
 
 #include <string>
 #include "..\Export\Export.h"
-#include "..\Renderer\Renderer.h"
 #include "glm\glm\vec3.hpp"
 #include "glm\glm\mat4x4.hpp"
 
@@ -89,11 +88,7 @@ namespace Engine
 		bool GetTriggerState();
 		bool GetStaticState();
 
-		virtual void SetColor(ENTITY_COLOR color) = 0;
-		virtual void SetColor(float r, float g, float b) = 0;
-
 		virtual void TriggerCollision(Entity* other) = 0;
 	};
 }
-
 #endif

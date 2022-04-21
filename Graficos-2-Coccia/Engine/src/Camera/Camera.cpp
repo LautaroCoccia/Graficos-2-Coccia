@@ -17,12 +17,12 @@ namespace Engine
 
 	float _sensitivity = 0.5f;
 
-	Camera::Camera()
+	Camera::Camera() : Entity()
 	{
 		DefaultSettings();
 	}
 
-	Camera::Camera(CameraType type, float near, float far, float height, float width, float sensibility)
+	Camera::Camera(CameraType type, float near, float far, float height, float width, float sensibility) : Entity()
 	{
 		DefaultSettings();
 		//SetCameraValues(type, near, far, height, width);
@@ -182,13 +182,13 @@ namespace Engine
 			_cameraUp = glm::normalize(glm::cross(_cameraFront, _cameraRight));
 			
 			if (Input::GetKey(Keycode::W))
-				_cameraPos += cameraSpeed * _cameraFront;
+				_cameraPos += cameraSpeed * _cameraFront * deltaTime;
 			if (Input::GetKey(Keycode::S))
-				_cameraPos -= cameraSpeed * _cameraFront;
+				_cameraPos -= cameraSpeed * _cameraFront * deltaTime;
 			if (Input::GetKey(Keycode::A))
-				_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+				_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed * deltaTime;
 			if (Input::GetKey(Keycode::D))
-				_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+				_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed * deltaTime;
 
 			break;
 		case Engine::CameraMode::FPCamera:
@@ -252,4 +252,6 @@ namespace Engine
 	{
 		return glm::vec3 (_cameraDirection.x, 0, _cameraDirection.z);
 	}
+	void Camera::TriggerCollision(Entity* other){ }
+
 }

@@ -50,8 +50,8 @@ namespace Engine
 		void InitShape(TypeOfShape type);
 		void Draw();
 
-		void SetColor(ENTITY_COLOR color) override;
-		void SetColor(float r, float g, float b) override;
+		void SetColor(ENTITY_COLOR color) ;
+		void SetColor(float r, float g, float b) ;
 	};
 }
 

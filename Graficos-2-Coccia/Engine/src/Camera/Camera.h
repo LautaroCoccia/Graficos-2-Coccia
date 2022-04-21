@@ -2,11 +2,11 @@
 #define CAMERA_H
 
 #include <string>
+#include "..\Export\Export.h"
+#include "..\Entity\Entity.h"
 #include "glm\glm\mat4x4.hpp"
 #include "..\Shader\Shader.h"
 #include "..\Window\Window.h"
-#include "..\Export\Export.h"
-//#include "..\Entity\Entity.h"
 
 namespace Engine
 {
@@ -19,7 +19,7 @@ namespace Engine
 		FPCamera,
 		TPCamera
 	};
-	class EXPORT_API Camera
+	class EXPORT_API Camera : public Entity
 	{
 	private:
 		
@@ -63,6 +63,8 @@ namespace Engine
 		glm::mat4 GetView();
 		glm::mat4 GetProjection();
 		glm::vec3 GetRotation();
+
+		void TriggerCollision(Entity* other);
 	};
 }
 #endif
