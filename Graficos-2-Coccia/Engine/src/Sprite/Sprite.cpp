@@ -2,15 +2,17 @@
 
 namespace Engine
 {	
-	Sprite::Sprite(Renderer* renderer) : Entity(renderer)
+	Sprite::Sprite(Renderer* renderer) : Entity()
 	{
+		_renderer = renderer;
 		_textureImporter = new TextureImporter();
 
 		_animation = new Animation();
 	}
 
-	Sprite::Sprite(Renderer* renderer, const glm::ivec2& tileDimensions) : Entity(renderer)
+	Sprite::Sprite(Renderer* renderer, const glm::ivec2& tileDimensions) : Entity()
 	{
+		_renderer = renderer;
 		_textureImporter = new TextureImporter();
 
 		_animation = new Animation();

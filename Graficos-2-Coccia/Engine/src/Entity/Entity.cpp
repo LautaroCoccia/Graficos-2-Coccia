@@ -3,9 +3,9 @@
 
 namespace Engine
 {
-	Entity::Entity(Renderer* renderer)
+	Entity::Entity(/*Renderer* renderer*/)
 	{
-		_renderer = renderer;
+		//_renderer = renderer;
 
 		SetPosition(0,0,0);
 		SetRotation(0,0,0);
