@@ -32,7 +32,7 @@ namespace Engine
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
-		_camera->SetCameraMode(CameraMode::FlyCam);
+		_camera->SetCameraMode(CameraMode::FPCamera);
 		//_camera->LookAt(glm::vec3(0, 0, 0));
 		//_camera->SetCameraPosition(0, 0, 3); 
 		

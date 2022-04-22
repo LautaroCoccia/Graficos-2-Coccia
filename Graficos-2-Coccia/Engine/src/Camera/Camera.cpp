@@ -35,7 +35,7 @@ namespace Engine
 
 	void Camera::UpdateView()
 	{
-		_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
+		_view = glm::lookAt(_transform.position, _transform.position + _transform.forward, _transform.up);
 	}
 
 	/*void Camera::UpdateMVP(glm::mat4 model)
@@ -77,15 +77,15 @@ namespace Engine
 	}
 	void Camera::LookAt(glm::vec3 target)
 	{
-		_view = glm::lookAt(_cameraPos, _cameraPos + target, _cameraUp);
+		_view = glm::lookAt(_transform.position, _transform.position + target, _transform.up);
 	}
 	void Camera::SetCameraPosition(float x, float y, float z)
 	{
-		_cameraPos = glm::vec3(x, y, z);
+		_transform.position = glm::vec3(x, y, z);
 	}
 	void Camera::SetCameraPosition(glm::vec3 position)
 	{
-		_cameraPos = position;
+		_transform.position = position;
 	}
 	void Camera::SetCameraRotation(float x, float y, float z)
 	{
@@ -97,7 +97,7 @@ namespace Engine
 	}
 	void Camera::SetCameraDirection(float x, float y, float z)
 	{
-		_cameraDirection = glm::normalize(_cameraPos - glm::vec3(x, y, z));
+		_transform.rotation = glm::normalize(_transform.position - glm::vec3(x, y, z));
 		UpdateView();
 	}
 	void Camera::SetCameraMode(CameraMode mode)
@@ -115,24 +115,24 @@ namespace Engine
 
 		_sensitivity = 0.5f;
 
-		_cameraDirection.x = cos(glm::radians(_yaw));
-		_cameraDirection.z = sin(glm::radians(_yaw));
+		_transform.rotation.x = cos(glm::radians(_yaw));
+		_transform.rotation.z = sin(glm::radians(_yaw));
 	
 		_camPos = glm::vec3(0, 0, 3);
-		_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+		_transform.position = glm::vec3(0.0f, 0.0f, 3.0f);
 
 		_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-		_cameraDirection = glm::normalize(_cameraPos - _cameraTarget);
+		_transform.rotation = glm::normalize(_transform.position - _cameraTarget);
 		
-		_up = glm::vec3(0.0f, 1.0f, 0.0f);
-		_cameraRight = glm::normalize(glm::cross(_up, _cameraDirection));
+		_transform.up = glm::vec3(0.0f, 1.0f, 0.0f);
+		_transform.right = glm::normalize(glm::cross(_transform.up, _transform.rotation));
 
-		_cameraUp = glm::cross(_cameraDirection, _cameraRight);
+		_transform.up = glm::cross(_transform.rotation, _transform.right);
 
-		_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+		_transform.forward = glm::vec3(0.0f, 0.0f, -1.0f);
 
 		_projection = glm::perspective(glm::radians(45.0f), 1200.0f / 600.0f, 0.1f, 100.0f);
-		_view = glm::lookAt(_cameraPos, _cameraPos +_cameraTarget, _up);
+		_view = glm::lookAt(_transform.position, _transform.position +_cameraTarget, _transform.up);
 		_view = glm::mat4(1.0f);
 
 		_currentMode = CameraMode::FlyCam;
@@ -173,66 +173,78 @@ namespace Engine
 		switch (_currentMode)
 		{
 		case Engine::CameraMode::FlyCam:
-			_cameraDirection.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-			_cameraDirection.y = sin(glm::radians(_pitch));
-			_cameraDirection.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			_transform.rotation.y = sin(glm::radians(_pitch));
+			_transform.rotation.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 			
-			_cameraFront = glm::normalize(_cameraDirection);
-			_cameraRight = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _cameraFront));
-			_cameraUp = glm::normalize(glm::cross(_cameraFront, _cameraRight));
+			_transform.forward = glm::normalize(_transform.rotation);
+			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
+			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 			
 			if (Input::GetKey(Keycode::W))
-				_cameraPos += cameraSpeed * _cameraFront * deltaTime;
+				_transform.position += cameraSpeed * _transform.forward * deltaTime;
 			if (Input::GetKey(Keycode::S))
-				_cameraPos -= cameraSpeed * _cameraFront * deltaTime;
+				_transform.position -= cameraSpeed * _transform.forward * deltaTime;
 			if (Input::GetKey(Keycode::A))
-				_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed * deltaTime;
+				_transform.position -= glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
 			if (Input::GetKey(Keycode::D))
-				_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed * deltaTime;
+				_transform.position += glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
 
 			break;
 		case Engine::CameraMode::FPCamera:
-			glRotatef(-_pitch, 1.0, 0.0, 0.0); // Along X axis
-			glRotatef(-_yaw, 0.0, 1.0, 0.0);    //Along Y axis
+			//glRotatef(-_pitch, 1.0, 0.0, 0.0); // Along X axis
+			//glRotatef(-_yaw, 0.0, 1.0, 0.0);    //Along Y axis
 
-			_cameraDirection.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-			_cameraDirection.y = sin(glm::radians(_pitch));
-			_cameraDirection.z = sin(glm::radians(_yaw))  * cos(glm::radians(_pitch));
+			_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			_transform.rotation.y = sin(glm::radians(_pitch));
+			_transform.rotation.z = sin(glm::radians(_yaw))  * cos(glm::radians(_pitch));
 			
-			_cameraFront = glm::normalize(_cameraDirection);
-			_cameraRight = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _cameraFront));
-			_cameraUp = glm::normalize(glm::cross(_cameraFront, _cameraRight));
+			_transform.forward = glm::normalize(_transform.rotation);
+			std::cout << _transform.forward.x << " "<< _transform.forward.y << " "<< _transform.forward.z << std::endl;
+			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
+			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 			
+			//_transform.forward.y = 0;
 			if (Input::GetKey(Keycode::W))
+				_transform.position += cameraSpeed * glm::vec3(_transform.forward.x, 0, _transform.forward.z)* deltaTime;
+			if (Input::GetKey(Keycode::S))
+				_transform.position -= cameraSpeed * glm::vec3(_transform.forward.x, 0, _transform.forward.z) * deltaTime;
+			if (Input::GetKey(Keycode::A))
+				_transform.position -= glm::normalize(glm::cross(glm::vec3(_transform.forward.x, 0, _transform.forward.z), _transform.up)) * cameraSpeed * deltaTime;
+			if (Input::GetKey(Keycode::D))
+				_transform.position += glm::normalize(glm::cross(glm::vec3(_transform.forward.x, 0, _transform.forward.z), _transform.up)) * cameraSpeed * deltaTime;
+
+
+			/*if (Input::GetKey(Keycode::W))
 			{
-				_camPos.x += cos(glm::radians(_yaw + 90)) * cameraSpeed * deltaTime;
-				_camPos.z -= sin(glm::radians(_yaw + 90)) * cameraSpeed * deltaTime;
+				_transform.position.x += cos(glm::radians(_yaw + 90)) * cameraSpeed * deltaTime;
+				_transform.position.z -= sin(glm::radians(_yaw + 90)) * cameraSpeed * deltaTime;
 				//_cameraPos += cameraSpeed * _cameraFront;	 
 
 			}
 			if (Input::GetKey(Keycode::S))
 			{
-				_camPos.x -= cos(glm::radians( (_yaw) )) * cameraSpeed * deltaTime;
-				_camPos.z += sin(glm::radians( (_yaw) )) * cameraSpeed * deltaTime;
+				_transform.position.x -= cos(glm::radians( (_yaw) )) * cameraSpeed * deltaTime;
+				_transform.position.z += sin(glm::radians( (_yaw) )) * cameraSpeed * deltaTime;
 				//_cameraPos -= cameraSpeed * _cameraFront;
 			}
 			if (Input::GetKey(Keycode::A))
 			{
-				_camPos.x += cos(glm::radians((_yaw - 90))) * cameraSpeed * deltaTime;
-				_camPos.z -= sin(glm::radians((_yaw - 90))) * cameraSpeed * deltaTime;
+				_transform.position.x += cos(glm::radians((_yaw - 90))) * cameraSpeed * deltaTime;
+				_transform.position.z -= sin(glm::radians((_yaw - 90))) * cameraSpeed * deltaTime;
 				//_cameraPos += _cameraRight * cameraSpeed * deltaTime;
 			}
 			if (Input::GetKey(Keycode::D))
 			{
-				_camPos.x += cos(glm::radians((_yaw + 90 - 90))) * cameraSpeed * deltaTime;
-				_camPos.z -= sin(glm::radians((_yaw + 90 - 90))) * cameraSpeed * deltaTime;
+				_transform.position.x += cos(glm::radians((_yaw + 90 - 90))) * cameraSpeed * deltaTime;
+				_transform.position.z -= sin(glm::radians((_yaw + 90 - 90))) * cameraSpeed * deltaTime;
 				//_cameraPos -= _cameraRight * cameraSpeed * deltaTime;
-			}
+			}*/
 			//glRotatef(-_pitch, 1.0, 0.0, 0.0);
 			//glRotatef(-_yaw, 0.0, 1.0, 0.0);    //Along Y axis
 
-			glTranslatef(-_camPos.x, 0.0, -_camPos.z);
-			_cameraPos = _camPos;
+			//glTranslatef(-_camPos.x, 0.0, -_camPos.z);
+			//_cameraPos = _camPos;
 			break;
 		case Engine::CameraMode::TPCamera:
 			break;
@@ -250,7 +262,7 @@ namespace Engine
 	}
 	glm::vec3 Camera::GetRotation()
 	{
-		return glm::vec3 (_cameraDirection.x, 0, _cameraDirection.z);
+		return glm::vec3 (_transform.rotation.x, 0, _transform.rotation.z);
 	}
 	void Camera::TriggerCollision(Entity* other){ }
 

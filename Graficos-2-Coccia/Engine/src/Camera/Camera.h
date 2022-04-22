@@ -27,15 +27,15 @@ namespace Engine
 
 		glm::mat4 _projection;
 		glm::mat4 _view;
-
-		glm::vec3 _cameraPos;
-		glm::vec3 _cameraFront;
-		glm::vec3 _cameraUp;
 		glm::vec3 _cameraTarget;
-		glm::vec3 _cameraDirection;
-		glm::vec3 _cameraRotation;
-		glm::vec3 _cameraRight;
-		glm::vec3 _up;
+
+		//glm::vec3 _cameraPos;
+		//glm::vec3 _cameraFront;
+		//glm::vec3 _cameraUp;
+		//glm::vec3 _cameraDirection;
+		//glm::vec3 _cameraRotation;
+		//glm::vec3 _cameraRight;
+		//glm::vec3 _up;
 
 		glm::vec3 _camPos;
 		CameraMode _currentMode;
