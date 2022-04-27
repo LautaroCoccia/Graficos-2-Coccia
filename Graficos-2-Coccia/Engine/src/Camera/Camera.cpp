@@ -163,7 +163,7 @@ namespace Engine
 			_pitch = -89.0f;
 		
 	}
-	void Camera::CameraInput(float deltaTime)
+	void Camera::CameraInput(float deltaTime, Transform& transformObj)
 	{
 		glfwSetInputMode(Input::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetCursorPosCallback(Input::GetWindow(), MouseCallback);
@@ -196,18 +196,27 @@ namespace Engine
 			_transform.rotation.y = sin(glm::radians(_pitch));
 			_transform.rotation.z = sin(glm::radians(_yaw))  * cos(glm::radians(_pitch));
 			
+			
+			//std::cout << _transform.forward.x << " "<< _transform.forward.y << " "<< _transform.forward.z << std::endl;
+			
 			_transform.forward = glm::normalize(_transform.rotation);
-			std::cout << _transform.forward.x << " "<< _transform.forward.y << " "<< _transform.forward.z << std::endl;
 			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
+
+			transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
+			//if (_cameraTarget != NULL)
+			//{
+
+			//_transform.position = transformObj.position;
+			//transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
 			
-			if (_cameraTarget != NULL)
-			{
-				_transform.position = _cameraTarget->position;
-				_cameraTarget->rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
-			}
-			else
-				std::cout << "NULL _camera target" << std::endl;
+			//transformObj.forward = glm::normalize(transformObj.rotation);
+			//transformObj.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), transformObj.forward));
+			//transformObj.up = glm::normalize(glm::cross(transformObj.forward, transformObj.right));
+			//}
+			//else
+			//	std::cout << "NULL _camera target" << std::endl;
+
 			//_transform.forward.y = 0;
 			//if (Input::GetKey(Keycode::W))
 			//	_transform.position += cameraSpeed * glm::vec3(_transform.forward.x, 0, _transform.forward.z)* deltaTime;

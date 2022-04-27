@@ -65,16 +65,16 @@ namespace Engine
 		_box->InitTexture();
 		_box->ImportTexture("res/crate1_diffuse.png");
 		_box->SetPosition(0, 0, 0);
-		GetCollisionManager()->AddNewObject(_box);
+		//GetCollisionManager()->AddNewObject(_box);
 
 		// --------------------------------
 
-		_roboBob = new Player(GetRenderer(), ivec2(9,5), 2,_camera);
+		_roboBob = new Player(GetRenderer(), ivec2(9,5), 10,_camera);
 		_roboBob->GetAnimation()->AddFrame(0.5, 0, 7);
 		
 		_roboBob->InitTexture();
 		_roboBob->ImportTexture("res/character_robot_sheet.png");
-		_roboBob->SetPosition(-1.8, 0, 0);
+		_roboBob->SetPosition(0, 0, 0);
 		GetCollisionManager()->AddNewObject(_roboBob);
 
 		//_camera->SetEntity(_roboBob);
@@ -88,10 +88,10 @@ namespace Engine
 	void Game::Update(float deltaTime)
 	{
 		//_camera->SetCameraPosition(_roboBob->_transform.position);
-		//_roboBob->Move(deltaTime);
-		_camera->CameraInput(deltaTime);
+		_roboBob->Move(deltaTime);
+		_camera->CameraInput(deltaTime,  _roboBob->_transform);
 		
-		GetCollisionManager()->CheckAllCollisions();
+		//GetCollisionManager()->CheckAllCollisions();
 		_wall1->Draw();
 		//_wall2->Draw();
 		//_box->Draw();

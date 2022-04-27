@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include <iostream>
 namespace Engine
 {
 	Player::Player(Renderer* renderer, const glm::ivec2& tileDimensions, float speed, Camera* camera) : Sprite(renderer, tileDimensions)
@@ -56,6 +56,24 @@ namespace Engine
 		}*/
 
 		if (Input::GetKey(Keycode::W))
+			_transform.position += _speed * _transform.forward * deltaTime;
+		if (Input::GetKey(Keycode::S))
+			_transform.position -= _speed * _transform.forward * deltaTime;
+		if (Input::GetKey(Keycode::A))
+			_transform.position -= glm::normalize(glm::cross(_transform.forward, _transform.up)) * _speed * deltaTime;
+		if (Input::GetKey(Keycode::D))
+			_transform.position += glm::normalize(glm::cross(_transform.forward, _transform.up)) * _speed * deltaTime;
+		
+
+		_transform.forward = glm::normalize(_transform.rotation);
+		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
+		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
+		
+		std::cout << _transform.position.x << _transform.position.y << _transform.position.z << std::endl;
+
+		_camera->SetCameraPosition(_transform.position);
+
+		/*if (Input::GetKey(Keycode::W))
 		{
 			_z += (_speed * deltaTime);
 		}
@@ -75,8 +93,7 @@ namespace Engine
 
 		}
 		_transform.position = _transform.right * _x + _transform.forward * _z;
-		_camera->SetCameraPosition(_transform.position);
-		_transform.rotation = _camera->GetRotation();
+		_transform.rotation = _camera->GetRotation();*/
 	}
 
 	void Player::TriggerCollision(Entity* other)

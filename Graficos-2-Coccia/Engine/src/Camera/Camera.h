@@ -50,7 +50,7 @@ namespace Engine
 		//void UpdateMVP(glm::mat4 model);
 		//void SetIndex(unsigned int shaderId);
 		void SetCameraValues(CameraType type, float near, float far, float height, float width, float sensibility);
-		void SetCameraTarget(Transform& cameraTarget);
+		//void SetCameraTarget(Transform& cameraTarget);
 		void LookAt(glm::vec3 target);
 		void SetCameraPosition(float x, float y, float z);
 		void SetCameraPosition(glm::vec3 position);
@@ -59,7 +59,7 @@ namespace Engine
 		void SetCameraDirection(float x, float y, float z);
 		void SetCameraMode(CameraMode mode);
 		void DefaultSettings();
-		void CameraInput(float deltaTime); 
+		void CameraInput(float deltaTime, Transform& transformObj);
 		static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
 		glm::mat4 GetView();
 		glm::mat4 GetProjection();
