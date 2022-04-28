@@ -69,9 +69,9 @@ namespace Engine
 		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 		
-		std::cout << _transform.position.x << _transform.position.y << _transform.position.z << std::endl;
+		//std::cout << _transform.position.x << _transform.position.y << _transform.position.z << std::endl;
 
-		_camera->SetCameraPosition(_transform.position);
+		//_camera->SetCameraPosition(_transform.position);
 
 		/*if (Input::GetKey(Keycode::W))
 		{

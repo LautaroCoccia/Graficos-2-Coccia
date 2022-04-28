@@ -79,6 +79,10 @@ namespace Engine
 	{
 		_view = glm::lookAt(_transform.position, _transform.position + target, _transform.up);
 	}
+	void Camera::SetCameraOffset(glm::vec3 offset)
+	{
+		_camOffset = offset;
+	}
 	void Camera::SetCameraPosition(float x, float y, float z)
 	{
 		_transform.position = glm::vec3(x, y, z);
@@ -115,10 +119,10 @@ namespace Engine
 
 		_sensitivity = 0.5f;
 
-		_transform.rotation.x = cos(glm::radians(_yaw));
-		_transform.rotation.z = sin(glm::radians(_yaw));
+		_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+		_transform.rotation.y = sin(glm::radians(_pitch));
+		_transform.rotation.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 	
-		_camPos = glm::vec3(0, 0, 3);
 		_transform.position = glm::vec3(0.0f, 0.0f, 3.0f);
 
 		_transform.rotation = glm::normalize(_transform.position - _transform.position);
@@ -197,38 +201,37 @@ namespace Engine
 			_transform.rotation.z = sin(glm::radians(_yaw))  * cos(glm::radians(_pitch));
 			
 			
-			//std::cout << _transform.forward.x << " "<< _transform.forward.y << " "<< _transform.forward.z << std::endl;
-			
 			_transform.forward = glm::normalize(_transform.rotation);
 			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 
 			transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
-			//if (_cameraTarget != NULL)
-			//{
-
-			//_transform.position = transformObj.position;
-			//transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
-			
-			//transformObj.forward = glm::normalize(transformObj.rotation);
-			//transformObj.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), transformObj.forward));
-			//transformObj.up = glm::normalize(glm::cross(transformObj.forward, transformObj.right));
-			//}
-			//else
-			//	std::cout << "NULL _camera target" << std::endl;
-
-			//_transform.forward.y = 0;
-			//if (Input::GetKey(Keycode::W))
-			//	_transform.position += cameraSpeed * glm::vec3(_transform.forward.x, 0, _transform.forward.z)* deltaTime;
-			//if (Input::GetKey(Keycode::S))
-			//	_transform.position -= cameraSpeed * glm::vec3(_transform.forward.x, 0, _transform.forward.z) * deltaTime;
-			//if (Input::GetKey(Keycode::A))
-			//	_transform.position -= glm::normalize(glm::cross(glm::vec3(_transform.forward.x, 0, _transform.forward.z), _transform.up)) * cameraSpeed * deltaTime;
-			//if (Input::GetKey(Keycode::D))
-			//	_transform.position += glm::normalize(glm::cross(glm::vec3(_transform.forward.x, 0, _transform.forward.z), _transform.up)) * cameraSpeed * deltaTime;
+			_transform.position = transformObj.position;
 
 			break;
 		case Engine::CameraMode::TPCamera:
+			glm::vec3 v3;
+
+			_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			_transform.rotation.y = sin(glm::radians(_pitch));
+			_transform.rotation.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+
+			v3.x = _camOffset.x * cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			v3.y = _camOffset.y * sin(glm::radians(_pitch));
+			v3.z = _camOffset.z * sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+
+			_transform.position = v3;
+			_transform.forward = glm::normalize(_transform.rotation);
+			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
+			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
+
+			//transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
+
+			//_transform.position = transformObj.position - _camOffset;
+			
+			LookAt(transformObj.position + _camOffset);
+
+
 			break;
 		default:
 			break;
