@@ -29,10 +29,11 @@ namespace Engine
 		glm::mat4 _view;
 
 		//glm::vec3 _camPos;
-		glm::vec3 _camOffset;
+		float _camOffset;
 		CameraMode _currentMode;
 
-		
+		glm::vec3 asd;
+
 		//glm::vec3 _cameraTarget;
 		//glm::vec3 _cameraPos;
 		//glm::vec3 _cameraFront;
@@ -54,7 +55,7 @@ namespace Engine
 		void SetCameraValues(CameraType type, float near, float far, float height, float width, float sensibility);
 		//void SetCameraTarget(Transform& cameraTarget);
 		void LookAt(glm::vec3 target);
-		void SetCameraOffset(glm::vec3 offset);
+		void SetCameraOffset(float _camOffset);
 		void SetCameraPosition(float x, float y, float z);
 		void SetCameraPosition(glm::vec3 position);
 		void SetCameraRotation(float x, float y, float z);

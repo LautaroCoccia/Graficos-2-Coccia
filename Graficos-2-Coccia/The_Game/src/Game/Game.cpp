@@ -32,10 +32,15 @@ namespace Engine
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
-		_camera->SetCameraMode(CameraMode::TPCamera);
-		_camera->SetCameraOffset(glm::vec3(0, 0, 3));
-		//_camera->LookAt(glm::vec3(0, 0, 0));
-		//_camera->SetCameraPosition(0, 0, 3); 
+		_camera->SetCameraMode(CameraMode::FPCamera);
+
+		//For TPCamera (pos y rot)
+		_camera->SetCameraPosition(0, 0, -3); 
+		_camera->SetCameraRotation(4.37f, 1, 0); 
+		_camera->SetCameraOffset(4);
+		
+		//_camera->SetCameraOffset(glm::vec3(0, 0, 0));
+		_camera->LookAt(glm::vec3(0, 1, 0));
 		
 		GetRenderer()->SetCurrentCamera(_camera);
 
@@ -52,12 +57,12 @@ namespace Engine
 		//GetCollisionManager()->AddNewObject(_wall1);
 		
 		// --------------------------------
-		//_wall2 = new Sprite(GetRenderer());
-		//_wall2->InitTexture();
-		//_wall2->ImportTexture("res/wall.jpg");
-		//_wall2->SetRotation(0, 0, 0);
-		//_wall2->SetPosition(0, -1, 0);
-		//_wall2->SetStaticState(true);
+		_wall2 = new Sprite(GetRenderer());
+		_wall2->InitTexture();
+		_wall2->ImportTexture("res/wall.jpg");
+		_wall2->SetRotation(0, 0, 0);
+		_wall2->SetPosition(0, 0, 0);
+		_wall2->SetStaticState(true);
 		//GetCollisionManager()->AddNewObject(_wall2);
 		
 		// --------------------------------
@@ -94,7 +99,7 @@ namespace Engine
 		
 		//GetCollisionManager()->CheckAllCollisions();
 		_wall1->Draw();
-		//_wall2->Draw();
+		_wall2->Draw();
 		//_box->Draw();
 	}
 
