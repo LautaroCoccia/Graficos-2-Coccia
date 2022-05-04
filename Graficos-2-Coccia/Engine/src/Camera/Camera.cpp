@@ -204,13 +204,10 @@ namespace Engine
 
 			break;
 		case Engine::CameraMode::FPCamera:
-			std::cout << _transform.position.x << " " << _transform.position.z << std::endl;
-			std::cout << _transform.rotation.x << " " << _transform.rotation.y << " " << _transform.rotation.z << std::endl;
 
 			_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 			_transform.rotation.y = sin(glm::radians(_pitch));
 			_transform.rotation.z = sin(glm::radians(_yaw))  * cos(glm::radians(_pitch));
-			
 			
 			_transform.forward = glm::normalize(_transform.rotation);
 			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
@@ -218,6 +215,7 @@ namespace Engine
 
 			transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
 			_transform.position = transformObj.position;
+			std::cout << transformObj.position.x << " " << transformObj.position.y << " " << transformObj.position.z << std::endl;
 
 			break;
 		case Engine::CameraMode::TPCamera:
@@ -227,7 +225,6 @@ namespace Engine
 			_transform.rotation.x = -cos(glm::radians(_yaw))* _camOffset;   
 			_transform.rotation.y = -sin(glm::radians(_pitch)) * _camOffset;
 			_transform.rotation.z = -sin(glm::radians(_yaw)) *_camOffset;
-			std::cout << _transform.rotation.x << " " << _transform.rotation.y << " " << _transform.rotation.z << std::endl;
 			
 
 			asd.x = cos(glm::radians(_yaw)) * _camOffset;
@@ -237,7 +234,10 @@ namespace Engine
 			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 			_transform.position = asd;
-			_view = glm::lookAt(_transform.position, glm::vec3(0.0, 0.0, 0), _transform.up);
+
+			//_transform.position = transformObj.position;
+			//std::cout << transformObj.position.x << " " << transformObj.position.y << " " << transformObj.position.z << std::endl;
+			_view = glm::lookAt(_transform.position, transformObj.position, _transform.up);
 			break;
 		default:
 			break;
