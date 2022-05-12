@@ -8,6 +8,19 @@ namespace Engine
 		_camera = camera;
 		_x = 0;
 		_z = 0;
+
+
+		_transform.position = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		_transform.rotation = glm::vec3(0.0f, 1.0f, 0.0f);;
+
+		_transform.up = glm::vec3(0.0f, 1.0f, 0.0f);
+		_transform.right = glm::normalize(glm::cross(_transform.up, _transform.rotation));
+
+		_transform.up = glm::cross(_transform.rotation, _transform.right);
+
+		_transform.forward = glm::vec3(0.0f, 0.0f, -1.0f);
+
 	}
 	
 	Player::~Player()
@@ -54,6 +67,9 @@ namespace Engine
 			//GetAnimation()->UpdateFrame(deltaTime);
 			DrawAnimation(GetAnimation()->GetUVs(36));
 		}*/
+		_transform.forward = glm::normalize(_transform.rotation);
+		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
+		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 
 		if (Input::GetKey(Keycode::W))
 			_transform.position += _speed * _transform.forward * deltaTime;
@@ -63,11 +79,6 @@ namespace Engine
 			_transform.position -= glm::normalize(glm::cross(_transform.forward, _transform.up)) * _speed * deltaTime;
 		if (Input::GetKey(Keycode::D))
 			_transform.position += glm::normalize(glm::cross(_transform.forward, _transform.up)) * _speed * deltaTime;
-		
-
-		_transform.forward = glm::normalize(_transform.rotation);
-		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
-		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 		
 		std::cout << _transform.position.x << _transform.position.y << _transform.position.z << std::endl;
 

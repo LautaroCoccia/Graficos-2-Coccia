@@ -32,11 +32,11 @@ namespace Engine
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
-		_camera->SetCameraMode(CameraMode::FPCamera);
+		_camera->SetCameraMode(CameraMode::TPCamera);
 
 		//For TPCamera (pos y rot)
-		_camera->SetCameraPosition(0, 0, -3); 
-		_camera->SetCameraRotation(4.37f, 1, 0); 
+		_camera->SetCameraPosition(0, 0, -3);
+		_camera->SetCameraRotation(4.37f, 1, 0);
 		_camera->SetCameraOffset(4);
 		
 		//_camera->SetCameraOffset(glm::vec3(0, 0, 0));
@@ -95,6 +95,8 @@ namespace Engine
 	{
 		//_camera->SetCameraPosition(_roboBob->_transform.position);
 		_roboBob->Move(deltaTime);
+		//std::cout << _roboBob->_transform.position.x << " " << _roboBob->_transform.position.y << " " << _roboBob->_transform.position.z << std::endl;
+
 		_camera->CameraInput(deltaTime,  _roboBob->_transform);
 		
 		//GetCollisionManager()->CheckAllCollisions();

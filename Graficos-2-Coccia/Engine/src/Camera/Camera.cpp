@@ -215,7 +215,6 @@ namespace Engine
 
 			transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
 			_transform.position = transformObj.position;
-			std::cout << transformObj.position.x << " " << transformObj.position.y << " " << transformObj.position.z << std::endl;
 
 			break;
 		case Engine::CameraMode::TPCamera:
@@ -233,7 +232,7 @@ namespace Engine
 			_transform.forward = glm::normalize(_transform.rotation);
 			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
-			_transform.position = asd;
+			_transform.position = asd + transformObj.position;
 
 			//_transform.position = transformObj.position;
 			//std::cout << transformObj.position.x << " " << transformObj.position.y << " " << transformObj.position.z << std::endl;

@@ -55,6 +55,9 @@
     <Filter Include="TPCamera">
       <UniqueIdentifier>{00bb5ff5-3375-4d9f-a6d6-c42236b638f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lights">
+      <UniqueIdentifier>{a42f1f8e-7f2e-4132-92bf-56d6985ff826}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp">
