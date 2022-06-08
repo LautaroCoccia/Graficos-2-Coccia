@@ -3,6 +3,7 @@
 
 #include "GameBase/GameBase.h"
 #include "../Objects/Player.h"
+#include "../Objects/Player3D.h"
 
 namespace Engine
 {
@@ -15,6 +16,7 @@ namespace Engine
 		Sprite* _box;
 		Camera* _camera;
 		Player* _roboBob;
+		Player3D* _player;
 
 	public:
 		Game();

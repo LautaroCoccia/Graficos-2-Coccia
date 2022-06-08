@@ -5,9 +5,9 @@ namespace Engine
 	Player::Player(Renderer* renderer, const glm::ivec2& tileDimensions, float speed, Camera* camera) : Sprite(renderer, tileDimensions)
 	{
 		_speed = speed;
-		_camera = camera;
-		_x = 0;
-		_z = 0;
+		//_camera = camera;
+		//_x = 0;
+		//_z = 0;
 
 
 		_transform.position = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -33,7 +33,6 @@ namespace Engine
 		/*if (Input::GetKey(Keycode::W))
 		{
 			GetAnimation()->UpdateFrame(deltaTime);
-			DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));
 			SetRotationY(180);
 
 			SetPosition(_transform.position.x, _transform.position.y , _transform.position.z + (_speed * deltaTime));

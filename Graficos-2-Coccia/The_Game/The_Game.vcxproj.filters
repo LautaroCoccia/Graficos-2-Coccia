@@ -21,12 +21,18 @@
     <ClCompile Include="src\Objects\Player.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\Objects\Player3D.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Game.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Objects\Player.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Player3D.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

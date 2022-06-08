@@ -32,7 +32,7 @@ namespace Engine
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
-		_camera->SetCameraMode(CameraMode::TPCamera);
+		_camera->SetCameraMode(CameraMode::FlyCamera);
 
 		//For TPCamera (pos y rot)
 		_camera->SetCameraPosition(0, 0, -3);
@@ -66,6 +66,10 @@ namespace Engine
 		//GetCollisionManager()->AddNewObject(_wall2);
 		
 		// --------------------------------
+		
+		_player = new Player3D(10);
+		_player->SetSprite(_wall2);
+		// --------------------------------
 
 		_box = new Sprite(GetRenderer());
 		_box->InitTexture();
@@ -94,11 +98,11 @@ namespace Engine
 	void Game::Update(float deltaTime)
 	{
 		//_camera->SetCameraPosition(_roboBob->_transform.position);
-		_roboBob->Move(deltaTime);
-		//std::cout << _roboBob->_transform.position.x << " " << _roboBob->_transform.position.y << " " << _roboBob->_transform.position.z << std::endl;
-
-		_camera->CameraInput(deltaTime,  _roboBob->_transform);
+		//_roboBob->Move(deltaTime);
+		//_camera->CameraInput(deltaTime,  _roboBob->_transform);
 		
+		_player->Move(deltaTime);
+		_camera->CameraInput(deltaTime,  _player->_transform);
 		//GetCollisionManager()->CheckAllCollisions();
 		_wall1->Draw();
 		_wall2->Draw();
