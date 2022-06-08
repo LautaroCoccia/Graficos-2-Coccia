@@ -15,7 +15,7 @@ namespace Engine
 		Ortho
 	};
 	enum class CameraMode {
-		FlyCam,
+		FlyCamera,
 		FPCamera,
 		TPCamera
 	};

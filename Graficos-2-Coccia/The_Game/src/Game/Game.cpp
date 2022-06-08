@@ -66,6 +66,10 @@ namespace Engine
 		//GetCollisionManager()->AddNewObject(_wall2);
 		
 		// --------------------------------
+		
+		_player = new Player3D(10);
+		_player->SetSprite(_wall2);
+		// --------------------------------
 
 		_box = new Sprite(GetRenderer());
 		_box->InitTexture();
@@ -94,9 +98,11 @@ namespace Engine
 	void Game::Update(float deltaTime)
 	{
 		//_camera->SetCameraPosition(_roboBob->_transform.position);
-		_roboBob->Move(deltaTime);
-		_camera->CameraInput(deltaTime,  _roboBob->_transform);
+		//_roboBob->Move(deltaTime);
+		//_camera->CameraInput(deltaTime,  _roboBob->_transform);
 		
+		_player->Move(deltaTime);
+		_camera->CameraInput(deltaTime,  _player->_transform);
 		//GetCollisionManager()->CheckAllCollisions();
 		_wall1->Draw();
 		_wall2->Draw();

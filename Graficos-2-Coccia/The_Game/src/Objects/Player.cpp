@@ -5,9 +5,18 @@ namespace Engine
 	Player::Player(Renderer* renderer, const glm::ivec2& tileDimensions, float speed, Camera* camera) : Sprite(renderer, tileDimensions)
 	{
 		_speed = speed;
-		_camera = camera;
-		_x = 0;
-		_z = 0;
+		//_camera = camera;
+		_transform.rotation = glm::vec3(0.0f, 1.0f, 0.0f);;
+
+		_transform.up = glm::vec3(0.0f, 1.0f, 0.0f);
+		_transform.right = glm::normalize(glm::cross(_transform.up, _transform.rotation));
+
+		_transform.up = glm::cross(_transform.rotation, _transform.right);
+
+		_transform.forward = glm::vec3(0.0f, 0.0f, -1.0f);
+		//_x = 0;
+		//_y = 0;
+		//_z = 0;
 	}
 	
 	Player::~Player()
@@ -20,7 +29,6 @@ namespace Engine
 		/*if (Input::GetKey(Keycode::W))
 		{
 			GetAnimation()->UpdateFrame(deltaTime);
-			DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));
 			SetRotationY(180);
 
 			SetPosition(_transform.position.x, _transform.position.y , _transform.position.z + (_speed * deltaTime));
@@ -68,6 +76,8 @@ namespace Engine
 		_transform.forward = glm::normalize(_transform.rotation);
 		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
+		
+		DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));
 		
 		std::cout << _transform.position.x << _transform.position.y << _transform.position.z << std::endl;
 

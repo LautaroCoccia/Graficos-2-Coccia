@@ -8,8 +8,7 @@ namespace Engine
 	class Player : public Sprite
 	{
 		float _speed;
-		Camera* _camera;
-		float _x, _z;
+		//Camera* _camera;
 
 	public:
 		Player(Renderer* renderer, const glm::ivec2& tileDimensions, float speed, Camera* camera);
