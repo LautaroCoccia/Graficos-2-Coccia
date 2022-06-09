@@ -6,6 +6,7 @@
 #include "../FPCamera/FPCamera.h"
 #include "../Shape/Shape.h"
 #include "../Sprite/Sprite.h"
+#include "../Cube/Cube.h"
 #include "../Animation/Animation.h"
 #include "../Input/Input.h"
 #include "../Time/Time.h"

@@ -49,25 +49,6 @@ namespace Engine
 		//std::cout << _transform.rotation.x << " " << _transform.rotation.y << " " << _transform.rotation.z << std::endl;
 
 		//std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << std::endl;
-		
-		//if (Input::GetKey(Keycode::W))
-		//{
-		//	_transform.position = _transform.position - (_transform.forward * (_movementSpeed * deltaTime));
-		//}
-		//if (Input::GetKey(Keycode::S))
-		//{
-		//	_transform.position = _transform.position + (_transform.forward * (_movementSpeed * deltaTime));
-		//}
-		//if (Input::GetKey(Keycode::A))
-		//{
-		//	_transform.position = _transform.position - (_transform.right * (_movementSpeed * deltaTime));
-		//}
-		//if (Input::GetKey(Keycode::D))
-		//{
-		//	_transform.position = _transform.position + (_transform.right * (_movementSpeed * deltaTime));
-		//}
-
-
 
 		if (_sprite != NULL)
 		{

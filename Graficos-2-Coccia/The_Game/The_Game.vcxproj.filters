@@ -10,6 +10,12 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{85257687-a96f-4d74-bc92-dfe174b4cff8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Player">
+      <UniqueIdentifier>{2e9b3b53-19c1-4adf-8378-881dc857591f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Player3D">
+      <UniqueIdentifier>{45a4ac77-f886-48e1-ac13-f24ceb5bd939}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\Game.cpp">
@@ -19,10 +25,10 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="src\Objects\Player.cpp">
-      <Filter>Objects</Filter>
+      <Filter>Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="src\Objects\Player3D.cpp">
-      <Filter>Objects</Filter>
+      <Filter>Objects\Player3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -30,10 +36,10 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Objects\Player.h">
-      <Filter>Objects</Filter>
+      <Filter>Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="src\Objects\Player3D.h">
-      <Filter>Objects</Filter>
+      <Filter>Objects\Player3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

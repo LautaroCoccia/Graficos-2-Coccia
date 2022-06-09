@@ -52,11 +52,11 @@
     <Filter Include="FPCamera">
       <UniqueIdentifier>{52f596c3-8cc5-400e-b3d8-1d191f9d0a87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TPCamera">
-      <UniqueIdentifier>{00bb5ff5-3375-4d9f-a6d6-c42236b638f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lights">
       <UniqueIdentifier>{a42f1f8e-7f2e-4132-92bf-56d6985ff826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cube">
+      <UniqueIdentifier>{d37eb62f-7053-45d4-bd08-5e8736953289}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="src\FPCamera\FPCamera.cpp">
       <Filter>FPCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cube\Cube.cpp">
+      <Filter>Cube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="src\FPCamera\FPCamera.h">
       <Filter>FPCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cube\Cube.h">
+      <Filter>Cube</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
