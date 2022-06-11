@@ -18,6 +18,14 @@ namespace Engine
 			vec3(0.0f, 0.5f, 0.0f),
 			vec3(0.0f, -0.5f, 0.0f)
 		};
+		vec3 facesRotations[6] = {
+			vec3(0.0f, 0.0f, 0.0f),
+			vec3(0.0f, 0.0f, 0.0f),
+			vec3(0.0f, 90.0f, 0.0f),
+			vec3(0.0f, -90.0f, 0.0f),
+			vec3(90.0f, 0.0f, 0.0f),
+			vec3(-90.0f, 0.0f, 0.0f)
+		};
 	public:
         Cube(const char* texture, Renderer* renderer);
         ~Cube();

@@ -15,7 +15,6 @@ namespace Engine
 	Player3D::Player3D(float movementSpeed) : Entity()
 	{
 		_movementSpeed = movementSpeed;
-
 		
 		_transform.rotation.x = 4.37114e-08f;
 		_transform.rotation.y = 0;

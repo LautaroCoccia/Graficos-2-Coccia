@@ -202,14 +202,14 @@ namespace Engine
 			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 			//std::cout << _transform.forward.x << " " << _transform.forward.y << " " << _transform.forward.z << std::endl;
 
-			//if (Input::GetKey(Keycode::W))
-			//	_transform.position += cameraSpeed * _transform.forward * deltaTime;
-			//if (Input::GetKey(Keycode::S))
-			//	_transform.position -= cameraSpeed * _transform.forward * deltaTime;
-			//if (Input::GetKey(Keycode::A))
-			//	_transform.position -= glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
-			//if (Input::GetKey(Keycode::D))
-			//	_transform.position += glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
+			if (Input::GetKey(Keycode::W))
+				_transform.position += cameraSpeed * _transform.forward * deltaTime;
+			if (Input::GetKey(Keycode::S))
+				_transform.position -= cameraSpeed * _transform.forward * deltaTime;
+			if (Input::GetKey(Keycode::A))
+				_transform.position -= glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
+			if (Input::GetKey(Keycode::D))
+				_transform.position += glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
 
 			//std::cout << _transform.right.x << " " << _transform.right.y << " " << _transform.right.z << std::endl;
 			break;
@@ -253,6 +253,15 @@ namespace Engine
 			//std::cout << transformObj.position.x << " " << transformObj.position.y << " " << transformObj.position.z << std::endl;
 			_view = glm::lookAt(_transform.position, transformObj.position, _transform.up);
 			//std::cout << transformObj.position.x << " " << transformObj.position.y << " " << transformObj.position.z << std::endl;
+			break;
+		case Engine::CameraMode::StaticCamera:
+			_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+			_transform.rotation.y = sin(glm::radians(_pitch));
+			_transform.rotation.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+
+			_transform.forward = glm::normalize(_transform.rotation);
+			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
+			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 			break;
 		default:
 			break;

@@ -17,7 +17,8 @@ namespace Engine
 	enum class CameraMode {
 		FlyCamera,
 		FPCamera,
-		TPCamera
+		TPCamera,
+		StaticCamera
 	};
 	class EXPORT_API Camera : public Entity
 	{

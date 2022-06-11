@@ -7,8 +7,10 @@ namespace Engine
 		for (int i = 0; i < 6; i++)
 		{
 			cube[i] = new Sprite(renderer);
+			cube[i]->InitTexture();
 			cube[i]->ImportTexture(name);
 			cube[i]->SetPosition(facesPositions[i]);
+			cube[i]->SetRotation(facesRotations[i]);
 		}
 	}
 	Cube::~Cube()

@@ -99,6 +99,7 @@ namespace Engine
 		// --------------------------------
 
 		_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
+		_cube->SetPosition(0, 0, 0);
 	}
 	
 	void Game::Play()
@@ -115,7 +116,7 @@ namespace Engine
 		//_player->Move(deltaTime);
 		//_wall2->Draw();
 		
-		//_cube->Draw();
+		_cube->Draw();
 		
 		_wall1->Draw();
 
