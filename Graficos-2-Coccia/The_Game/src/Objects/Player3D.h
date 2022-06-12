@@ -8,19 +8,18 @@ namespace Engine
 {
 	class  Player3D : public Entity
 	{
-		Sprite* _sprite;
+		Cube* _cubeModel;
 		float _movementSpeed;
 	public:
 		Player3D();
-		Player3D(float movementSpeed);
+		Player3D(float movementSpeed,const char* texture, Renderer* renderer);
 		~Player3D();
+		void SetCubeModel(const char* texture, Renderer* renderer);
 		void Move(float deltaTime);
-		void SetSprite(Sprite* sprite);
+		void Draw();
 		void TriggerCollision(Entity* other) override;
 
 	};
 
 }
 #endif // !PLAYER3D
-
-

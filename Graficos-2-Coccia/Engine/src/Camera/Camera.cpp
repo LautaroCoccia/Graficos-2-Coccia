@@ -186,9 +186,26 @@ namespace Engine
 	}
 	void Camera::CameraInput(float deltaTime, Transform& transformObj)
 	{
+
 		glfwSetInputMode(Input::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetCursorPosCallback(Input::GetWindow(), MouseCallback);
 
+		if (Input::GetKey(Keycode::ALPHA1))
+		{
+			_currentMode = CameraMode::FlyCamera;
+		}
+		else if (Input::GetKey(Keycode::ALPHA2))
+		{
+			_currentMode = CameraMode::FPCamera;
+		}
+		else if (Input::GetKey(Keycode::ALPHA3))
+		{
+			_currentMode = CameraMode::TPCamera;
+		}
+		else if (Input::GetKey(Keycode::ALPHA4))
+		{
+			_currentMode = CameraMode::StaticCamera;
+		}
 
 		switch (_currentMode)
 		{
@@ -243,7 +260,7 @@ namespace Engine
 			asd.y = sin(glm::radians(_pitch)) * _camOffset;
 			asd.z = sin(glm::radians(_yaw)) * _camOffset;
 			_transform.forward = glm::normalize(_transform.rotation);
-			std::cout << _transform.forward.x << " " << _transform.forward.y << " " << _transform.forward.z << std::endl;
+			//std::cout << _transform.forward.x << " " << _transform.forward.y << " " << _transform.forward.z << std::endl;
 
 			_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 			_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
@@ -251,6 +268,7 @@ namespace Engine
 
 			//_transform.position = transformObj.position;
 			//std::cout << transformObj.position.x << " " << transformObj.position.y << " " << transformObj.position.z << std::endl;
+			transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
 			_view = glm::lookAt(_transform.position, transformObj.position, _transform.up);
 			//std::cout << transformObj.position.x << " " << transformObj.position.y << " " << transformObj.position.z << std::endl;
 			break;
@@ -278,6 +296,10 @@ namespace Engine
 	glm::vec3 Camera::GetRotation()
 	{
 		return glm::vec3 (_transform.rotation.x, 0, _transform.rotation.z);
+	}
+	CameraMode Camera::GetCurrentMode()
+	{
+		return _currentMode;
 	}
 	void Camera::TriggerCollision(Entity* other){ }
 

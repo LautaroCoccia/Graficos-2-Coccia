@@ -29,8 +29,9 @@ namespace Engine
 	public:
         Cube(const char* texture, Renderer* renderer);
         ~Cube();
-		void TriggerCollision(Entity* other) override;
+		void UpdatePosition();
 		void Draw();
+		void TriggerCollision(Entity* other) override;
 	};
 }	
 #endif // !CUBE_H

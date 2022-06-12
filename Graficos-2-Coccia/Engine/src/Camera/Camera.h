@@ -69,6 +69,7 @@ namespace Engine
 		glm::mat4 GetView();
 		glm::mat4 GetProjection();
 		glm::vec3 GetRotation();
+		CameraMode GetCurrentMode();
 
 		void TriggerCollision(Entity* other);
 	};

@@ -15,7 +15,18 @@ namespace Engine
 	}
 	Cube::~Cube()
 	{
-
+		for (int i = 5; i >= 6; i--)
+		{
+			if (cube[i] != NULL)
+				delete cube[i];
+		}
+	}
+	void Cube::UpdatePosition()
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			cube[i]->SetPosition(facesPositions[i] + _transform.position);
+		}
 	}
 	void Cube::Draw()
 	{

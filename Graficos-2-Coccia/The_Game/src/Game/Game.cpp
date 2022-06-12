@@ -6,19 +6,19 @@ namespace Engine
 {
 	Game::Game(): GameBase()
 	{
-		_player = NULL;
+		_player3D = NULL;
 		_roboBob = NULL;
 		_wall1 = NULL;
 		_wall2 = NULL;
 		_box = NULL;
 		_camera = NULL;
-		_cube = NULL;
+		//_cube = NULL;
 	}
 
 	Game::~Game()
 	{
-		if (_player != NULL)
-			delete _player;
+		if (_player3D != NULL)
+			delete _player3D;
 		if (_roboBob != NULL)
 			delete _roboBob;
 		if (_wall1 != NULL)
@@ -29,8 +29,8 @@ namespace Engine
 			delete _box;
 		if (_camera != NULL)
 			delete _camera;
-		if (_cube != NULL)
-			delete _cube;
+		//if (_cube != NULL)
+		//	delete _cube;
 	}
 
 	void Game::Start()
@@ -73,8 +73,8 @@ namespace Engine
 		
 		// --------------------------------
 		
-		_player = new Player3D(10);
-		_player->SetSprite(_wall2);
+		_player3D = new Player3D(10,"res/crate1_diffuse.png", GetRenderer());
+		_player3D->SetPosition(0, 0, 0);
 		// --------------------------------
 
 		_box = new Sprite(GetRenderer());
@@ -98,8 +98,8 @@ namespace Engine
 
 		// --------------------------------
 
-		_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
-		_cube->SetPosition(0, 0, 0);
+		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
+		//_cube->SetPosition(0, 0, 0);
 	}
 	
 	void Game::Play()
@@ -113,14 +113,20 @@ namespace Engine
 		//_roboBob->Move(deltaTime);
 		//_camera->CameraInput(deltaTime,  _roboBob->_transform);
 		
-		//_player->Move(deltaTime);
 		//_wall2->Draw();
 		
-		_cube->Draw();
+		//_cube->Draw();
 		
 		_wall1->Draw();
+		_player3D->Move(deltaTime);
 
-		_camera->CameraInput(deltaTime,  _player->_transform);
+		_camera->CameraInput(deltaTime,  _player3D->_transform);
+		
+		if (_camera->GetCurrentMode() != CameraMode::FPCamera)
+		{
+			_player3D->Draw();
+		}
+		
 		//_box->Draw();
 		
 		//GetCollisionManager()->CheckAllCollisions();

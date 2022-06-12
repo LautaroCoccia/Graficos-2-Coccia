@@ -5,31 +5,52 @@ namespace Engine
 {
 	Player3D::Player3D() : Entity()
 	{
+		_cubeModel = NULL;
 		_movementSpeed = 10;
 
-		_transform.rotation.x = -1;
-		_transform.rotation.y = 0;
-		_transform.rotation.z = 4.37f;
-		
-	}
-	Player3D::Player3D(float movementSpeed) : Entity()
-	{
-		_movementSpeed = movementSpeed;
-		
+		_transform.position = vec3(0, 0, 0);
+
 		_transform.rotation.x = 4.37114e-08f;
 		_transform.rotation.y = 0;
 		_transform.rotation.z = 1;
+		
+	}
+	Player3D::Player3D(float movementSpeed, const char* texture, Renderer* renderer) : Entity()
+	{
+		_movementSpeed = movementSpeed;
+		SetCubeModel(texture, renderer);
+		_transform.position = vec3(0, 0, 0);
+
+		_transform.rotation.x = 4.37114e-08f;
+		_transform.rotation.y = 0;
+		_transform.rotation.z = 1;
+
 	}
 
 	Player3D::~Player3D()
 	{
-
+		if (_cubeModel != NULL)
+			delete _cubeModel;
+	}
+	void Player3D::SetCubeModel(const char* texture, Renderer* renderer)
+	{
+		_cubeModel = new Cube(texture, renderer);
+		_cubeModel->SetPosition(_transform.position);
+		_cubeModel->SetRotation(_transform.rotation);
 	}
 	void Player3D::Move(float deltaTime) 
 	{
+		//_transform.forward.x = cos(glm::radians(_transform.rotation.x)) * cos(glm::radians(_transform.rotation.y));
+		//_transform.forward.y = sin(glm::radians(_transform.rotation.y));
+		//_transform.forward.z = sin(glm::radians(_transform.rotation.x)) * cos(glm::radians(_transform.rotation.y));
+		//
 		
-		_transform.forward = glm::normalize(_transform.rotation);
+		//_transform.forward.x = cos((_transform.rotation.x)) * cos((_transform.rotation.y));
+		//_transform.forward.y = sin((_transform.rotation.y));
+		//_transform.forward.z = sin((_transform.rotation.x)) * cos((_transform.rotation.y));
+		
 		//_transform.forward = vec3(0, 0, 1);
+		_transform.forward = glm::normalize(_transform.rotation);
 		_transform.right = glm::cross(glm::vec3(0, 1, 0), _transform.forward);
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 		
@@ -47,17 +68,20 @@ namespace Engine
 		//std::cout << _transform.forward.x << " " << _transform.forward.y << " " << _transform.forward.z << std::endl;
 		//std::cout << _transform.rotation.x << " " << _transform.rotation.y << " " << _transform.rotation.z << std::endl;
 
-		//std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << std::endl;
+		std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << std::endl;
 
-		if (_sprite != NULL)
+		if (_cubeModel != NULL)
 		{
-			_sprite->SetPosition(_transform.position);
+			_cubeModel->SetPosition(_transform.position);
+			_cubeModel->UpdatePosition();
+			std::cout << _cubeModel->GetPosition().x << " " << _cubeModel->GetPosition().y << " " << _cubeModel->GetPosition().z << endl;
 		}
-
+		//std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << endl;
 	}
-	void Player3D::SetSprite(Sprite* sprite)
+	void Player3D::Draw()
 	{
-		_sprite = sprite;
+		if (_cubeModel != NULL)
+			_cubeModel->Draw();
 	}
 	void Player3D::TriggerCollision(Entity* other)
 	{
