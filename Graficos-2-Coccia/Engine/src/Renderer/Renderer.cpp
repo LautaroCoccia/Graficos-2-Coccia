@@ -19,7 +19,7 @@ namespace Engine
 			delete _shader;
 			_shader = NULL;
 		}
-		
+
 		if (_camera != NULL)
 		{
 			_camera = NULL;
