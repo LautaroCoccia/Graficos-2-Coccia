@@ -12,6 +12,7 @@ namespace Engine
 		_wall2 = NULL;
 		_box = NULL;
 		_camera = NULL;
+		_light = NULL;
 		//_cube = NULL;
 	}
 
@@ -29,6 +30,8 @@ namespace Engine
 			delete _box;
 		if (_camera != NULL)
 			delete _camera;
+		if (_light != NULL)
+			delete _light;
 		//if (_cube != NULL)
 		//	delete _cube;
 	}
@@ -37,9 +40,11 @@ namespace Engine
 	{
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
+
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
 		_camera->SetCameraMode(CameraMode::FlyCamera);
 
+		_light = new Light(GetRenderer());
 		//For TPCamera (pos y rot)
 		_camera->SetCameraPosition(0, 0, -3);
 		_camera->SetCameraRotation(4.37f, 1, 0);
@@ -116,7 +121,7 @@ namespace Engine
 		//_wall2->Draw();
 		
 		//_cube->Draw();
-		
+		_light->Draw();
 		_wall1->Draw();
 		_player3D->Move(deltaTime);
 

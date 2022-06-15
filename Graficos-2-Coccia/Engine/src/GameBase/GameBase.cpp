@@ -14,7 +14,7 @@ namespace Engine
 		_window = new Window();
 		_renderer = new Renderer();
 		_collisionManager = new CollisionManager();
-		//_camera = new Camera();
+		_camera = new Camera();
 	}
 
 	GameBase::~GameBase()

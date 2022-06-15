@@ -3,10 +3,11 @@
 
 #include "../Window/Window.h"
 #include "../Renderer/Renderer.h"
-#include "../FPCamera/FPCamera.h"
 #include "../Shape/Shape.h"
+#include "../Camera/Camera.h"
 #include "../Sprite/Sprite.h"
 #include "../Cube/Cube.h"
+#include "../Lights/Light.h"
 #include "../Animation/Animation.h"
 #include "../Input/Input.h"
 #include "../Time/Time.h"
@@ -21,7 +22,6 @@ namespace Engine
 		Window* _window;
 		CollisionManager* _collisionManager;
 		Camera* _camera;
-
 	public:
 		GameBase();
 		~GameBase();

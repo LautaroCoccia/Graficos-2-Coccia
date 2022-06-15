@@ -39,6 +39,18 @@ namespace Engine
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
+	void Renderer::SetLightVertexArray(unsigned int& vao, unsigned int& vbo)
+	{
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+		// we only need to bind to the VBO, the container's VBO's data already contains the data.
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	}
+	void Renderer::SetLightAttribPointer()
+	{
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+	}
 	void Renderer::SetVertexBuffer(int size, float* vertex, unsigned int& vao, unsigned int& vbo)
 	{
 		glGenVertexArrays(1, &vao);
@@ -102,7 +114,20 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDisable(GL_TEXTURE_2D);
 	}
+	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo)
+	{
+		glUseProgram(_shader->GetShader());
+		glBindVertexArray(vao);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
+		//
+		//glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 
+		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glUseProgram(0);
+	}
 	void Renderer::Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
 		glUseProgram(_shader->GetShader());
@@ -175,6 +200,5 @@ namespace Engine
 	void Renderer::SetCurrentCamera(Camera* camera)
 	{
 		_camera = camera;
-		//std::cout << "_camara pos: " << _camera << " camera: " << camera << std::endl;
 	}
 }
