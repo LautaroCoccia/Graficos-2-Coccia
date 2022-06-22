@@ -4,7 +4,8 @@ namespace Engine
 {
 	Light::Light(Renderer* renderer) 
 	{
-		_light = glm::vec3(1.0f, 0.5f, 0.31f);
+		//_light = glm::vec3(1.0f, 0.5f, 0.31f);
+		_light = glm::vec3(1.0f, 1.0f, 1.0f);
 		_renderer = renderer;
 
 		_renderer->SetLightVertexArray(_vao,_vbo);
