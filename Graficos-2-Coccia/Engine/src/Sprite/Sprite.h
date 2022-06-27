@@ -65,6 +65,7 @@ namespace Engine
 
 		void InitTexture();
 		void ImportTexture(const char*name);
+		void CalculateNormal();
 		void Draw();
 		void DrawAnimation(glm::vec4 uvRect);
 		void SetColor(ENTITY_COLOR color);

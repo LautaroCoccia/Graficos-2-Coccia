@@ -43,14 +43,18 @@ namespace Engine
 	{
 		_textureImporter->ImportTexture(_renderer, name, _texture);
 	}
-
+	void Sprite::CalculateNormal()
+	{
+		SetNormal(glm::vec3(_vertex[0], _vertex[1], _vertex[2]), glm::vec3(_vertex[9], _vertex[10], _vertex[11]),
+			glm::vec3(_vertex[18], _vertex[19], _vertex[20]));
+	}
 	void Sprite::Draw()
 	{
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 
 		_renderer->BindTexture(_texture);
 
-		_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float));
+		_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float), _transform.normal);
 
 		_renderer->DisableTexture();
 	}
@@ -73,7 +77,7 @@ namespace Engine
 
 		_renderer->BindTexture(_texture);
 
-		_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float));
+		_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float), _transform.normal);
 
 		_renderer->DisableTexture();
 	}

@@ -178,10 +178,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\Fragment.shader">
+    <None Include="shaders\Fragment.frag">
       <Filter>Shader</Filter>
     </None>
-    <None Include="shaders\Vertex.shader">
+    <None Include="shaders\Vertex.vert">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

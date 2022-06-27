@@ -50,6 +50,7 @@ namespace Engine
 		UpdateMatrix();
 	}
 
+	
 	void Entity::SetRotation(float x, float y, float z)
 	{
 		SetPrebRotation(_transform.rotation);
@@ -99,6 +100,10 @@ namespace Engine
 		UpdateMatrix();
 	}
 
+	void Entity::SetNormal(glm::vec3 vertexA, glm::vec3 vertexB, glm::vec3 vertexC)
+	{
+		_transform.normal = glm::normalize(glm::cross(vertexB - vertexA, vertexC - vertexA));
+	}
 	void Entity::SetScale(float x, float y, float z)
 	{
 		SetPrebScale(_transform.scale);

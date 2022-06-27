@@ -27,6 +27,8 @@ namespace Engine
 		glm::vec3 forward;
 		glm::vec3 up;
 		glm::vec3 right;
+
+		glm::vec3 normal;
 	};
 
 	struct GeneralMatrix
@@ -70,6 +72,7 @@ namespace Engine
 		void SetRotationX(float x);
 		void SetRotationY(float y);
 		void SetRotationZ(float z);
+		void SetNormal(glm::vec3 vertexA, glm::vec3 vertexB, glm::vec3 vertexC);
 
 		void SetScale(float x, float y, float z);
 		void SetScale(glm::vec3 scale);

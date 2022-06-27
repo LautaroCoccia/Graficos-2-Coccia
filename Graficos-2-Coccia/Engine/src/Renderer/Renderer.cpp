@@ -97,7 +97,7 @@ namespace Engine
 
 	void Renderer::CreateShader()
 	{
-		_shader->SetShader("../Engine/shaders/Vertex.shader", "../Engine/shaders/Fragment.shader");
+		_shader->SetShader("../Engine/shaders/Vertex.vert", "../Engine/shaders/Fragment.frag");
 		glUseProgram(_shader->GetShader());
 
 		SetIndex(_shader->GetShader());
@@ -114,13 +114,15 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDisable(GL_TEXTURE_2D);
 	}
-	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3 &_lightColor)
+	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3 &lightColor, glm::vec3& lightPos)
 	{
 		glUseProgram(_shader->GetShader());
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"), 1, &_lightColor[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"), 1, &lightColor[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightPos"), 0, &lightPos[0]);
+		//glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"), 1, &lightColor[0]);
 		//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 		//
 		//glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
@@ -130,7 +132,7 @@ namespace Engine
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glUseProgram(0);
 	}
-	void Renderer::Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
+	void Renderer::Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount, glm::vec3 normal)
 	{
 		glUseProgram(_shader->GetShader());
 		glBindVertexArray(vao);
@@ -138,6 +140,7 @@ namespace Engine
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 		glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "aNormal"), 3, &normal[0]);
 		glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 
 		glBindVertexArray(0);

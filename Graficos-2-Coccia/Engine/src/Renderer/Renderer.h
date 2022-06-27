@@ -37,8 +37,8 @@ namespace Engine
 		void CreateShader();
 		void BindTexture(unsigned int& texture);
 		void DisableTexture();
-		void DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3& _lightColor);
-		void Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
+		void DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3& lightColor, glm::vec3& lightPos);
+		void Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount, glm::vec3 normal);
 		void UpdateModel(glm::mat4 model, unsigned int updateShape);
 
 		void StopShader();

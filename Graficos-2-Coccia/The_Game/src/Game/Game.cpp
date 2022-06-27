@@ -65,6 +65,8 @@ namespace Engine
 		_wall1->SetRotation(90, 0, 0);
 		_wall1->SetScale(10,10,10);
 		_wall1->SetStaticState(true);
+
+		_wall1->CalculateNormal();
 		//GetCollisionManager()->AddNewObject(_wall1);
 		
 		// --------------------------------

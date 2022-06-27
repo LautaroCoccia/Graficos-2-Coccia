@@ -6,17 +6,22 @@
 
 namespace Engine
 {
+	struct TextureData
+	{
+		unsigned char* _data;
+		int _width;
+		int _height;
+		int _nrChannels;
+		unsigned int _texture;
+	};
 	class EXPORT_API TextureImporter
 	{
-		int _width, _height, _nrChannels;
-
-		unsigned char* _data;
 
 	public:
-		TextureImporter();
-		~TextureImporter();
 
-		void ImportTexture(Renderer* renderer, const char* name, unsigned int& texture);
+		//void ImportTexture(Renderer* renderer, const char* name, unsigned int& texture);
+		static TextureData ImportTexture(Renderer* renderer,const char* filePath);
+		static void BindTexture(unsigned int& texture);
 	};
 }
 
