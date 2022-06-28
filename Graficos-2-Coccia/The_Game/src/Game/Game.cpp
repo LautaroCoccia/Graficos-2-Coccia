@@ -6,6 +6,7 @@ namespace Engine
 {
 	Game::Game(): GameBase()
 	{
+		_quad = NULL;
 		_player3D = NULL;
 		_roboBob = NULL;
 		_wall1 = NULL;
@@ -55,6 +56,10 @@ namespace Engine
 		
 		GetRenderer()->SetCurrentCamera(_camera);
 
+		//_quad = new Shape(GetRenderer());
+		//_quad->InitShape(TypeOfShape::Quad);
+		//_quad->SetColor(ENTITY_COLOR::WHITE);
+		//_quad->SetPosition(0, 1, 0);
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer());
@@ -121,6 +126,8 @@ namespace Engine
 		//_wall2->Draw();
 		
 		//_cube->Draw();
+
+		//_quad->Draw();
 		_light->Draw();
 		_wall1->Draw();
 		_player3D->Move(deltaTime);

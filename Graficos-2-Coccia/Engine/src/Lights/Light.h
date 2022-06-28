@@ -9,7 +9,12 @@ namespace Engine
 	class EXPORT_API Light
 	{
 	private:
-		glm::vec3 _light;
+		struct ambient
+		{
+			glm::vec3 color;
+			float strength;
+		};
+		ambient _ambient;
 		Renderer* _renderer;
 		unsigned int _vao; // Vertex Array Obj
 		unsigned int _vbo; // Vertex Buffer Obj

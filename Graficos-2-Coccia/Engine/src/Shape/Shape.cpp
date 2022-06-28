@@ -175,4 +175,8 @@ namespace Engine
 			_quadVertex[21] = r; _quadVertex[22] = g; _quadVertex[23] = b;
 		}
 	}
+	void Shape::TriggerCollision(Entity* other) 
+	{ 
+	
+	}
 }

@@ -94,10 +94,44 @@ namespace Engine
 
 		model = glGetUniformLocation(GetShader(), "model");
 	}
+	void Renderer::CreateBuffers()
+	{
+		glGenVertexArrays(1, &_VAO); // first: Specifies the number of vertex array object 
+									// second: the generated vertex array object names are stored 
+		glGenBuffers(1, &_VBO);		//first: the number of buffer object 
+		glGenBuffers(1, &_EBO);		//second: an array in which the generated buffer object names are stored 
 
+		
+	}
+	void Renderer::BindBuffers()
+	{
+		glBindVertexArray(_VAO);// Specifies the name of the vertex array to bind 
+		glBindBuffer(GL_ARRAY_BUFFER, _VBO); //first: type buffer to bound 
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO); //second: the buffer 
+	}
+	void Renderer::SetVertexShapeAttribPointer()
+	{
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)0);
+		glEnableVertexAttribArray(0);
+
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+	}
+	void Renderer::SetVertexSpriteAttribPointer()
+	{
+		// position attribute 
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+		// color attribute 
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+		// texture coord attribute 
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(7 * sizeof(float)));
+		glEnableVertexAttribArray(2);
+	}
 	void Renderer::CreateShader()
 	{
-		_shader->SetShader("../Engine/shaders/Vertex.shader", "../Engine/shaders/Fragment.shader");
+		_shader->SetShader("../Engine/shaders/Vertex.vert", "../Engine/shaders/Fragment.frag");
 		glUseProgram(_shader->GetShader());
 
 		SetIndex(_shader->GetShader());
@@ -114,13 +148,14 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDisable(GL_TEXTURE_2D);
 	}
-	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3 &_lightColor)
+	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3 &_lightColor, float &_ambientStr)
 	{
 		glUseProgram(_shader->GetShader());
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"), 1, &_lightColor[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "ambient.color"), 1, &_lightColor[0]);
+		glUniform1f(glGetUniformLocation(_shader->GetShader(), "ambient.strength"), _ambientStr);
 		//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 		//
 		//glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
@@ -133,19 +168,38 @@ namespace Engine
 	void Renderer::Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
 		glUseProgram(_shader->GetShader());
+		//BindBuffers();
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 		glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 
 		glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+		//glm::vec3 objectColor = glm::vec3(1, 1, 1);
 
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glUseProgram(0);
 	}
+	void Renderer::DrawCube(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
+	{
+		glUseProgram(_shader->GetShader());
+		//BindBuffers();
+		glBindVertexArray(vao);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+		glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 
+		//glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//glm::vec3 objectColor = glm::vec3(1, 1, 1);
+
+		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glUseProgram(0);
+	}
 	void Renderer::UpdateModel(glm::mat4 model, unsigned int modelUniform)
 	{
 		glUseProgram(_shader->GetShader());

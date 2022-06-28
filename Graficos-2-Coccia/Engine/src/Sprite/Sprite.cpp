@@ -5,7 +5,7 @@ namespace Engine
 	Sprite::Sprite(Renderer* renderer) : Entity()
 	{
 		_renderer = renderer;
-		_textureImporter = new TextureImporter();
+		//_textureImporter = new TextureImporter();
 
 		_animation = new Animation();
 	}
@@ -13,7 +13,7 @@ namespace Engine
 	Sprite::Sprite(Renderer* renderer, const glm::ivec2& tileDimensions) : Entity()
 	{
 		_renderer = renderer;
-		_textureImporter = new TextureImporter();
+		//_textureImporter = new TextureImporter();
 
 		_animation = new Animation();
 		_animation->InitSpriteSheet(this, tileDimensions);
@@ -21,7 +21,7 @@ namespace Engine
 
 	Sprite::~Sprite()
 	{
-		_renderer->DeleteBuffers(_vao, _vbo, _ebo);
+		//_renderer->DeleteBuffers(_vao, _vbo, _ebo);
 
 		if (_animation != NULL)
 			delete _animation;
@@ -33,11 +33,12 @@ namespace Engine
 	{
 		_vertexSize = sizeof(_vertex);
 
-		_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
-		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
 		//_renderer->CreateBuffers();
 		//_renderer->BindBuffers();
-		//_renderer->SetVertexSpriteAttribPointer();
+		_renderer->SetVertexSpriteAttribPointer();
+		
+		_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
+		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
 		_renderer->SetVertexAttribPointer(false, _modelUniform);
 	}
 	
@@ -52,8 +53,8 @@ namespace Engine
 	{
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 
-		_textureImporter->BindTexture(_textureData._texture);
-		//_renderer->BindTexture(_textureData._texture);
+		//_textureImporter->BindTexture(_textureData._texture);
+		_renderer->BindTexture(_textureData._texture);
 		_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float));
 
 		_renderer->DisableTexture();

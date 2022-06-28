@@ -101,9 +101,4 @@ namespace Engine
 		//texture = _textureData._texture;
 		//return _textureData;
 	}
-	void TextureImporter::BindTexture(unsigned int& texture)
-	{
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-	}
 }

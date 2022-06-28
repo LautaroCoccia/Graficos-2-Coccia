@@ -10,6 +10,7 @@ namespace Engine
 	class Game : public GameBase
 	{
 	private:
+		Shape* _quad;
 		Player* _bob;
 		Sprite* _wall1;
 		Sprite* _wall2;
