@@ -14,12 +14,12 @@ namespace Engine
 {
 	TextureImporter::TextureImporter()
 	{
-
+	
 	}
-
+	
 	TextureImporter::~TextureImporter()
 	{
-
+	
 	}
 
 	void TextureImporter::ImportTexture(Renderer* renderer, const char* name, unsigned int& texture)
@@ -60,5 +60,50 @@ namespace Engine
 
 		glUseProgram(renderer->GetShader());
 		glUniform1i(glGetUniformLocation(renderer->GetShader(), "ourTexture"), 0);
+	}
+	void TextureImporter::ImportTexture(Renderer* renderer, const char* filePath, TextureData& textureData)
+	{
+	
+		stbi_set_flip_vertically_on_load(true);
+	
+		textureData._data = stbi_load(filePath, &textureData._width, &textureData._height, &textureData._nrChannels, 0);
+	
+		if (!textureData._data)
+		{
+			cout << "failed to load texture" << endl;
+	
+		}
+		glGenTextures(1, &textureData._texture);
+		glBindTexture(GL_TEXTURE_2D, textureData._texture);
+		// set the texture wrapping parameters 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method) 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		// set texture filtering parameters 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	
+		if (textureData._nrChannels == 4)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, textureData._width, textureData._height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData._data);
+		}
+		else
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureData._width, textureData._height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData._data);
+		}
+	
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	
+		stbi_image_free(textureData._data);
+	
+		glUseProgram(renderer->GetShader());
+		glUniform1i(glGetUniformLocation(renderer->GetShader(), "ourTexture"), 0);
+		//texture = _textureData._texture;
+		//return _textureData;
+	}
+	void TextureImporter::BindTexture(unsigned int& texture)
+	{
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
 	}
 }

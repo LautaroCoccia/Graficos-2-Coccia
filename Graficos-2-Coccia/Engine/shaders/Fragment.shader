@@ -17,5 +17,5 @@ void main()
 {
 	float ambientStrength = 0.1f;
 	vec3 ambient = ambientStrength * lightColor;
-	gl_FragColor = texture(ourTexture, TexCoord) * (outColor * vec4(ambient,1.0));
+	gl_FragColor = texture(ourTexture, TexCoord) * (outColor * vec4(lightColor,1.0));
 }

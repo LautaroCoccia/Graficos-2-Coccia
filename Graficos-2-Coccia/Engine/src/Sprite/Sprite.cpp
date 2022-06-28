@@ -25,8 +25,8 @@ namespace Engine
 
 		if (_animation != NULL)
 			delete _animation;
-		if (_textureImporter != NULL)
-			delete _textureImporter;
+		//if (_textureImporter != NULL)
+		//	delete _textureImporter;
 	}
 
 	void Sprite::InitTexture()
@@ -35,21 +35,25 @@ namespace Engine
 
 		_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
 		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
-
+		//_renderer->CreateBuffers();
+		//_renderer->BindBuffers();
+		//_renderer->SetVertexSpriteAttribPointer();
 		_renderer->SetVertexAttribPointer(false, _modelUniform);
 	}
 	
 	void Sprite::ImportTexture(const char* name)
 	{
-		_textureImporter->ImportTexture(_renderer, name, _texture);
+		//_textureImporter->ImportTexture(_renderer, name, _textureData._texture);
+
+		_textureImporter->ImportTexture(_renderer, name, _textureData);
 	}
 
 	void Sprite::Draw()
 	{
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 
-		_renderer->BindTexture(_texture);
-
+		_textureImporter->BindTexture(_textureData._texture);
+		//_renderer->BindTexture(_textureData._texture);
 		_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float));
 
 		_renderer->DisableTexture();
