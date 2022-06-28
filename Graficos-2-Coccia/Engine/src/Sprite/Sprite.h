@@ -44,9 +44,9 @@ namespace Engine
 			1, 2, 3  // second triangle
 		};
 
-		//unsigned int _vao; // Vertex Array Obj
-		//unsigned int _vbo; // Vertex Buffer Obj
-		//unsigned int _ebo; // Index Buffer Obj
+		unsigned int _vao; // Vertex Array Obj
+		unsigned int _vbo; // Vertex Buffer Obj
+		unsigned int _ebo; // Index Buffer Obj
 
 		int _vertexSize;
 		//unsigned int _texture;

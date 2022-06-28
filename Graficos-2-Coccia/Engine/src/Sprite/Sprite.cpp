@@ -32,9 +32,11 @@ namespace Engine
 	{
 		_vertexSize = sizeof(_vertex);
 
-		_renderer->CreateBuffers();
-		_renderer->BindBuffers();
-		_renderer->SetVertexSpriteAttribPointer();
+		//_renderer->CreateBuffers();
+		//_renderer->BindBuffers();
+		_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
+		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
+		//_renderer->SetVertexSpriteAttribPointer();
 		_renderer->SetVertexAttribPointer(false, _modelUniform);
 	}
 	
@@ -49,10 +51,10 @@ namespace Engine
 	}
 	void Sprite::Draw()
 	{
-		//_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
-		TextureImporter::BindTexture(_textureData._texture);
+		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+		//TextureImporter::BindTexture(_textureData._texture);
+		_renderer->BindTexture(_textureData._texture);
 		_renderer->Draw(_vertex, _vertexSize, sizeof(_index) / sizeof(float), _transform.normal);
-		//_renderer->BindTexture(_textureData._texture);
 
 
 		//_renderer->DisableTexture();

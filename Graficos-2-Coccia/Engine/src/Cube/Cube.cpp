@@ -35,7 +35,7 @@ namespace Engine
 	}
 	void Cube::Draw()
 	{
-		TextureImporter::BindTexture(_data._texture);
+		//TextureImporter::BindTexture(_data._texture);
 		//_renderer->Draw();
 		//for (int i = 0; i < 6; i++)
 		//{

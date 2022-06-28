@@ -21,7 +21,6 @@ namespace Engine
 
 		//void ImportTexture(Renderer* renderer, const char* name, unsigned int& texture);
 		static TextureData ImportTexture(Renderer* renderer,const char* filePath);
-		static void BindTexture(unsigned int& texture);
 	};
 }
 

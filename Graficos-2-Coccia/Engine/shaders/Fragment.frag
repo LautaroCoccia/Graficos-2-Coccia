@@ -24,5 +24,5 @@ void main()
 	//vec3 result = (diffuse * lightColor);
 	//gl_FragColor = texture(ourTexture, TexCoord) * (result,1.0));
 	//gl_FragColor = texture(ourTexture, TexCoord) * (outColor * vec4(lightColor + diffuse,1.0));
-	gl_FragColor = texture(ourTexture, TexCoord) * (outColor *vec4(lightColor ,1.0));
+	gl_FragColor = texture(ourTexture, TexCoord) * (lightColor,1.0f ));
 }
