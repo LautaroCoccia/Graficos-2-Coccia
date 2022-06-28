@@ -23,11 +23,22 @@ namespace Engine
 		Shader* _shader;
 		Camera* _camera;
 
+		unsigned int _VBO = 0; // VertexBufferObject
+		unsigned int _VAO = 0; // VertexArrayObject
+		unsigned int _EBO = 0; // ElementsBufferObject
 	public:
 		Renderer();
 		~Renderer();
 		
 		int InitGlew();
+
+		void CreateBuffers();
+		void BindBuffers();
+		void SetVertexShapeAttribPointer();
+		void SetVertexSpriteAttribPointer();
+		void SetVertexMaterialAttribPointer();
+
+
 		void SetLightVertexArray(unsigned int& vao, unsigned int& vbo);
 		void SetLightAttribPointer();
 
@@ -37,8 +48,8 @@ namespace Engine
 		void CreateShader();
 		void BindTexture(unsigned int& texture);
 		void DisableTexture();
-		void DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3& lightColor, glm::vec3& lightPos);
-		void Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount, glm::vec3 normal);
+		void DrawLight(glm::vec3& lightColor, glm::vec3& lightPos);
+		void Draw(float* vertex, float vertexSize, int vertexCount, glm::vec3 normal);
 		void UpdateModel(glm::mat4 model, unsigned int updateShape);
 
 		void StopShader();

@@ -77,7 +77,7 @@ namespace Engine
         };
         TextureData _data;
         bool _alpha = false;
-        TextureImporter TI;
+        Renderer* _renderer;
 	public:
         Cube(const char* texture, Renderer* renderer);
         ~Cube();

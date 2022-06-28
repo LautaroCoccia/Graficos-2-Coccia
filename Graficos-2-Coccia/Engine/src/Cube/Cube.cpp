@@ -4,6 +4,7 @@ namespace Engine
 {
 	Cube::Cube(const char* name, Renderer* renderer) : Entity()
 	{
+		_renderer = renderer;
 		_data = TextureImporter::ImportTexture(renderer,name);
 		if (_data._nrChannels == 4)
 			_alpha = true;
@@ -34,6 +35,8 @@ namespace Engine
 	}
 	void Cube::Draw()
 	{
+		TextureImporter::BindTexture(_data._texture);
+		//_renderer->Draw();
 		//for (int i = 0; i < 6; i++)
 		//{
 		//	cube[i]->Draw();

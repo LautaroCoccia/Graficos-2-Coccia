@@ -44,20 +44,21 @@ namespace Engine
 			1, 2, 3  // second triangle
 		};
 
-		unsigned int _vao; // Vertex Array Obj
-		unsigned int _vbo; // Vertex Buffer Obj
-		unsigned int _ebo; // Index Buffer Obj
+		//unsigned int _vao; // Vertex Array Obj
+		//unsigned int _vbo; // Vertex Buffer Obj
+		//unsigned int _ebo; // Index Buffer Obj
 
 		int _vertexSize;
-		unsigned int _texture;
+		//unsigned int _texture;
 
 		unsigned int _modelUniform;
 		
 		UVs _uv[4];
 
 		Animation* _animation; // Acá se podria poner una lista para asi tener mas de 1 animacion
-		TextureImporter* _textureImporter;
 		Renderer* _renderer;
+		TextureImporter _textureImporter;
+		TextureData _textureData;
 	public:
 		Sprite(Renderer* renderer);
 		Sprite(Renderer* renderer, const glm::ivec2& tileDimensions);

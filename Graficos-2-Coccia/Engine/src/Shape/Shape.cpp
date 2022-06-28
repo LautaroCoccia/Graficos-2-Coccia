@@ -49,11 +49,11 @@ namespace Engine
 		switch (_shape)
 		{
 		case TypeOfShape::Triangle:
-			_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_indexTris) / sizeof(float), _transform.normal);
+			_renderer->Draw(_vertex, _vertexSize, sizeof(_indexTris) / sizeof(float), _transform.normal);
 			break;
 
 		case TypeOfShape::Quad:
-			_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_indexPos) / sizeof(float), _transform.normal);
+			_renderer->Draw(_vertex, _vertexSize, sizeof(_indexPos) / sizeof(float), _transform.normal);
 			break;
 		}
 	}

@@ -131,7 +131,7 @@ namespace Engine
 		
 		if (_camera->GetCurrentMode() != CameraMode::FPCamera)
 		{
-			_player3D->Draw();
+			//_player3D->Draw();
 		}
 		
 		//_box->Draw();

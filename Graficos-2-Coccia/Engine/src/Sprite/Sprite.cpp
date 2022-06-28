@@ -5,7 +5,6 @@ namespace Engine
 	Sprite::Sprite(Renderer* renderer) : Entity()
 	{
 		_renderer = renderer;
-		_textureImporter = new TextureImporter();
 
 		_animation = new Animation();
 	}
@@ -13,7 +12,7 @@ namespace Engine
 	Sprite::Sprite(Renderer* renderer, const glm::ivec2& tileDimensions) : Entity()
 	{
 		_renderer = renderer;
-		_textureImporter = new TextureImporter();
+		//_textureImporter = new TextureImporter();
 
 		_animation = new Animation();
 		_animation->InitSpriteSheet(this, tileDimensions);
@@ -21,27 +20,27 @@ namespace Engine
 
 	Sprite::~Sprite()
 	{
-		_renderer->DeleteBuffers(_vao, _vbo, _ebo);
+		//_renderer->DeleteBuffers(_vao, _vbo, _ebo);
 
 		if (_animation != NULL)
 			delete _animation;
-		if (_textureImporter != NULL)
-			delete _textureImporter;
+		//if (_textureImporter != NULL)
+		//	delete _textureImporter;
 	}
 
 	void Sprite::InitTexture()
 	{
 		_vertexSize = sizeof(_vertex);
 
-		_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
-		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
-
+		_renderer->CreateBuffers();
+		_renderer->BindBuffers();
+		_renderer->SetVertexSpriteAttribPointer();
 		_renderer->SetVertexAttribPointer(false, _modelUniform);
 	}
 	
 	void Sprite::ImportTexture(const char* name)
 	{
-		_textureImporter->ImportTexture(_renderer, name, _texture);
+		_textureData = _textureImporter.ImportTexture(_renderer, name);
 	}
 	void Sprite::CalculateNormal()
 	{
@@ -50,13 +49,13 @@ namespace Engine
 	}
 	void Sprite::Draw()
 	{
-		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+		//_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+		TextureImporter::BindTexture(_textureData._texture);
+		_renderer->Draw(_vertex, _vertexSize, sizeof(_index) / sizeof(float), _transform.normal);
+		//_renderer->BindTexture(_textureData._texture);
 
-		_renderer->BindTexture(_texture);
 
-		_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float), _transform.normal);
-
-		_renderer->DisableTexture();
+		//_renderer->DisableTexture();
 	}
 
 	void Sprite::DrawAnimation(glm::vec4 uvRect)
@@ -75,9 +74,9 @@ namespace Engine
 
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 
-		_renderer->BindTexture(_texture);
+		_renderer->BindTexture(_textureData._texture);
 
-		_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float), _transform.normal);
+		_renderer->Draw(_vertex, _vertexSize, sizeof(_index) / sizeof(float), _transform.normal);
 
 		_renderer->DisableTexture();
 	}

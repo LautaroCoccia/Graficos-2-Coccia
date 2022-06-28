@@ -25,7 +25,7 @@ namespace Engine
 	void Light::Draw()
 	{
 		glm::vec3 result = _lightColor * _ambientStrength;
-		_renderer->DrawLight(_vao, _vbo, result,_transform.position);
+		//_renderer->DrawLight(_transform.position);
 	}
 	void Light::TriggerCollision(Entity* other)
 	{

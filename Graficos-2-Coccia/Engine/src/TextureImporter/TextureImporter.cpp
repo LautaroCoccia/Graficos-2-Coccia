@@ -12,15 +12,7 @@ using namespace std;
 
 namespace Engine
 {
-	TextureImporter::TextureImporter()
-	{
-
-	}
-
-	TextureImporter::~TextureImporter()
-	{
-
-	}
+	
 
 	/*void TextureImporter::ImportTexture(Renderer* renderer, const char* name, unsigned int& texture)
 	{
@@ -71,7 +63,7 @@ namespace Engine
 		if (!_textureData._data)
 		{
 			cout << "failed to load texture" << endl;
-			return;
+			
 		}
 
 		// set the texture wrapping parameters
