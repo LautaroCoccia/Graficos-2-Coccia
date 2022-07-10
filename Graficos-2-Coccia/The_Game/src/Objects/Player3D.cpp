@@ -34,7 +34,7 @@ namespace Engine
 	}
 	void Player3D::SetCubeModel(const char* texture, Renderer* renderer)
 	{
-		_cubeModel = new Cube(texture, renderer);
+		_cubeModel = new Cubo(texture, renderer);
 		_cubeModel->SetPosition(_transform.position);
 		_cubeModel->SetRotation(_transform.rotation);
 	}
@@ -73,7 +73,7 @@ namespace Engine
 		if (_cubeModel != NULL)
 		{
 			_cubeModel->SetPosition(_transform.position);
-			_cubeModel->UpdatePosition();
+			//_cubeModel->UpdatePosition();
 			std::cout << _cubeModel->GetPosition().x << " " << _cubeModel->GetPosition().y << " " << _cubeModel->GetPosition().z << endl;
 		}
 		//std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << endl;

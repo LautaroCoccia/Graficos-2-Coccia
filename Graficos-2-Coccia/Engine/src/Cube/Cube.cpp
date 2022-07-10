@@ -1,37 +1,39 @@
 #include "Cube.h"
 #include <iostream>
+using namespace std;
 namespace Engine
 {
 	Cube::Cube(const char* filePath, Renderer* renderer) : Entity()
 	{
-		TI.ImportTexture(renderer, filePath, _data);
+		_renderer = renderer;
+
+		TI.ImportTexture(_renderer, filePath, _data);
 		if (_data._nrChannels == 4)
 			_alpha = true;
 
-		_renderer = renderer;
+		_vertexSize = sizeof(_vertices);
 
-		_vertexSize = sizeof(_vertex);
+		//_renderer->SetVertexSpriteAttribPointer();
 
-		_renderer->SetVertexSpriteAttribPointer();
-
-		_renderer->SetVertexBuffer(_vertexSize, vertexNormals, _vao, _vbo);
-		_renderer->SetIndexBuffer(_vertexSize, index, _ebo);
-		_renderer->SetVertexAttribPointer(false, _modelUniform);
-		//_renderer->CreateBuffers();
-		//_renderer->BindBuffers();
+		_renderer->SetVertexBuffer(_vertexSize, _vertices, _vao, _vbo);
+		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
+		
+		_renderer->SetCubeVertexAttribPointer(_modelUniform);
+		
 		
 
-		//for (int i = 0; i < 6; i++)
-		//{
-		//	cube[i] = new Sprite(renderer);
-		//	cube[i]->InitTexture();
-		//	cube[i]->ImportTexture(name);
-		//	cube[i]->SetPosition(facesPositions[i]);
-		//	cube[i]->SetRotation(facesRotations[i]);
-		//}
+		/*for (int i = 0; i < 6; i++)
+		{
+			cube[i] = new Sprite(renderer);
+			cube[i]->InitTexture();
+			cube[i]->ImportTexture(filePath);
+			cube[i]->SetPosition(facesPositions[i]);
+			cube[i]->SetRotation(facesRotations[i]);
+		}*/
 	}
 	Cube::~Cube()
 	{
+		_renderer->DeleteBuffers(_vao, _vbo, _ebo);
 		//for (int i = 5; i >= 6; i--)
 		//{
 		//	if (cube[i] != NULL)
@@ -48,17 +50,20 @@ namespace Engine
 
 	void Cube::Draw()
 	{
-		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
-
-		//_textureImporter->BindTexture(_textureData._texture);
-		_renderer->BindTexture(_data._texture);
-		_renderer->DrawCube(_vao, _vbo, _ebo, _vertices, _vertexSize, sizeof(index) / sizeof(float));
-
-		_renderer->DisableTexture();
 		//for (int i = 0; i < 6; i++)
 		//{
 		//	cube[i]->Draw();
 		//}
+		//_textureImporter->BindTexture(_textureData._texture);
+
+		
+		_renderer->BindTexture(_data._texture);
+		_renderer->SetCubeVertexAttribPointer(_modelUniform);
+
+		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+		_renderer->Draw(_alpha,_vao, _vbo, _ebo, _vertices, _vertexSize, sizeof(_index) / sizeof(float));
+		
+		_renderer->DisableTexture();
 	}
 	void Cube::TriggerCollision(Entity* other)
 	{

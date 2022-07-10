@@ -93,11 +93,11 @@ namespace Engine
 	
 		glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
-	
+		glActiveTexture(GL_TEXTURE0);
 		stbi_image_free(textureData._data);
 	
-		glUseProgram(renderer->GetShader());
-		glUniform1i(glGetUniformLocation(renderer->GetShader(), "ourTexture"), 0);
+		//glUseProgram(renderer->GetShader());
+		//glUniform1i(glGetUniformLocation(renderer->GetShader(), "ourTexture"), 0);
 		//texture = _textureData._texture;
 		//return _textureData;
 	}

@@ -43,7 +43,7 @@ namespace Engine
 			0, 1, 3, // first triangle
 			1, 2, 3  // second triangle
 		};
-
+		bool _alpha = false;
 		unsigned int _vao; // Vertex Array Obj
 		unsigned int _vbo; // Vertex Buffer Obj
 		unsigned int _ebo; // Index Buffer Obj

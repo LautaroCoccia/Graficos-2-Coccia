@@ -8,7 +8,7 @@ namespace Engine
 {
 	class  Player3D : public Entity
 	{
-		Cube* _cubeModel;
+		Cubo* _cubeModel;
 		float _movementSpeed;
 	public:
 		Player3D();

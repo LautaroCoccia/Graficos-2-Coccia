@@ -129,6 +129,23 @@ namespace Engine
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(7 * sizeof(float)));
 		glEnableVertexAttribArray(2);
 	}
+	void Renderer::SetCubeVertexAttribPointer(unsigned int& model)
+	{
+		//Position
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
+		glEnableVertexAttribArray(0);
+		//Normal
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(3);
+
+		//Texture coordinates
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(2);
+
+		glBindVertexArray(0);
+
+		model = glGetUniformLocation(GetShader(), "model");
+	}
 	void Renderer::CreateShader()
 	{
 		_shader->SetShader("../Engine/shaders/Vertex.vert", "../Engine/shaders/Fragment.frag");
@@ -139,8 +156,8 @@ namespace Engine
 	
 	void Renderer::BindTexture(unsigned int& texture)
 	{
-		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
+		glActiveTexture(GL_TEXTURE0);
 	}
 
 	void Renderer::DisableTexture()
@@ -165,9 +182,18 @@ namespace Engine
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glUseProgram(0);
 	}
-	void Renderer::Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
+	void Renderer::Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
 		glUseProgram(_shader->GetShader());
+		if (alpha)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
+		else
+		{
+			glDisable(GL_BLEND);
+		}
 		//BindBuffers();
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -182,9 +208,20 @@ namespace Engine
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glUseProgram(0);
 	}
-	void Renderer::DrawCube(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
+	void Renderer::DrawCube(bool alpha,unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
 		glUseProgram(_shader->GetShader());
+
+		if (alpha) // TODO: clean pls
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
+		else
+		{
+
+			glDisable(GL_BLEND);
+		}
 		//BindBuffers();
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
