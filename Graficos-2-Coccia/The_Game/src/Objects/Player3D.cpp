@@ -13,7 +13,6 @@ namespace Engine
 		_transform.rotation.x = 4.37114e-08f;
 		_transform.rotation.y = 0;
 		_transform.rotation.z = 1;
-		
 	}
 	Player3D::Player3D(float movementSpeed, const char* texture, Renderer* renderer) : Entity()
 	{
@@ -24,7 +23,6 @@ namespace Engine
 		_transform.rotation.x = 4.37114e-08f;
 		_transform.rotation.y = 0;
 		_transform.rotation.z = 1;
-
 	}
 
 	Player3D::~Player3D()
@@ -40,16 +38,6 @@ namespace Engine
 	}
 	void Player3D::Move(float deltaTime) 
 	{
-		//_transform.forward.x = cos(glm::radians(_transform.rotation.x)) * cos(glm::radians(_transform.rotation.y));
-		//_transform.forward.y = sin(glm::radians(_transform.rotation.y));
-		//_transform.forward.z = sin(glm::radians(_transform.rotation.x)) * cos(glm::radians(_transform.rotation.y));
-		//
-		
-		//_transform.forward.x = cos((_transform.rotation.x)) * cos((_transform.rotation.y));
-		//_transform.forward.y = sin((_transform.rotation.y));
-		//_transform.forward.z = sin((_transform.rotation.x)) * cos((_transform.rotation.y));
-		
-		//_transform.forward = vec3(0, 0, 1);
 		_transform.forward = glm::normalize(_transform.rotation);
 		_transform.right = glm::cross(glm::vec3(0, 1, 0), _transform.forward);
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
@@ -63,12 +51,6 @@ namespace Engine
 		if (Input::GetKey(Keycode::D))
 			_transform.position += glm::cross(_transform.forward, _transform.up) * _movementSpeed * deltaTime;
 		
-		//std::cout << _transform.right.x << " " << _transform.right.y << " " << _transform.right.z << std::endl;
-		
-		//std::cout << _transform.forward.x << " " << _transform.forward.y << " " << _transform.forward.z << std::endl;
-		//std::cout << _transform.rotation.x << " " << _transform.rotation.y << " " << _transform.rotation.z << std::endl;
-
-		std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << std::endl;
 
 		if (_cubeModel != NULL)
 		{
@@ -76,7 +58,6 @@ namespace Engine
 			//_cubeModel->UpdatePosition();
 			std::cout << _cubeModel->GetPosition().x << " " << _cubeModel->GetPosition().y << " " << _cubeModel->GetPosition().z << endl;
 		}
-		//std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << endl;
 	}
 	void Player3D::Draw()
 	{
