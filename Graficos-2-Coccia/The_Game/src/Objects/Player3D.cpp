@@ -6,6 +6,7 @@ namespace Engine
 	Player3D::Player3D() : Entity()
 	{
 		_cubeModel = NULL;
+		_light = NULL;
 		_movementSpeed = 10;
 
 		_transform.position = vec3(0, 0, 0);
@@ -13,9 +14,12 @@ namespace Engine
 		_transform.rotation.x = 4.37114e-08f;
 		_transform.rotation.y = 0;
 		_transform.rotation.z = 1;
+
+
 	}
 	Player3D::Player3D(float movementSpeed, const char* texture, Renderer* renderer) : Entity()
 	{
+		_light = new Light(renderer);
 		_movementSpeed = movementSpeed;
 		SetCubeModel(texture, renderer);
 		_transform.position = vec3(0, 0, 0);
@@ -23,10 +27,15 @@ namespace Engine
 		_transform.rotation.x = 4.37114e-08f;
 		_transform.rotation.y = 0;
 		_transform.rotation.z = 1;
+
+		_light->SetPosition(glm::vec3(0, 0, 0));
+		_light->SetLightColorAmbient(glm::vec3(1, 1, 1), 1);
 	}
 
 	Player3D::~Player3D()
 	{
+		if (_light != NULL)
+			delete _light;
 		if (_cubeModel != NULL)
 			delete _cubeModel;
 	}
@@ -35,6 +44,9 @@ namespace Engine
 		_cubeModel = new Cubo(texture, renderer);
 		_cubeModel->SetPosition(_transform.position);
 		_cubeModel->SetRotation(_transform.rotation);
+
+		
+
 	}
 	void Player3D::Move(float deltaTime) 
 	{
@@ -51,18 +63,23 @@ namespace Engine
 		if (Input::GetKey(Keycode::D))
 			_transform.position += glm::cross(_transform.forward, _transform.up) * _movementSpeed * deltaTime;
 		
+		_light->SetPosition(_transform.position);
 
 		if (_cubeModel != NULL)
 		{
 			_cubeModel->SetPosition(_transform.position);
 			//_cubeModel->UpdatePosition();
-			std::cout << _cubeModel->GetPosition().x << " " << _cubeModel->GetPosition().y << " " << _cubeModel->GetPosition().z << endl;
+			//std::cout << _cubeModel->GetPosition().x << " " << _cubeModel->GetPosition().y << " " << _cubeModel->GetPosition().z << endl;
 		}
+		
 	}
 	void Player3D::Draw()
 	{
 		if (_cubeModel != NULL)
 			_cubeModel->Draw();
+		if(_light !=NULL)
+			_light->Draw();
+
 	}
 	void Player3D::TriggerCollision(Entity* other)
 	{

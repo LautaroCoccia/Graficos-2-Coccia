@@ -87,7 +87,7 @@ namespace Engine
 		
 		// --------------------------------
 		
-		_player3D = new Player3D(10, "res/BOB-ESPONJA-1-22.png", GetRenderer());
+		_player3D = new Player3D(10, "res/wall.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
 		// --------------------------------
 
@@ -115,7 +115,7 @@ namespace Engine
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
 
-		_cubito = new Cubo("res/character_robot_sheet.png", GetRenderer());
+		_cubito = new Cubo("res/RockWall.jpg", GetRenderer());
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 	}
@@ -137,7 +137,7 @@ namespace Engine
 
 		//_quad->Draw();
 
-		_light->Draw();
+		//_light->Draw();
 		_wall1->Draw();
 		_player3D->Move(deltaTime);
 

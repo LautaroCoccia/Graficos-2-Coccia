@@ -165,14 +165,14 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDisable(GL_TEXTURE_2D);
 	}
-	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3 &_lightColor, float &_ambientStr)
+	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3 &lightColor, glm::vec3& lightPos)
 	{
 		glUseProgram(_shader->GetShader());
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "ambient.color"), 1, &_lightColor[0]);
-		glUniform1f(glGetUniformLocation(_shader->GetShader(), "ambient.strength"), _ambientStr);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"),1, &lightColor[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightPos"),1, &lightPos[0]);
 		//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 		//
 		//glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
@@ -219,7 +219,6 @@ namespace Engine
 		}
 		else
 		{
-
 			glDisable(GL_BLEND);
 		}
 		//BindBuffers();

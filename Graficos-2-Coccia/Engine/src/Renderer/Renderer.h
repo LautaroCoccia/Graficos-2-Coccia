@@ -47,7 +47,7 @@ namespace Engine
 		void CreateShader();
 		void BindTexture(unsigned int& texture);
 		void DisableTexture();
-		void DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3& _lightColor, float& _ambientStr);
+		void DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3& _lightColor, glm::vec3& lightPos);
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void DrawCube(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void UpdateModel(glm::mat4 model, unsigned int updateShape);
