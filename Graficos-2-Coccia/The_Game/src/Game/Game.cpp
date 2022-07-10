@@ -118,6 +118,7 @@ namespace Engine
 		_cubito = new Cubo("res/RockWall.jpg", GetRenderer());
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
+		_cubito->SetScale(10, 10, 10);
 	}
 	
 	void Game::Play()

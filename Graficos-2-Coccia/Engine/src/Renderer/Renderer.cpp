@@ -168,18 +168,35 @@ namespace Engine
 	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3 &lightColor, glm::vec3& lightPos)
 	{
 		glUseProgram(_shader->GetShader());
-		glBindVertexArray(vao);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		//glBindVertexArray(vao);
+		//glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glm::vec3 ambient = glm::vec3(1.0f, 0.5f, 0.31f);
+		glm::vec3 diffuse = glm::vec3(1.0f, 0.5f, 0.31f);
+		glm::vec3 specular = glm::vec3(0.5f, 0.5f, 0.5f);
+		float shininess = 32;
 
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"),1, &lightColor[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightPos"),1, &lightPos[0]);
+		glm::vec3 lightAmbient = glm::vec3(0.2, 0.2, 0.2);
+		glm::vec3 lightDiffuse = glm::vec3(1.0f, 0.5f, 0.31f);
+		glm::vec3 lightSpecular = glm::vec3(1, 1, 1);
+
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.ambient"), 1, &lightAmbient[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.diffuse"), 1, &lightDiffuse[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.specular"), 1, &lightSpecular[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.position"),1, &lightPos[0]);
+
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.ambient"),1, &ambient[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"),1, &diffuse[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"),1, &specular[0]);
+		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"),1, &shininess);
+
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "viewPos"),1, &_camera->GetPosition()[0]);
 		//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 		//
 		//glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 
-		glBindVertexArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		//glBindVertexArray(0);
+		//glBindBuffer(GL_ARRAY_BUFFER, 0);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glUseProgram(0);
 	}
 	void Renderer::Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)

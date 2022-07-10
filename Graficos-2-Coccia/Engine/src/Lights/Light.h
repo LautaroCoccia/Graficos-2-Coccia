@@ -15,6 +15,7 @@ namespace Engine
 			float strength;
 		};
 		ambient _ambient;
+
 		Renderer* _renderer;
 		unsigned int _vao; // Vertex Array Obj
 		unsigned int _vbo; // Vertex Buffer Obj
