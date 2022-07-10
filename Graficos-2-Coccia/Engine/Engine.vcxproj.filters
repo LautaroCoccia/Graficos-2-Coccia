@@ -114,6 +114,9 @@
     <ClCompile Include="src\Lights\Light.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
+    <ClCompile Include="src\Cube\Cubo.cpp">
+      <Filter>Cube</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animation\Animation.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="src\Lights\Light.h">
       <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cube\Cubo.h">
+      <Filter>Cube</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

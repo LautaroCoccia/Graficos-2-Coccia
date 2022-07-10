@@ -9,35 +9,54 @@
 
 namespace Engine
 {
+	struct LightData
+	{
+		glm::vec3 _position;
+
+		glm::vec3 _color;
+
+		glm::vec3 _ambient;
+		glm::vec3 _diffuse;
+		glm::vec3 _specular;
+
+		int _isActive;
+	};
+	struct Material
+	{
+		glm::vec3 _ambient;
+		glm::vec3 _diffuse;
+		glm::vec3 _specular;
+		float _shininess;
+	};
 	enum class TypeOfShape {
 		Triangle,
 		Quad
 	};
-
 	class EXPORT_API Renderer
 	{
 	private:
 		unsigned int _modelInd;
 		unsigned int _viewInd;
 		unsigned int _projectionInd;
+		
 		Shader* _shader;
 		Camera* _camera;
 
-		unsigned int _VBO = 0; // VertexBufferObject
-		unsigned int _VAO = 0; // VertexArrayObject
-		unsigned int _EBO = 0; // ElementsBufferObject
+		unsigned int _VBO = 0; // VertexBufferObject 
+		unsigned int _VAO = 0; // VertexArrayObject 
+		unsigned int _EBO = 0; // ElementsBufferObject 
 	public:
 		Renderer();
 		~Renderer();
 		
 		int InitGlew();
-
+		
 		void CreateBuffers();
 		void BindBuffers();
 		void SetVertexShapeAttribPointer();
 		void SetVertexSpriteAttribPointer();
+		void SetCubeVertexAttribPointer(unsigned int& model);
 		void SetVertexMaterialAttribPointer();
-
 
 		void SetLightVertexArray(unsigned int& vao, unsigned int& vbo);
 		void SetLightAttribPointer();
@@ -48,8 +67,9 @@ namespace Engine
 		void CreateShader();
 		void BindTexture(unsigned int& texture);
 		void DisableTexture();
-		void DrawLight(glm::vec3& lightColor, glm::vec3& lightPos);
-		void Draw(float* vertex, float vertexSize, int vertexCount, glm::vec3 normal);
+		void DrawLight(LightData lightData, glm::vec3& lightColor);
+		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
+		void DrawCube(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void UpdateModel(glm::mat4 model, unsigned int updateShape);
 
 		void StopShader();

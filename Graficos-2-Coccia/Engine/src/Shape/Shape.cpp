@@ -49,11 +49,11 @@ namespace Engine
 		switch (_shape)
 		{
 		case TypeOfShape::Triangle:
-			_renderer->Draw(_vertex, _vertexSize, sizeof(_indexTris) / sizeof(float), _transform.normal);
+			_renderer->Draw(false,_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_indexTris) / sizeof(float));
 			break;
 
 		case TypeOfShape::Quad:
-			_renderer->Draw(_vertex, _vertexSize, sizeof(_indexPos) / sizeof(float), _transform.normal);
+			_renderer->Draw(false, _vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_indexPos) / sizeof(float));
 			break;
 		}
 	}
@@ -174,5 +174,9 @@ namespace Engine
 			_quadVertex[15] = r; _quadVertex[16] = g; _quadVertex[17] = b;
 			_quadVertex[21] = r; _quadVertex[22] = g; _quadVertex[23] = b;
 		}
+	}
+	void Shape::TriggerCollision(Entity* other) 
+	{ 
+	
 	}
 }

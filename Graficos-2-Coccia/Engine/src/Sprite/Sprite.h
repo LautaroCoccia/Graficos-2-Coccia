@@ -43,7 +43,7 @@ namespace Engine
 			0, 1, 3, // first triangle
 			1, 2, 3  // second triangle
 		};
-
+		bool _alpha = false;
 		unsigned int _vao; // Vertex Array Obj
 		unsigned int _vbo; // Vertex Buffer Obj
 		unsigned int _ebo; // Index Buffer Obj
@@ -55,7 +55,9 @@ namespace Engine
 		
 		UVs _uv[4];
 
-		Animation* _animation; // Acá se podria poner una lista para asi tener mas de 1 animacion
+		Animation* _animation; // Acï¿½ se podria poner una lista para asi tener mas de 1 animacion
+		TextureImporter* _textureImporter;
+		TextureData _textureData;
 		Renderer* _renderer;
 		TextureImporter _textureImporter;
 		TextureData _textureData;

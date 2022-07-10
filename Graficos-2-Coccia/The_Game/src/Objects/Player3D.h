@@ -2,13 +2,15 @@
 #define PLAYER3D_H
 
 #include "..\src\Entity\Entity.h"
+#include "..\src\Lights\Light.h"
 #include "GameBase/GameBase.h"
 
 namespace Engine
 {
 	class  Player3D : public Entity
 	{
-		Cube* _cubeModel;
+		Light* _light;
+		Cubo* _cubeModel;
 		float _movementSpeed;
 	public:
 		Player3D();

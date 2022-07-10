@@ -6,6 +6,7 @@ namespace Engine
 {
 	Game::Game(): GameBase()
 	{
+		_quad = NULL;
 		_player3D = NULL;
 		_roboBob = NULL;
 		_wall1 = NULL;
@@ -14,6 +15,8 @@ namespace Engine
 		_camera = NULL;
 		_light = NULL;
 		//_cube = NULL;
+
+		_cubito = NULL;
 	}
 
 	Game::~Game()
@@ -32,6 +35,8 @@ namespace Engine
 			delete _camera;
 		if (_light != NULL)
 			delete _light;
+		if (_cubito != NULL)
+			delete _cubito;
 		//if (_cube != NULL)
 		//	delete _cube;
 	}
@@ -55,12 +60,16 @@ namespace Engine
 		
 		GetRenderer()->SetCurrentCamera(_camera);
 
+		//_quad = new Shape(GetRenderer());
+		//_quad->InitShape(TypeOfShape::Quad);
+		//_quad->SetColor(ENTITY_COLOR::WHITE);
+		//_quad->SetPosition(0, 1, 0);
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer());
 
 		_wall1->InitTexture();
-		_wall1->ImportTexture("res/wall.jpg");
+		_wall1->ImportTexture("res/RockWall.jpg");
 		_wall1->SetPosition(0, -1, 0);
 		_wall1->SetRotation(90, 0, 0);
 		_wall1->SetScale(10,10,10);
@@ -72,7 +81,7 @@ namespace Engine
 		// --------------------------------
 		_wall2 = new Sprite(GetRenderer());
 		_wall2->InitTexture();
-		_wall2->ImportTexture("res/wall.jpg");
+		_wall2->ImportTexture("res/RockWall.jpg");
 		_wall2->SetRotation(0, 0, 0);
 		_wall2->SetPosition(0, 0, 0);
 		_wall2->SetStaticState(true);
@@ -80,13 +89,13 @@ namespace Engine
 		
 		// --------------------------------
 		
-		_player3D = new Player3D(10,"res/crate1_diffuse.png", GetRenderer());
+		_player3D = new Player3D(10, "res/wall.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
 		// --------------------------------
 
 		_box = new Sprite(GetRenderer());
 		_box->InitTexture();
-		_box->ImportTexture("res/crate1_diffuse.png");
+		_box->ImportTexture("res/wall.png");
 		_box->SetPosition(0, 0, 0);
 
 		//GetCollisionManager()->AddNewObject(_box);
@@ -107,6 +116,11 @@ namespace Engine
 
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
+
+		_cubito = new Cubo("res/RockWall.jpg", GetRenderer());
+		//_cubito->SetScale(1, 1, 1);
+		_cubito->SetPosition(0, 0, 0);
+		_cubito->SetScale(10, 10, 10);
 	}
 	
 	void Game::Play()
@@ -123,12 +137,16 @@ namespace Engine
 		//_wall2->Draw();
 		
 		//_cube->Draw();
-		_light->Draw();
+
+		//_quad->Draw();
+
+		//_light->Draw();
 		_wall1->Draw();
 		_player3D->Move(deltaTime);
 
 		_camera->CameraInput(deltaTime,  _player3D->_transform);
 		
+		_cubito->Draw();
 		if (_camera->GetCurrentMode() != CameraMode::FPCamera)
 		{
 			//_player3D->Draw();

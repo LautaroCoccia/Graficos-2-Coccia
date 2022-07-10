@@ -16,11 +16,18 @@ namespace Engine
 	};
 	class EXPORT_API TextureImporter
 	{
+		
+		int _width, _height, _nrChannels;
+		
+		unsigned char* _data;
 
 	public:
+		
+		TextureImporter();
+		~TextureImporter();
 
-		//void ImportTexture(Renderer* renderer, const char* name, unsigned int& texture);
-		static TextureData ImportTexture(Renderer* renderer,const char* filePath);
+		void ImportTexture(Renderer* renderer, const char* name, unsigned int& texture);
+		void ImportTexture(Renderer* renderer, const char* filePath, TextureData& _textureData);
 	};
 }
 

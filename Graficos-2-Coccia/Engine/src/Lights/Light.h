@@ -9,17 +9,24 @@ namespace Engine
 	class EXPORT_API Light : public Entity
 	{
 	private:
-		glm::vec3 _lightColor;
-		float _ambientStrength;
+		struct ambient
+		{
+			glm::vec3 color;
+			float strength;
+		};
+		ambient _ambient;
+
+		LightData _lightData;
+
 		Renderer* _renderer;
 		unsigned int _vao; // Vertex Array Obj
 		unsigned int _vbo; // Vertex Buffer Obj
 		unsigned int _ebo; // Index Buffer Obj
-
 	public:
 		Light(Renderer* renderer);
 		~Light();
-		void SetLightColor(glm::vec3 lightColor, float ambientStrength);
+		void SetLightColorAmbient(glm::vec3 lightColor, float ambientStrength);
+		void SetPosition(glm::vec3 position);
 		void Draw();
 		void TriggerCollision(Entity* other) override;
 	};

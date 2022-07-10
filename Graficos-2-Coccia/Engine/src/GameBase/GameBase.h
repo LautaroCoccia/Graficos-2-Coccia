@@ -7,6 +7,7 @@
 #include "../Camera/Camera.h"
 #include "../Sprite/Sprite.h"
 #include "../Cube/Cube.h"
+#include "../Cube/Cubo.h"
 #include "../Lights/Light.h"
 #include "../Animation/Animation.h"
 #include "../Input/Input.h"
