@@ -9,19 +9,39 @@
 
 namespace Engine
 {
+	struct LightData
+	{
+		glm::vec3 _position;
+
+		glm::vec3 _color;
+
+		glm::vec3 _ambient;
+		glm::vec3 _diffuse;
+		glm::vec3 _specular;
+
+		int _isActive;
+	};
+	struct Material
+	{
+		glm::vec3 _ambient;
+		glm::vec3 _diffuse;
+		glm::vec3 _specular;
+		float _shininess;
+	};
 	enum class TypeOfShape {
 		Triangle,
 		Quad
 	};
-
 	class EXPORT_API Renderer
 	{
 	private:
 		unsigned int _modelInd;
 		unsigned int _viewInd;
 		unsigned int _projectionInd;
+		
 		Shader* _shader;
 		Camera* _camera;
+
 		unsigned int _VBO = 0; // VertexBufferObject 
 		unsigned int _VAO = 0; // VertexArrayObject 
 		unsigned int _EBO = 0; // ElementsBufferObject 
@@ -47,7 +67,7 @@ namespace Engine
 		void CreateShader();
 		void BindTexture(unsigned int& texture);
 		void DisableTexture();
-		void DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3& _lightColor, glm::vec3& lightPos);
+		void DrawLight(LightData lightData, glm::vec3& lightColor);
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void DrawCube(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void UpdateModel(glm::mat4 model, unsigned int updateShape);

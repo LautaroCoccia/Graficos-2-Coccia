@@ -16,11 +16,12 @@ namespace Engine
 		};
 		ambient _ambient;
 
+		LightData _lightData;
+
 		Renderer* _renderer;
 		unsigned int _vao; // Vertex Array Obj
 		unsigned int _vbo; // Vertex Buffer Obj
 		unsigned int _ebo; // Index Buffer Obj
-		glm::vec3 _position;
 	public:
 		Light(Renderer* renderer);
 		~Light();

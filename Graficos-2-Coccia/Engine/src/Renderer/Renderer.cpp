@@ -158,6 +158,17 @@ namespace Engine
 	{
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glActiveTexture(GL_TEXTURE0);
+
+
+		glm::vec3 ambient = glm::vec3(1, 1, 1);
+		glm::vec3 diffuse = glm::vec3(0.1, 0.5f, 0.31f);
+		glm::vec3 specular = glm::vec3(0.5f, 0.5f, 0.5f);
+		float shininess = 256;
+
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.ambient"), 1, &ambient[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 1, &diffuse[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &specular[0]);
+		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"), 1, &shininess);
 	}
 
 	void Renderer::DisableTexture()
@@ -165,29 +176,17 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDisable(GL_TEXTURE_2D);
 	}
-	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3 &lightColor, glm::vec3& lightPos)
-	{
+	void Renderer::DrawLight(LightData lightData, glm::vec3 &lightColor)
+	{ 
 		glUseProgram(_shader->GetShader());
 		//glBindVertexArray(vao);
 		//glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glm::vec3 ambient = glm::vec3(1.0f, 0.5f, 0.31f);
-		glm::vec3 diffuse = glm::vec3(1.0f, 0.5f, 0.31f);
-		glm::vec3 specular = glm::vec3(0.5f, 0.5f, 0.5f);
-		float shininess = 32;
-
-		glm::vec3 lightAmbient = glm::vec3(0.2, 0.2, 0.2);
-		glm::vec3 lightDiffuse = glm::vec3(1.0f, 0.5f, 0.31f);
-		glm::vec3 lightSpecular = glm::vec3(1, 1, 1);
-
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.ambient"), 1, &lightAmbient[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.diffuse"), 1, &lightDiffuse[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.specular"), 1, &lightSpecular[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.position"),1, &lightPos[0]);
-
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.ambient"),1, &ambient[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"),1, &diffuse[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"),1, &specular[0]);
-		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"),1, &shininess);
+		
+		 
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.ambient"), 1, &lightData._ambient[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.diffuse"), 1, &lightData._diffuse[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.specular"), 1, &lightData._specular[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.position"),1, &lightData._position[0]);
 
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "viewPos"),1, &_camera->GetPosition()[0]);
 		//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
