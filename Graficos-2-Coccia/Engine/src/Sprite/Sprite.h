@@ -59,7 +59,7 @@ namespace Engine
 		TextureImporter* _textureImporter;
 		TextureData _textureData;
 		Renderer* _renderer;
-		TextureImporter _textureImporter;
+		//TextureImporter _textureImporter;
 		TextureData _textureData;
 	public:
 		Sprite(Renderer* renderer);

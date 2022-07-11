@@ -118,6 +118,7 @@ namespace Engine
 		//_cube->SetPosition(0, 0, 0);
 
 		_cubito = new Cubo("res/RockWall.jpg", GetRenderer());
+		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(0.1, 0.5, 0.31), glm::vec3(0.5, 0.5, 0.5), 256);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 		_cubito->SetScale(10, 10, 10);

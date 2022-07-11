@@ -204,17 +204,6 @@ namespace Engine
 	{
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glActiveTexture(GL_TEXTURE0);
-
-
-		glm::vec3 ambient = glm::vec3(1, 1, 1);
-		glm::vec3 diffuse = glm::vec3(0.1, 0.5f, 0.31f);
-		glm::vec3 specular = glm::vec3(0.5f, 0.5f, 0.5f);
-		float shininess = 256;
-
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.ambient"), 1, &ambient[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 1, &diffuse[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &specular[0]);
-		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"), 1, &shininess);
 	}
 
 	void Renderer::DisableTexture()
@@ -307,7 +296,14 @@ namespace Engine
 
 		glUseProgram(0);
 	}
-	
+	void Renderer::UpdateMaterial(Material& material)
+	{
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.ambient"), 1, &material._ambient[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 1, &material._diffuse[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &material._specular[0]);
+		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"), 1, &material._shininess);
+	}
+
 	void Renderer::StopShader()
 	{
 		if (_shader != NULL)
