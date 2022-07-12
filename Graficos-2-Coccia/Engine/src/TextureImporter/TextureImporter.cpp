@@ -44,6 +44,8 @@ namespace Engine
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+		glBindTexture(GL_TEXTURE_2D, 0);
+
 		if (_nrChannels == 4)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, _data);
@@ -54,7 +56,6 @@ namespace Engine
 		}
 
 		glGenerateMipmap(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		stbi_image_free(_data);
 		glUseProgram(renderer->GetShader());
@@ -83,6 +84,7 @@ namespace Engine
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
+
 		if (textureData._nrChannels == 4)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, textureData._width, textureData._height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData._data);
@@ -91,10 +93,10 @@ namespace Engine
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureData._width, textureData._height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData._data);
 		}
-	
-		glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glActiveTexture(GL_TEXTURE0);
+	
+		glGenerateMipmap(GL_TEXTURE_2D);
 		//ImportTexture(renderer, filePath, textureData._specular);
 		stbi_image_free(textureData._data);
 	

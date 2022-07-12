@@ -118,7 +118,7 @@ namespace Engine
 		_renderer->SetCubeVertexAttribPointer(_modelUniform);
 
 		//_renderer->BindTextures(_diffuse._texture, _specular._texture);
-		_renderer->BindTexture(_diffuse._texture);
+		_renderer->BindTextures(_diffuse._texture,_specular._texture);
 
 		_renderer->Draw(_diffuse._alpha,_vao, _vbo, _ebo, _vertices, _vertexSize, sizeof(_index) / sizeof(float));
 		

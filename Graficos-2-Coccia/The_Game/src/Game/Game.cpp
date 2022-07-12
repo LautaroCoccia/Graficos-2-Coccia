@@ -121,8 +121,9 @@ namespace Engine
 		//_cube->SetPosition(0, 0, 0);
 
 		//BOB-ESPONJA-1-22.png
-		_cubito = new Cubo("res/RockWall.jpg","res/BOB-ESPONJA-1-22.png", GetRenderer());
-		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 32);
+		//_cubito = new Cubo("res/RockWall.jpg","res/BOB-ESPONJA-1-22.png", GetRenderer());
+		_cubito = new Cubo("res/box2.png",NULL, GetRenderer());
+		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 256);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 		_cubito->SetScale(10, 10, 10);

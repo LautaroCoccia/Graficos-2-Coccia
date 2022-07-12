@@ -34,7 +34,7 @@ namespace Engine
 			return -1;
 		}
 
-		//glEnable(GL_BLEND);
+		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
@@ -209,10 +209,10 @@ namespace Engine
 	void Renderer::Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
 		glUseProgram(_shader->GetShader());
-		if (alpha)
-		{
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		if (alpha)
+		{
 		}
 		else
 		{
@@ -274,8 +274,8 @@ namespace Engine
 	{
 		glUseProgram(_shader->GetShader());
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.ambient"), 1, &material._ambient[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 1, &material._diffuse[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &material._specular[0]);
+		//glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 1, &material._diffuse[0]);
+		//glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &material._specular[0]);
 		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"), 1, &material._shininess);
 		glUseProgram(0);
 	}
