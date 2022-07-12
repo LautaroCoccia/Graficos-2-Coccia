@@ -55,7 +55,7 @@ namespace Engine
 	{
 		_renderer->SetVertexAttribPointer(false, _modelUniform);
 		
-		_renderer->BindTexture(_textureData._texture);
+		_renderer->BindTexture(_textureData._diffuse);
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 		//_textureImporter->BindTexture(_textureData._texture);
 		_renderer->Draw(_alpha,_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float));

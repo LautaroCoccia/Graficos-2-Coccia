@@ -34,6 +34,13 @@ namespace Engine
 		_ambient.color = lightColor;
 		_ambient.strength = ambientStrength;
 	}
+	void Light::SetLightData(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
+	{
+		_lightData._ambient = ambient;
+		_lightData._diffuse = diffuse;
+		_lightData._specular = specular;
+
+	}
 	void Light::SetPosition(glm::vec3 position)
 	{
 		_lightData._position = position;
@@ -42,7 +49,6 @@ namespace Engine
 	void Light::Draw()
 	{
 		glm::vec3 lightColor = _ambient.color * _ambient.strength;
-		//cout << lightColor.x << " " << lightColor.y << " " << lightColor.z << endl;
 		_renderer->DrawLight(_lightData, lightColor);
 	}
 }

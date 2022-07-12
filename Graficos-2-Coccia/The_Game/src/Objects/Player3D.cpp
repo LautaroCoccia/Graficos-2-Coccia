@@ -29,7 +29,8 @@ namespace Engine
 		_transform.rotation.z = 1;
 
 		_light->SetPosition(glm::vec3(0, 0, 0));
-		_light->SetLightColorAmbient(glm::vec3(1, 1, 1), 0.5);
+		_light->SetLightColorAmbient(glm::vec3(0.1, 1, 1), 0);
+
 	}
 
 	Player3D::~Player3D()
@@ -46,7 +47,11 @@ namespace Engine
 		_cubeModel->SetRotation(_transform.rotation);
 
 		
-
+		
+	}
+	Light* Player3D::GetLight()
+	{
+		return _light;
 	}
 	void Player3D::Move(float deltaTime) 
 	{
@@ -65,6 +70,8 @@ namespace Engine
 		
 		_light->SetPosition(_transform.position);
 
+		std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << endl;
+		
 		if (_cubeModel != NULL)
 		{
 			_cubeModel->SetPosition(_transform.position);

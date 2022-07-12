@@ -26,6 +26,7 @@ namespace Engine
 		Light(Renderer* renderer);
 		~Light();
 		void SetLightColorAmbient(glm::vec3 lightColor, float ambientStrength);
+		void SetLightData(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
 		void SetPosition(glm::vec3 position);
 		void Draw();
 	};

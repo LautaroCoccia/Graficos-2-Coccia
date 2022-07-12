@@ -50,6 +50,9 @@ namespace Engine
 		_camera->SetCameraMode(CameraMode::FlyCamera);
 
 		_light = new Light(GetRenderer());
+		_light->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1));
+		_light->SetLightColorAmbient(glm::vec3(0.5, 0.5, 0.5), 0.2);
+		_light->SetPosition(glm::vec3(10, 1, 10));
 		//For TPCamera (pos y rot)
 		_camera->SetCameraPosition(0, 0, -3);
 		_camera->SetCameraRotation(4.37f, 1, 0);
@@ -89,6 +92,8 @@ namespace Engine
 		
 		_player3D = new Player3D(10, "res/wall.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
+		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(0.7,0.7,0.7), glm::vec3(0.5, 0.5, 0.5));
+		_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.25,1,0.31), 1);
 		// --------------------------------
 
 		_box = new Sprite(GetRenderer());
@@ -115,7 +120,8 @@ namespace Engine
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
 
-		_cubito = new Cubo("res/RockWall.jpg", GetRenderer());
+		_cubito = new Cubo("res/box2.png", GetRenderer());
+		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 32);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 		_cubito->SetScale(10, 10, 10);
@@ -139,12 +145,18 @@ namespace Engine
 		//_quad->Draw();
 
 		//_light->Draw();
+		
+		if (_camera->GetCurrentMode() != CameraMode::FlyCamera)
+		{
+			_player3D->Move(deltaTime);
+
+		}
 		_wall1->Draw();
-		_player3D->Move(deltaTime);
 
 		_camera->CameraInput(deltaTime,  _player3D->_transform);
 		
 		_cubito->Draw();
+
 		if (_camera->GetCurrentMode() != CameraMode::FPCamera)
 		{
 			_player3D->Draw();

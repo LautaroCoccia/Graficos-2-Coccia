@@ -12,7 +12,7 @@ namespace Engine
 		int _width;
 		int _height;
 		int _nrChannels;
-		unsigned int _texture;
+		unsigned int _diffuse;
 	};
 	class EXPORT_API TextureImporter
 	{
@@ -28,6 +28,7 @@ namespace Engine
 
 		void ImportTexture(Renderer* renderer, const char* name, unsigned int& texture);
 		void ImportTexture(Renderer* renderer, const char* filePath, TextureData& _textureData);
+		//void ImportTextures(Renderer* renderer, const char* filePath, TextureData& _textureData);
 	};
 }
 

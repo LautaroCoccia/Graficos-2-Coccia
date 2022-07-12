@@ -73,8 +73,8 @@ namespace Engine
 			cout << "failed to load texture" << endl;
 	
 		}
-		glGenTextures(1, &textureData._texture);
-		glBindTexture(GL_TEXTURE_2D, textureData._texture);
+		glGenTextures(1, &textureData._diffuse);
+		glBindTexture(GL_TEXTURE_2D, textureData._diffuse);
 		// set the texture wrapping parameters 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method) 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -94,6 +94,7 @@ namespace Engine
 		glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glActiveTexture(GL_TEXTURE0);
+		//ImportTexture(renderer, filePath, textureData._specular);
 		stbi_image_free(textureData._data);
 	
 		//glUseProgram(renderer->GetShader());
@@ -101,4 +102,10 @@ namespace Engine
 		//texture = _textureData._texture;
 		//return _textureData;
 	}
+	//void TextureImporter::ImportTextures(Renderer* renderer, const char* diffuse, const char* specular, TextureData& _textureData)
+	//{
+	//	ImportTexture(renderer, diffuse, _textureData);
+	//	void ImportTexture(Renderer * renderer, const char* name, unsigned int& texture);
+	//
+	//}
 }

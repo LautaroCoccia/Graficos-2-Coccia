@@ -61,14 +61,16 @@ namespace Engine
         TextureData _data;
         bool _alpha = false;
         Renderer* _renderer;
+        Material _material;
         int _vertexSize;
         unsigned int _modelUniform;
         unsigned int _vao; // Vertex Array Obj
         unsigned int _vbo; // Vertex Buffer Obj
         unsigned int _ebo; // Index Buffer Obj
     public:
-        Cubo(const char* filePath, Renderer* renderer);
-        void InitCubo();
+        Cubo(const char* diffuse, Renderer* renderer);
+        Cubo(const char* diffuse, const char* specular, Renderer* renderer);
+        void SetMaterial(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess);
         void Draw();
         void TriggerCollision(Entity* other);
 

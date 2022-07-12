@@ -17,6 +17,7 @@ namespace Engine
 		Player3D(float movementSpeed,const char* texture, Renderer* renderer);
 		~Player3D();
 		void SetCubeModel(const char* texture, Renderer* renderer);
+		Light* GetLight();
 		void Move(float deltaTime);
 		void Draw();
 		void TriggerCollision(Entity* other) override;
