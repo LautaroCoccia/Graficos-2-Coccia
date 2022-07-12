@@ -71,6 +71,7 @@ namespace Engine
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void DrawCube(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void UpdateModel(glm::mat4 model, unsigned int updateShape);
+		void UpdateMaterial(Material& material);
 
 		void StopShader();
 		void DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int& ebo);

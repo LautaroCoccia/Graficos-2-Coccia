@@ -261,7 +261,15 @@ namespace Engine
 
 		glUseProgram(0);
 	}
-	
+	void Renderer::UpdateMaterial(Material& material)
+	{
+		glUseProgram(_shader->GetShader());
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.ambient"), 1, &material._ambient[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 1, &material._diffuse[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &material._specular[0]);
+		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"), 1, &material._shininess);
+		glUseProgram(0);
+	}
 	void Renderer::StopShader()
 	{
 		if (_shader != NULL)

@@ -10,8 +10,7 @@ in vec3 Normal; //Light
 
 
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
+    sampler2D diffuse;
     vec3 specular;
     float shininess;
 }; 
@@ -38,13 +37,13 @@ void main()
 	//vec3 ambient = ambient.color * ambient.strength;
 	//gl_FragColor = texture(ourTexture, TexCoords) * (outColor * vec4(ambient,1.0));
 
-	vec3 ambient = light.ambient * material.ambient;
+	vec3 ambient = light.ambient * texture(material.diffuse, TexCoords).rgb;
 	
     // diffuse 
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(light.position - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.diffuse * (diff * material.diffuse);
+    vec3 diffuse = light.diffuse * texture(material.diffuse, TexCoords).rgb;  
     
     // specular
     vec3 viewDir = normalize(viewPos - FragPos);

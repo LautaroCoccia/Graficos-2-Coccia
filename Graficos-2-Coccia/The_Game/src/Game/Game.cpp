@@ -100,7 +100,7 @@ namespace Engine
 		
 		// --------------------------------
 
-		_roboBob = new Player(GetRenderer(), ivec2(9,5), 10,_camera);
+		_roboBob = new Player(GetRenderer(), ivec2(9,5), 10, _camera);
 		_roboBob->GetAnimation()->AddFrame(0.5, 0, 7);
 		
 		_roboBob->InitTexture();
