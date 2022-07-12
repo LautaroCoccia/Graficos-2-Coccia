@@ -155,12 +155,13 @@ namespace Engine
     }
 	void Cubo::Draw()
 	{
+		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+        _renderer->UpdateMaterial(_material);
 		_renderer->BindTexture2(_diffuseMap, _specularMap);
 
-		_renderer->SetCubeVertexAttribPointer(_modelUniform);
-		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+		//_renderer->SetCubeVertexAttribPointer(_modelUniform);
 		_renderer->Draw(_alpha,_vao, _vbo, _ebo, _vertices, _vertexSize, sizeof(_index) / sizeof(float));
-		
+
 		_renderer->DisableTexture();
 	}
 	void Cubo::TriggerCollision(Entity* other) { }

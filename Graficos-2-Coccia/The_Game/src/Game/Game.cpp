@@ -50,9 +50,9 @@ namespace Engine
 		_camera->SetCameraMode(CameraMode::FlyCamera);
 
 		_light = new Light(GetRenderer());
-		_light->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1));
-		_light->SetLightColorAmbient(glm::vec3(0.5, 0.5, 0.5), 0.2);
 		_light->SetPosition(glm::vec3(10, 1, 10));
+		_light->SetLightData(glm::vec3(1, 1, 1), glm::vec3(0.3, 1, 1), glm::vec3(0.5, 0.5, 0.5));
+		_light->SetLightColorAmbient(glm::vec3(1, 1, 1), 1);
 		//For TPCamera (pos y rot)
 		_camera->SetCameraPosition(0, 0, -3);
 		_camera->SetCameraRotation(4.37f, 1, 0);
@@ -69,10 +69,10 @@ namespace Engine
 		//_quad->SetPosition(0, 1, 0);
 		// --------------------------------
 		
-		_wall1 = new Sprite(GetRenderer());
+		_wall1 = new Sprite(GetRenderer(), "res/RockWall.jpg");
 
-		_wall1->InitTexture();
-		_wall1->ImportTexture("res/RockWall.jpg");
+		//_wall1->InitTexture();
+		//_wall1->ImportTexture("res/RockWall.jpg");
 		_wall1->SetPosition(0, -1, 0);
 		_wall1->SetRotation(90, 0, 0);
 		_wall1->SetScale(10,10,10);
@@ -80,38 +80,38 @@ namespace Engine
 		//GetCollisionManager()->AddNewObject(_wall1);
 		
 		// --------------------------------
-		_wall2 = new Sprite(GetRenderer());
-		_wall2->InitTexture();
-		_wall2->ImportTexture("res/RockWall.jpg");
-		_wall2->SetRotation(0, 0, 0);
-		_wall2->SetPosition(0, 0, 0);
-		_wall2->SetStaticState(true);
+		//_wall2 = new Sprite(GetRenderer());
+		//_wall2->InitTexture();
+		//_wall2->ImportTexture("res/RockWall.jpg");
+		//_wall2->SetRotation(0, 0, 0);
+		//_wall2->SetPosition(0, 0, 0);
+		//_wall2->SetStaticState(true);
 		//GetCollisionManager()->AddNewObject(_wall2);
 		
 		// --------------------------------
 		
-		_player3D = new Player3D(10, "res/wall.png","res/wall.png", GetRenderer());
+		_player3D = new Player3D(10, "res/wall.png","res/container2_specular.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
-		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(0.7,0.7,0.7), glm::vec3(0.5, 0.5, 0.5));
-		_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.25,1,0.31), 1);
+		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1,1,1), glm::vec3(1, 1, 1));
+		_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.31,1,1), 1);
 		// --------------------------------
 
-		_box = new Sprite(GetRenderer());
-		_box->InitTexture();
-		_box->ImportTexture("res/wall.png");
-		_box->SetPosition(0, 0, 0);
+		//_box = new Sprite(GetRenderer());
+		//_box->InitTexture();
+		//_box->ImportTexture("res/wall.png");
+		//_box->SetPosition(0, 0, 0);
 
 		//GetCollisionManager()->AddNewObject(_box);
 		
 		// --------------------------------
 
-		_roboBob = new Player(GetRenderer(), ivec2(9,5), 10,_camera);
-		_roboBob->GetAnimation()->AddFrame(0.5, 0, 7);
-		
-		_roboBob->InitTexture();
-		_roboBob->ImportTexture("res/character_robot_sheet.png");
-		_roboBob->SetPosition(0, 0, 0);
-		GetCollisionManager()->AddNewObject(_roboBob);
+		//_roboBob = new Player(GetRenderer(), ivec2(9,5), 10,_camera);
+		//_roboBob->GetAnimation()->AddFrame(0.5, 0, 7);
+		//
+		//_roboBob->InitTexture();
+		//_roboBob->ImportTexture("res/character_robot_sheet.png");
+		//_roboBob->SetPosition(0, 0, 0);
+		//GetCollisionManager()->AddNewObject(_roboBob);
 
 		//_camera->SetEntity(_roboBob);
 
@@ -120,8 +120,8 @@ namespace Engine
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
 
-		_cubito = new Cubo("res/box2.png", "res/container2_specular.png", GetRenderer());
-		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(0.31, 1, 1), 256);
+		_cubito = new Cubo("res/box2.png", NULL, GetRenderer());
+		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 256);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 		_cubito->SetScale(10, 10, 10);
@@ -144,14 +144,14 @@ namespace Engine
 
 		//_quad->Draw();
 
-		//_light->Draw();
 		
+		_cubito->Draw();
+		_light->Draw();
 		if (_camera->GetCurrentMode() != CameraMode::FlyCamera)
 		{
 			_player3D->Move(deltaTime);
 
 		}
-		_wall1->Draw();
 
 		_camera->CameraInput(deltaTime,  _player3D->_transform);
 		
@@ -160,7 +160,7 @@ namespace Engine
 		{
 			_player3D->Draw();
 		}
-		_cubito->Draw();
+		_wall1->Draw();
 		
 		//_box->Draw();
 		

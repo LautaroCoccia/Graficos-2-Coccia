@@ -49,18 +49,20 @@ namespace Engine
 		unsigned int _ebo; // Index Buffer Obj
 
 		int _vertexSize;
-		unsigned int _texture;
+		unsigned int _diffuse;
+		unsigned int _specular;
+		//unsigned int _texture;
 
 		unsigned int _modelUniform;
 		
 		UVs _uv[4];
 
 		Animation* _animation; // Acá se podria poner una lista para asi tener mas de 1 animacion
-		TextureImporter* _textureImporter;
+		TextureImporter _textureImporter;
 		//TextureData _textureData;
 		Renderer* _renderer;
 	public:
-		Sprite(Renderer* renderer);
+		Sprite(Renderer* renderer, const char* name);
 		Sprite(Renderer* renderer, const glm::ivec2& tileDimensions);
 		~Sprite();
 

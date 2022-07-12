@@ -59,7 +59,7 @@ namespace Engine
 		stbi_image_free(_data);
 
 		glUseProgram(renderer->GetShader());
-		glUniform1i(glGetUniformLocation(renderer->GetShader(), "ourTexture"), 0);
+		//glUniform1i(glGetUniformLocation(renderer->GetShader(), "ourTexture"), 0);
 	}
 	void TextureImporter::ImportTexture(Renderer* renderer, const char* filePath, TextureData& textureData)
 	{

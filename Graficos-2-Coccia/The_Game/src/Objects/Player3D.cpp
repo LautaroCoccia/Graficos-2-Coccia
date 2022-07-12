@@ -43,11 +43,11 @@ namespace Engine
 	void Player3D::SetCubeModel(const char* diffuseMap, const char* specularMap , Renderer* renderer)
 	{
 		_cubeModel = new Cubo(diffuseMap, specularMap , renderer);
+		_cubeModel->SetMaterial(glm::vec3(0.2, 0.2, 0.2), glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.7, 0.7, 0.7), 32);
+
 		_cubeModel->SetPosition(_transform.position);
 		_cubeModel->SetRotation(_transform.rotation);
 
-		
-		
 	}
 	Light* Player3D::GetLight()
 	{
@@ -82,10 +82,10 @@ namespace Engine
 	}
 	void Player3D::Draw()
 	{
-		if (_cubeModel != NULL)
-			_cubeModel->Draw();
 		if(_light !=NULL)
 			_light->Draw();
+		if (_cubeModel != NULL)
+			_cubeModel->Draw();
 
 	}
 	void Player3D::TriggerCollision(Entity* other)

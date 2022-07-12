@@ -2,18 +2,25 @@
 
 namespace Engine
 {	
-	Sprite::Sprite(Renderer* renderer) : Entity()
+	Sprite::Sprite(Renderer* renderer, const char* name) : Entity()
 	{
 		_renderer = renderer;
-		_textureImporter = new TextureImporter();
+		//_textureImporter = new TextureImporter();
 
-		_animation = new Animation();
+		//_animation = new Animation();
+		_textureImporter.ImportTexture(_renderer, name,_diffuse);
+		_textureImporter.ImportTexture(_renderer, name,_specular);
+		_vertexSize = sizeof(_vertex);
+
+		_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
+		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
+		_renderer->SetVertexAttribPointer(false, _modelUniform);
+		_renderer->BindTexture2(_diffuse,_specular);
 	}
 
 	Sprite::Sprite(Renderer* renderer, const glm::ivec2& tileDimensions) : Entity()
 	{
 		_renderer = renderer;
-		//_textureImporter = new TextureImporter();
 
 		_animation = new Animation();
 		_animation->InitSpriteSheet(this, tileDimensions);
@@ -21,7 +28,7 @@ namespace Engine
 
 	Sprite::~Sprite()
 	{
-		//_renderer->DeleteBuffers(_vao, _vbo, _ebo);
+		_renderer->DeleteBuffers(_vao, _vbo, _ebo);
 
 		if (_animation != NULL)
 			delete _animation;
@@ -39,23 +46,26 @@ namespace Engine
 		
 		_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
 		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
-		
 		_renderer->SetVertexAttribPointer(false, _modelUniform);
+		_renderer->BindTexture2(_diffuse, _specular);
+
+
 	}
 	
 	void Sprite::ImportTexture(const char* name)
 	{
-		//_textureImporter->ImportTexture(_renderer, name, _texture);
+		//_textureImporter.ImportTexture(_renderer, name, _texture);
 		//_textureImporter->ImportTexture(_renderer, name, _textureData);
 		
 	}
 
 	void Sprite::Draw()
 	{
-		_renderer->SetVertexAttribPointer(false, _modelUniform);
 		
-		_renderer->BindTexture2(_texture, _texture);
+		_renderer->SetVertexAttribPointer(false, _modelUniform);
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+		_renderer->BindTexture2(_diffuse, _specular);
+
 		//_textureImporter->BindTexture(_textureData._texture);
 		_renderer->Draw(_alpha,_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float));
 
@@ -78,7 +88,7 @@ namespace Engine
 
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 
-		_renderer->BindTexture(_texture);
+		//_renderer->BindTexture(_texture);
 
 		_renderer->Draw(_alpha,_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float));
 
