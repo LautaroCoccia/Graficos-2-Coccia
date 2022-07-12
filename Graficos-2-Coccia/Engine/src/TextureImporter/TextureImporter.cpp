@@ -73,8 +73,8 @@ namespace Engine
 			cout << "failed to load texture" << endl;
 	
 		}
-		glGenTextures(1, &textureData._diffuse);
-		glBindTexture(GL_TEXTURE_2D, textureData._diffuse);
+		glGenTextures(1, &textureData._texture);
+		glBindTexture(GL_TEXTURE_2D, textureData._texture);
 		// set the texture wrapping parameters 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method) 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -98,7 +98,7 @@ namespace Engine
 		stbi_image_free(textureData._data);
 	
 		//glUseProgram(renderer->GetShader());
-		//glUniform1i(glGetUniformLocation(renderer->GetShader(), "ourTexture"), 0);
+		//glUniform1i(glGetUniformLocation(renderer->GetShader(), "material.diffuse"), 0);
 		//texture = _textureData._texture;
 		//return _textureData;
 	}

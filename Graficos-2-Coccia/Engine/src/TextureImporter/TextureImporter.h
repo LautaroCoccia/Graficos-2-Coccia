@@ -8,11 +8,12 @@ namespace Engine
 {
 	struct TextureData
 	{
+		bool _alpha;
 		unsigned char* _data;
 		int _width;
 		int _height;
 		int _nrChannels;
-		unsigned int _diffuse;
+		unsigned int _texture;
 	};
 	class EXPORT_API TextureImporter
 	{

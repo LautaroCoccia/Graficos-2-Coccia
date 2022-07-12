@@ -53,10 +53,10 @@ namespace Engine
 		
 		void CreateBuffers();
 		void BindBuffers();
+		void BindTextures(unsigned int& diffuse, unsigned int& specular);
 		void SetVertexShapeAttribPointer();
 		void SetVertexSpriteAttribPointer();
 		void SetCubeVertexAttribPointer(unsigned int& model);
-		void SetVertexMaterialAttribPointer();
 
 		void SetLightVertexArray(unsigned int& vao, unsigned int& vbo);
 		void SetLightAttribPointer();

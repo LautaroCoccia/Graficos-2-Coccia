@@ -58,8 +58,9 @@ namespace Engine
             21, 22, 23
         };
         TextureImporter TI;
-        TextureData _data;
-        bool _alpha = false;
+        TextureData _diffuse;
+        TextureData _specular;
+        //bool _alpha = false;
         Renderer* _renderer;
         Material _material;
         int _vertexSize;

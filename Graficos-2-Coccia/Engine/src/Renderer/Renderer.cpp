@@ -169,7 +169,13 @@ namespace Engine
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &specular[0]);
 		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"), 1, &shininess); */
 	}
-
+	void Renderer::BindTextures(unsigned int& diffuse, unsigned int& specular)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuse);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specular);
+	}
 	void Renderer::DisableTexture()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

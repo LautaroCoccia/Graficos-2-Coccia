@@ -57,7 +57,7 @@ namespace Engine
 		//_textureImporter->BindTexture(_textureData._texture);
 
 		
-		_renderer->BindTexture(_data._diffuse);
+		_renderer->BindTexture(_data._texture);
 		_renderer->SetCubeVertexAttribPointer(_modelUniform);
 
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
