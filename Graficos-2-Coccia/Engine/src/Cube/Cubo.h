@@ -58,12 +58,14 @@ namespace Engine
             21, 22, 23
         };
         TextureImporter TI;
-        TextureData _data;
+       // TextureData _data;
         bool _alpha = false;
         Renderer* _renderer;
         Material _material;
         int _vertexSize;
         unsigned int _modelUniform;
+        unsigned int _diffuseMap;
+        unsigned int _specularMap;
         unsigned int _vao; // Vertex Array Obj
         unsigned int _vbo; // Vertex Buffer Obj
         unsigned int _ebo; // Index Buffer Obj

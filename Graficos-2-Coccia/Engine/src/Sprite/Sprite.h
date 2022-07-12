@@ -57,7 +57,7 @@ namespace Engine
 
 		Animation* _animation; // Acá se podria poner una lista para asi tener mas de 1 animacion
 		TextureImporter* _textureImporter;
-		TextureData _textureData;
+		//TextureData _textureData;
 		Renderer* _renderer;
 	public:
 		Sprite(Renderer* renderer);

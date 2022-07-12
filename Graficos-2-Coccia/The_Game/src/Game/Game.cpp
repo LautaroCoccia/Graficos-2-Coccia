@@ -90,7 +90,7 @@ namespace Engine
 		
 		// --------------------------------
 		
-		_player3D = new Player3D(10, "res/wall.png", GetRenderer());
+		_player3D = new Player3D(10, "res/wall.png","res/wall.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
 		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(0.7,0.7,0.7), glm::vec3(0.5, 0.5, 0.5));
 		_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.25,1,0.31), 1);
@@ -120,8 +120,8 @@ namespace Engine
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
 
-		_cubito = new Cubo("res/box2.png", GetRenderer());
-		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 32);
+		_cubito = new Cubo("res/box2.png", "res/container2_specular.png", GetRenderer());
+		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(0.31, 1, 1), 256);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 		_cubito->SetScale(10, 10, 10);
@@ -155,12 +155,12 @@ namespace Engine
 
 		_camera->CameraInput(deltaTime,  _player3D->_transform);
 		
-		_cubito->Draw();
 
 		if (_camera->GetCurrentMode() != CameraMode::FPCamera)
 		{
 			_player3D->Draw();
 		}
+		_cubito->Draw();
 		
 		//_box->Draw();
 		

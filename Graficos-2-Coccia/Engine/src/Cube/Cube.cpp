@@ -7,7 +7,7 @@ namespace Engine
 	{
 		_renderer = renderer;
 
-		TI.ImportTexture(_renderer, filePath, _data);
+		//TI.ImportTexture(_renderer, filePath, _diffuse);
 		if (_data._nrChannels == 4)
 			_alpha = true;
 

@@ -53,6 +53,8 @@ namespace Engine
 		
 		void CreateBuffers();
 		void BindBuffers();
+
+
 		void SetVertexShapeAttribPointer();
 		void SetVertexSpriteAttribPointer();
 		void SetCubeVertexAttribPointer(unsigned int& model);
@@ -66,6 +68,7 @@ namespace Engine
 		void SetVertexAttribPointer(bool shape, unsigned int &model);
 		void CreateShader();
 		void BindTexture(unsigned int& texture);
+		void BindTexture2(unsigned int& texture1, unsigned int& texture2);
 		void DisableTexture();
 		void DrawLight(LightData lightData, glm::vec3& lightColor);
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);

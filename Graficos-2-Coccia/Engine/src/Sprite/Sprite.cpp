@@ -5,7 +5,7 @@ namespace Engine
 	Sprite::Sprite(Renderer* renderer) : Entity()
 	{
 		_renderer = renderer;
-		//_textureImporter = new TextureImporter();
+		_textureImporter = new TextureImporter();
 
 		_animation = new Animation();
 	}
@@ -45,17 +45,16 @@ namespace Engine
 	
 	void Sprite::ImportTexture(const char* name)
 	{
-		//_textureImporter->ImportTexture(_renderer, name, _textureData._texture);
-		_textureImporter->ImportTexture(_renderer, name, _textureData);
-		if (_textureData._nrChannels == 4)
-			_alpha = true;
+		//_textureImporter->ImportTexture(_renderer, name, _texture);
+		//_textureImporter->ImportTexture(_renderer, name, _textureData);
+		
 	}
 
 	void Sprite::Draw()
 	{
 		_renderer->SetVertexAttribPointer(false, _modelUniform);
 		
-		_renderer->BindTexture(_textureData._diffuse);
+		_renderer->BindTexture2(_texture, _texture);
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 		//_textureImporter->BindTexture(_textureData._texture);
 		_renderer->Draw(_alpha,_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_index) / sizeof(float));

@@ -17,11 +17,11 @@ namespace Engine
 
 
 	}
-	Player3D::Player3D(float movementSpeed, const char* texture, Renderer* renderer) : Entity()
+	Player3D::Player3D(float movementSpeed, const char* texture, const char* texture2, Renderer* renderer) : Entity()
 	{
 		_light = new Light(renderer);
 		_movementSpeed = movementSpeed;
-		SetCubeModel(texture, renderer);
+		SetCubeModel(texture, texture2, renderer);
 		_transform.position = vec3(0, 0, 0);
 
 		_transform.rotation.x = 4.37114e-08f;
@@ -40,9 +40,9 @@ namespace Engine
 		if (_cubeModel != NULL)
 			delete _cubeModel;
 	}
-	void Player3D::SetCubeModel(const char* texture, Renderer* renderer)
+	void Player3D::SetCubeModel(const char* diffuseMap, const char* specularMap , Renderer* renderer)
 	{
-		_cubeModel = new Cubo(texture, renderer);
+		_cubeModel = new Cubo(diffuseMap, specularMap , renderer);
 		_cubeModel->SetPosition(_transform.position);
 		_cubeModel->SetRotation(_transform.rotation);
 

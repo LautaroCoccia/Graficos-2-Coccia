@@ -151,6 +151,8 @@ namespace Engine
 		_shader->SetShader("../Engine/shaders/Vertex.vert", "../Engine/shaders/Fragment.frag");
 		glUseProgram(_shader->GetShader());
 
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 0);
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1);
 		SetIndex(_shader->GetShader());
 	}
 	
@@ -169,7 +171,13 @@ namespace Engine
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &specular[0]);
 		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"), 1, &shininess); */
 	}
-
+	void Renderer::BindTexture2(unsigned int& texture1, unsigned int& texture2)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2);
+	}
 	void Renderer::DisableTexture()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
