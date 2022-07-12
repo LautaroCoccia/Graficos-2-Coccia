@@ -34,7 +34,7 @@ namespace Engine
 			return -1;
 		}
 
-		glEnable(GL_BLEND);
+		//glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
@@ -152,12 +152,15 @@ namespace Engine
 		glUseProgram(_shader->GetShader());
 
 		SetIndex(_shader->GetShader());
+
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 0);
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1);
 	}
 	
 	void Renderer::BindTexture(unsigned int& texture)
 	{
-		glBindTexture(GL_TEXTURE_2D, texture);
 		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture);
 
 		/*glm::vec3 ambient = glm::vec3(1, 1, 1);
 		glm::vec3 diffuse = glm::vec3(0.1, 0.5f, 0.31f);

@@ -120,7 +120,8 @@ namespace Engine
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
 
-		_cubito = new Cubo("res/character_robot_sheet.png","res/box2specular.png", GetRenderer());
+		//BOB-ESPONJA-1-22.png
+		_cubito = new Cubo("res/RockWall.jpg","res/BOB-ESPONJA-1-22.png", GetRenderer());
 		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 32);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);

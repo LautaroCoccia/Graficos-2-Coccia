@@ -5,8 +5,14 @@ namespace Engine
 	Cubo::Cubo(const char* filePath, Renderer* renderer) : Entity()
 	{
 		_renderer = renderer;
+        _vertexSize = sizeof(_vertices);
 
-		TI.ImportTexture(_renderer, filePath, _diffuse);
+		_renderer->SetVertexBuffer(_vertexSize, _vertices, _vao, _vbo);
+		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
+
+		_renderer->SetCubeVertexAttribPointer(_modelUniform);
+		
+        TI.ImportTexture(_renderer, filePath, _diffuse);
 		if (_diffuse._nrChannels == 4)
             _diffuse._alpha = true;
 
@@ -14,18 +20,13 @@ namespace Engine
         if (_specular._nrChannels == 4)
             _specular._alpha = true;
 		
-        _vertexSize = sizeof(_vertices);
-
-		_renderer->SetVertexBuffer(_vertexSize, _vertices, _vao, _vbo);
-		_renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
-		
-		_renderer->SetCubeVertexAttribPointer(_modelUniform);
-        _renderer->BindTexture(_diffuse._texture);
-
+        _renderer->BindTextures(_diffuseTexture, _specularTexture);
+//        _renderer->BindTexture(_diffuse._texture);
+//
+//        _renderer->BindTexture(_specular._texture);
         //-------------------------------
 
 
-        _renderer->BindTexture(_specular._texture);
 
         _material._ambient = glm::vec3(1.0, 1.0, 1.0);
         _material._diffuse = glm::vec3(1, 1, 1);
@@ -37,13 +38,12 @@ namespace Engine
     {
         _renderer = renderer;
 
-        TI.ImportTexture(_renderer, diffuse, _diffuse);
-        if (_diffuse._nrChannels == 4)
-            _diffuse._alpha = true;
-
-        TI.ImportTexture(_renderer, specular, _specular);
-        if (_specular._nrChannels == 4)
-            _specular._alpha = true;
+        
+        _renderer->BindTextures(_diffuseTexture, _specularTexture);
+        _material._ambient = glm::vec3(1.0, 1.0, 1.0);
+        _material._diffuse = glm::vec3(1, 1, 1);
+        _material._specular = glm::vec3(0.1, 0.1f, 0.1f);
+        _material._shininess = 32;
 
         _vertexSize = sizeof(_vertices);
 
@@ -51,16 +51,21 @@ namespace Engine
         _renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
 
         _renderer->SetCubeVertexAttribPointer(_modelUniform);
-        _renderer->BindTextures(_diffuse._texture, _specular._texture);
+        
+
+            TI.ImportTexture(_renderer, diffuse, _diffuseTexture);
+        if (specular != NULL)
+            TI.ImportTexture(_renderer, specular, _specularTexture);
+        else
+            TI.ImportTexture(_renderer, diffuse, _specularTexture);
+
+        _renderer->BindTextures(_diffuseTexture, _specularTexture);
 
         //-------------------------------
 
 
 
-        _material._ambient = glm::vec3(1.0, 1.0, 1.0);
-        _material._diffuse = glm::vec3(1, 1, 1);
-        _material._specular = glm::vec3(0.1, 0.1f, 0.1f);
-        _material._shininess = 32;
+        
     }
     /*Cubo::Cubo(const char* filePath, Renderer* renderer) : Entity()
     {
@@ -108,6 +113,7 @@ namespace Engine
     }
 	void Cubo::Draw()
 	{
+        //_renderer->UpdateMaterial(_material);
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 		_renderer->SetCubeVertexAttribPointer(_modelUniform);
 

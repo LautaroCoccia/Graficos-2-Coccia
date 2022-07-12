@@ -64,6 +64,8 @@ namespace Engine
         Renderer* _renderer;
         Material _material;
         int _vertexSize;
+        unsigned int _diffuseTexture;
+        unsigned int _specularTexture;
         unsigned int _modelUniform;
         unsigned int _vao; // Vertex Array Obj
         unsigned int _vbo; // Vertex Buffer Obj
