@@ -34,7 +34,7 @@ namespace Engine
 			return -1;
 		}
 
-		glEnable(GL_BLEND);
+		//glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
@@ -152,6 +152,9 @@ namespace Engine
 		glUseProgram(_shader->GetShader());
 
 		SetIndex(_shader->GetShader());
+
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 0);
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1);
 	}
 	
 	void Renderer::BindTexture(unsigned int& texture)
@@ -169,7 +172,13 @@ namespace Engine
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &specular[0]);
 		glUniform1fv(glGetUniformLocation(_shader->GetShader(), "material.shininess"), 1, &shininess); */
 	}
-
+	void Renderer::BindTextures(unsigned int& texture1, unsigned int& texture2)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2);
+	}
 	void Renderer::DisableTexture()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -264,6 +273,13 @@ namespace Engine
 	void Renderer::UpdateMaterial(Material& material)
 	{
 		glUseProgram(_shader->GetShader());
+
+
+		//glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &material._specular[0]);
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 0);
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1);
+		glUniform1f(glGetUniformLocation(_shader->GetShader(), "material.shininess"), material._shininess);
+
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.ambient"), 1, &material._ambient[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 1, &material._diffuse[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1, &material._specular[0]);

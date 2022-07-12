@@ -120,7 +120,7 @@ namespace Engine
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
 
-		_cubito = new Cubo("res/box2.png", GetRenderer());
+		_cubito = new Cubo("res/box2.png",NULL, GetRenderer());
 		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 32);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
@@ -155,13 +155,13 @@ namespace Engine
 
 		_camera->CameraInput(deltaTime,  _player3D->_transform);
 		
-		_cubito->Draw();
 
 		if (_camera->GetCurrentMode() != CameraMode::FPCamera)
 		{
 			_player3D->Draw();
 		}
 		
+		_cubito->Draw();
 		//_box->Draw();
 		
 		//GetCollisionManager()->CheckAllCollisions();

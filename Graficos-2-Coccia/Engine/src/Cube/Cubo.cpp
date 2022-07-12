@@ -82,37 +82,24 @@ namespace Engine
         _material._specular = glm::vec3(0.1, 0.1f, 0.1f);
         _material._shininess = 32;
 	}
-    /*Cubo::Cubo(const char* filePath, Renderer* renderer) : Entity()
+    Cubo::Cubo(const char* diffuse, const char* specular, Renderer* renderer)
     {
         _renderer = renderer;
 
-        TI.ImportTexture(_renderer, filePath, _data);
-        if (_data._nrChannels == 4)
-            _alpha = true;
-
-        _vertexSize = sizeof(_vertices);
-
-        //_renderer->CreateBuffers();
-        //_renderer->BindBuffers();
+        _vertexSize = sizeof(_vertex);
 
         _renderer->SetVertexBuffer(_vertexSize, _vertices, _vao, _vbo);
         _renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
 
         _renderer->SetCubeVertexAttribPointer(_modelUniform);
-        _renderer->BindTexture(_data._diffuse);
-        //_renderer->SetVertexAttribPointer(false, _modelUniform);
 
-        //material.color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        //material.ambient = glm::vec3(1.0, 1.0, 1.0);
-        //material.diffuse = glm::vec3(1.0, 1.0, 1.0);
-        //material.shininess = 1;
-        //material.specular = glm::vec3(1.0, 1.0, 1.0);
+        TI.ImportTexture(_renderer, diffuse, _diffuseMap);
 
-        _material._ambient = glm::vec3(1.0, 1.0, 1.0);
-        _material._diffuse = glm::vec3(1, 1, 1);
-        _material._specular = glm::vec3(0.1, 0.1f, 0.1f);
-        _material._shininess = 32;
-    }*/
+        if (specular != NULL)
+            TI.ImportTexture(_renderer, specular, _specularMap);
+        else
+            TI.ImportTexture(_renderer, diffuse, _specularMap);
+    }
     void Cubo::SetMaterial(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess)
     {
         _material._ambient = ambient;
@@ -128,9 +115,9 @@ namespace Engine
     }
 	void Cubo::Draw()
 	{
-		_renderer->BindTexture(_data._diffuse);
 
 		_renderer->SetCubeVertexAttribPointer(_modelUniform);
+		_renderer->BindTextures(_diffuseMap, _specularMap);
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 		_renderer->Draw(_alpha,_vao, _vbo, _ebo, _vertices, _vertexSize, sizeof(_index) / sizeof(float));
 		

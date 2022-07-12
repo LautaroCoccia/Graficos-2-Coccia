@@ -63,6 +63,8 @@ namespace Engine
         Renderer* _renderer;
         Material _material;
         int _vertexSize;
+        unsigned int _diffuseMap;
+        unsigned int _specularMap;
         unsigned int _modelUniform;
         unsigned int _vao; // Vertex Array Obj
         unsigned int _vbo; // Vertex Buffer Obj
@@ -70,6 +72,7 @@ namespace Engine
     public:
         Cubo(const char* diffuse, Renderer* renderer);
         Cubo(const char* diffuse, const char* specular, Renderer* renderer);
+
         void SetMaterial(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess);
         void Draw();
         void TriggerCollision(Entity* other);
