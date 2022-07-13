@@ -192,19 +192,19 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDisable(GL_TEXTURE_2D);
 	}
-	void Renderer::DrawLight(LightData lightData, glm::vec3 &lightColor)
+	void Renderer::UpdateLightData(LightData lightData)
 	{ 
 		glUseProgram(_shader->GetShader());
 		//glBindVertexArray(vao);
 		//glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "viewPos"),1, &_camera->GetPosition()[0]);
 		 
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.position"), 1, &lightData._position[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.ambient"), 1, &lightData._ambient[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.diffuse"), 1, &lightData._diffuse[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.specular"), 1, &lightData._specular[0]);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.position"),1, &lightData._position[0]);
 
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "viewPos"),1, &_camera->GetPosition()[0]);
 		//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 		//
 		//glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
@@ -217,7 +217,7 @@ namespace Engine
 	void Renderer::Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
 		glUseProgram(_shader->GetShader());
-		if (true)
+		if (alpha)
 		{
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

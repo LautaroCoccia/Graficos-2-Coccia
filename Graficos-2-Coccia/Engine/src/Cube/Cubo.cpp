@@ -195,7 +195,7 @@ namespace Engine
     }
 	void Cubo::Draw()
 	{
-	    _renderer->BindTexture2(_diffuseMap, _specularMap);
+	    _renderer->BindTexture3(_diffuseMap, _specularMap, _emissionMap);
         _renderer->UpdateMaterial(_material);
 		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 		//_renderer->BindTexture2(_diffuseMap, _specularMap);

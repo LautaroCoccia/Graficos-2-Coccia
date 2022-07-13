@@ -11,10 +11,9 @@ namespace Engine
 {
 	struct LightData
 	{
-		glm::vec3 _position;
-
 		glm::vec3 _color;
-
+		glm::vec3 _position;
+		
 		glm::vec3 _ambient;
 		glm::vec3 _diffuse;
 		glm::vec3 _specular;
@@ -58,7 +57,6 @@ namespace Engine
 		void SetVertexShapeAttribPointer();
 		void SetVertexSpriteAttribPointer();
 		void SetCubeVertexAttribPointer(unsigned int& model);
-		void SetVertexMaterialAttribPointer();
 
 		void SetLightVertexArray(unsigned int& vao, unsigned int& vbo);
 		void SetLightAttribPointer();
@@ -71,11 +69,11 @@ namespace Engine
 		void BindTexture2(unsigned int& texture1, unsigned int& texture2);
 		void BindTexture3(unsigned int& texture1, unsigned int& texture2, unsigned int& texture3);
 		void DisableTexture();
-		void DrawLight(LightData lightData, glm::vec3& lightColor);
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void DrawCube(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		
 		void UpdateModel(glm::mat4 model, unsigned int updateShape);
+		void UpdateLightData(LightData lightData);
 		void UpdateMaterial(Material& material);
 
 		void StopShader();

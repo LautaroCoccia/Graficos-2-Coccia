@@ -70,7 +70,7 @@ namespace Engine
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer(), "res/RockWall.jpg");
-
+		std::cout << "_wall1" << std::endl;
 		//_wall1->InitTexture();
 		//_wall1->ImportTexture("res/RockWall.jpg");
 		_wall1->SetPosition(0, -1, 0);
@@ -91,9 +91,10 @@ namespace Engine
 		// --------------------------------
 		
 		_player3D = new Player3D(10, "res/wall.png","res/container2_specular.png", GetRenderer());
+		std::cout << "_player3D" << std::endl;
 		_player3D->SetPosition(0, 0, 0);
-		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1,1,1), glm::vec3(1, 1, 1));
-		_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.2,0.2,0.2), 0.2);
+		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1,1,1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1));
+		//_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.2,0.2,0.2), 0.2);
 		// --------------------------------
 
 		//_box = new Sprite(GetRenderer());
@@ -120,10 +121,10 @@ namespace Engine
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
 
-		//_cubito = new Cubo("res/box2.png", "res/container2_specular.png" ,GetRenderer());
-		_cubito = new Cubo("res/BOB-ESPONJA-1-22.png", "res/container2_specular.png",GetRenderer());
+		_cubito = new Cubo("res/box2.png", "res/container2_specular.png" ,GetRenderer());
+		//_cubito = new Cubo("res/box2.png", "res/container2_specular.png","matrix.jpg", GetRenderer());
 		//_cubito = new Cubo("res/matrix.jpg", "res/matrix.jpg","res/matrix.jpg" ,GetRenderer());
-		_cubito->SetMaterial(glm::vec3(0), glm::vec3(0), glm::vec3(0), 32);
+		_cubito->SetMaterial(glm::vec3(1,1,1), glm::vec3(1,1,1), glm::vec3(0), 32);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 		_cubito->SetScale(10, 10, 10);
