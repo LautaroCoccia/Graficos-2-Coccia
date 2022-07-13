@@ -23,7 +23,7 @@ namespace Engine
 		~Light();
 		void SetLightData(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 lightColor);
 		void SetPosition(glm::vec3 position);
-		virtual void Draw() = 0;
+		virtual void Draw(int isActive) = 0;
 	};
 }
 #endif

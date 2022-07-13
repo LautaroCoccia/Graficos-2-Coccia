@@ -3,13 +3,14 @@
 
 #include "..\src\Entity\Entity.h"
 #include "..\src\Lights\DirectionalLight.h"
+#include "..\src\Lights\PointLight.h"
 #include "GameBase/GameBase.h"
 
 namespace Engine
 {
 	class  Player3D : public Entity
 	{
-		DirectionalLight* _dLight;
+		PointLight* _dLight;
 		Cubo* _cubeModel;
 		float _movementSpeed;
 	public:

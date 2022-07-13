@@ -7,7 +7,7 @@ namespace Engine
 	{
 		_lightData._position = glm::vec3(0, 0, 0);
 
-		_lightData._color = color;
+		_lightData._color = glm::vec3(0, 1, 0);
 
 		_lightData._diffuse = _lightData._color * glm::vec3(0.5f);
 		_lightData._ambient = _lightData._diffuse * glm::vec3(0.2f);
@@ -31,7 +31,7 @@ namespace Engine
 	{
 		_lightData._position = position;
 	}
-	void Light::Draw()
+	void Light::Draw(int i)
 	{
 		//glm::vec3 lightColor = _ambient.color * _ambient.strength;
 		_renderer->UpdateLightData(_lightData);

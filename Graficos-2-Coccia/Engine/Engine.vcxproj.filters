@@ -120,6 +120,9 @@
     <ClCompile Include="src\Lights\DirectionalLight.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
+    <ClCompile Include="src\Lights\PointLight.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animation\Animation.h">
@@ -186,6 +189,9 @@
       <Filter>Cube</Filter>
     </ClInclude>
     <ClInclude Include="src\Lights\DirectionalLight.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lights\PointLight.h">
       <Filter>Lights</Filter>
     </ClInclude>
   </ItemGroup>

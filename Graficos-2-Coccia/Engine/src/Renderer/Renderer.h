@@ -24,6 +24,28 @@ namespace Engine
 	{
 		glm::vec3 _direction;
 	};
+
+	struct PointLightData
+	{
+		glm::vec3 _position;
+
+		float _constant;
+		float _linear;
+		float _quadratic;
+	};
+
+	struct SpotLightData
+	{
+		glm::vec3 _position;
+		glm::vec3 _direction;
+
+		float _cutOff;
+		float _outerCutOff;
+
+		float _constant;
+		float _linear;
+		float _quadratic;
+	};
 	struct Material
 	{
 		glm::vec3 _ambient;
@@ -76,6 +98,8 @@ namespace Engine
 		void DisableTexture();
 		void UpdateLightData(LightData lightData);
 		void UpdateDirectLightData(LightData& light, DirectionLightData& directional);
+		void UpdatePointLight(LightData& light, PointLightData& point, int i);
+		void UpdateSpotLight(LightData& light, SpotLightData& spot, int i);
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void DrawCube(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		

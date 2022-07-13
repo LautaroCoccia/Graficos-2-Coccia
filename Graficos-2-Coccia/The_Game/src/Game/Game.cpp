@@ -92,7 +92,7 @@ namespace Engine
 		
 		_player3D = new Player3D(10, "res/wall.png","res/container2_specular.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
-		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1,1,1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1));
+		_player3D->GetLight()->SetLightData(glm::vec3(0.5, 0.5, 0.5), glm::vec3(1,1,1), glm::vec3(1, 1, 1), glm::vec3(0,0,1));
 		// --------------------------------
 
 		//_box = new Sprite(GetRenderer());
