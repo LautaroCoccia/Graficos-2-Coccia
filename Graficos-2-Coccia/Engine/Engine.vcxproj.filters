@@ -117,6 +117,9 @@
     <ClCompile Include="src\Cube\Cubo.cpp">
       <Filter>Cube</Filter>
     </ClCompile>
+    <ClCompile Include="src\Lights\DirectionalLight.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animation\Animation.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="src\Cube\Cubo.h">
       <Filter>Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lights\DirectionalLight.h">
+      <Filter>Lights</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

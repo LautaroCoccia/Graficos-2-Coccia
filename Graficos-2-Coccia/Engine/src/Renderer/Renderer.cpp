@@ -192,7 +192,7 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDisable(GL_TEXTURE_2D);
 	}
-	void Renderer::DrawLight(LightData lightData, glm::vec3 &lightColor)
+	void Renderer::UpdateLightData(LightData lightData)
 	{ 
 		glUseProgram(_shader->GetShader());
 		//glBindVertexArray(vao);

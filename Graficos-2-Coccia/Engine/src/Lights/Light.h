@@ -18,16 +18,12 @@ namespace Engine
 
 		LightData _lightData;
 		Renderer* _renderer;
-		unsigned int _vao; // Vertex Array Obj
-		unsigned int _vbo; // Vertex Buffer Obj
-		unsigned int _ebo; // Index Buffer Obj
 	public:
 		Light(Renderer* renderer, glm::vec3 color);
 		~Light();
-		void SetLightColorAmbient(glm::vec3 lightColor, float ambientStrength);
-		void SetLightData(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
+		void SetLightData(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 lightColor);
 		void SetPosition(glm::vec3 position);
-		void Draw();
+		virtual void Draw() = 0;
 	};
 }
 #endif

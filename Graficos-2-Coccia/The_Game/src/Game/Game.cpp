@@ -56,7 +56,7 @@ namespace Engine
 		//For TPCamera (pos y rot)
 		_camera->SetCameraPosition(0, 0, -3);
 		_camera->SetCameraRotation(4.37f, 1, 0);
-		_camera->SetCameraOffset(4);
+		_camera->SetCameraOffset(7);
 		
 		//_camera->SetCameraOffset(glm::vec3(0, 0, 0));
 		_camera->LookAt(glm::vec3(0, 1, 0));
@@ -92,8 +92,7 @@ namespace Engine
 		
 		_player3D = new Player3D(10, "res/wall.png","res/container2_specular.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
-		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1,1,1), glm::vec3(1, 1, 1));
-		_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.2,0.2,0.2), 0.2);
+		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1,1,1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1));
 		// --------------------------------
 
 		//_box = new Sprite(GetRenderer());

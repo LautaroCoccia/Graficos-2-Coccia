@@ -29,8 +29,6 @@ namespace Engine
 		_transform.rotation.z = 1;
 
 		_light->SetPosition(glm::vec3(0, 0, 0));
-		_light->SetLightColorAmbient(glm::vec3(0.1, 1, 1), 0);
-
 	}
 
 	Player3D::~Player3D()
