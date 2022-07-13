@@ -14,7 +14,7 @@ namespace Engine
 	};
 	class EXPORT_API Light
 	{
-	private:
+	protected:
 
 		LightData _lightData;
 		Renderer* _renderer;

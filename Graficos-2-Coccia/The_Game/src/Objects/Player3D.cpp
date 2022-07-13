@@ -6,7 +6,7 @@ namespace Engine
 	Player3D::Player3D() : Entity()
 	{
 		_cubeModel = NULL;
-		_light = NULL;
+		_dLight = NULL;
 		_movementSpeed = 10;
 
 		_transform.position = vec3(0, 0, 0);
@@ -19,7 +19,7 @@ namespace Engine
 	}
 	Player3D::Player3D(float movementSpeed, const char* texture, const char* texture2, Renderer* renderer) : Entity()
 	{
-		_light = new Light(renderer, glm::vec3(1,1,1));
+		_dLight = new DirectionalLight(renderer, glm::vec3(1,1,1), _transform.forward);
 		_movementSpeed = movementSpeed;
 		SetCubeModel(texture, texture2, renderer);
 		_transform.position = vec3(0, 0, 0);
@@ -28,13 +28,13 @@ namespace Engine
 		_transform.rotation.y = 0;
 		_transform.rotation.z = 1;
 
-		_light->SetPosition(glm::vec3(0, 0, 0));
+		_dLight->SetPosition(glm::vec3(0, 0, 0));
 	}
 
 	Player3D::~Player3D()
 	{
-		if (_light != NULL)
-			delete _light;
+		if (_dLight != NULL)
+			delete _dLight;
 		if (_cubeModel != NULL)
 			delete _cubeModel;
 	}
@@ -49,7 +49,7 @@ namespace Engine
 	}
 	Light* Player3D::GetLight()
 	{
-		return _light;
+		return _dLight;
 	}
 	void Player3D::Move(float deltaTime) 
 	{
@@ -66,7 +66,7 @@ namespace Engine
 		if (Input::GetKey(Keycode::D))
 			_transform.position += glm::cross(_transform.forward, _transform.up) * _movementSpeed * deltaTime;
 		
-		_light->SetPosition(_transform.position);
+		_dLight->SetPosition(_transform.position);
 
 		std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << endl;
 		
@@ -80,8 +80,8 @@ namespace Engine
 	}
 	void Player3D::Draw()
 	{
-		if(_light !=NULL)
-			_light->Draw();
+		if(_dLight !=NULL)
+			_dLight->Draw();
 		if (_cubeModel != NULL)
 			_cubeModel->Draw();
 

@@ -12,7 +12,7 @@ namespace Engine
 
 	void DirectionalLight::Draw() 
 	{
-
+		_renderer->UpdateDirectLightData(_lightData, _directionData);
 	}
 	void DirectionalLight::SetDirection(glm::vec3 direction)
 	{

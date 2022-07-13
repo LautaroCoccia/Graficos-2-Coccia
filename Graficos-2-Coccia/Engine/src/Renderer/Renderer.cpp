@@ -214,6 +214,26 @@ namespace Engine
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glUseProgram(0);
 	}
+	void Renderer::UpdateDirectionalLight(LightData& light, DirectionLightData& directional)
+	{
+		glUseProgram(_shader->GetShader());
+
+		glm::vec4 color = { 0.5f, 0.5f, 0.5f, 0.5f };
+
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "color"), 1, &color[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "viewPos"), 1, &_camera->GetPosition()[0]);
+
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "directionLight.color"), 1, &light._color[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "directionLight.direction"), 1, &directional._direction[0]);
+
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "directionLight.ambient"), 1, &light._ambient[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "directionLight.diffuse"), 1, &light._diffuse[0]);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "directionLight.specular"), 1, &light._specular[0]);
+
+		glUniform1i(glGetUniformLocation(_shader->GetShader(), "directionLight.isActive"), light._isActive);
+
+		glUseProgram(0);
+	}
 	void Renderer::Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
 		glUseProgram(_shader->GetShader());

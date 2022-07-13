@@ -18,7 +18,7 @@ namespace Engine
 		glm::vec3 _diffuse;
 		glm::vec3 _specular;
 
-		//int _isActive;
+		int _isActive;
 	};
 	struct DirectionLightData
 	{
@@ -75,6 +75,7 @@ namespace Engine
 		void BindTexture3(unsigned int& texture1, unsigned int& texture2, unsigned int& texture3);
 		void DisableTexture();
 		void UpdateLightData(LightData lightData);
+		void UpdateDirectionalLight(LightData& light, DirectionLightData& directional);
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void DrawCube(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		
