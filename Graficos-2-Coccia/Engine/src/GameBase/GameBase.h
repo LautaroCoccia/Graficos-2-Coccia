@@ -13,8 +13,8 @@
 #include "../Input/Input.h"
 #include "../Time/Time.h"
 #include "../CollisionManager/CollisionManager.h"
+#include "../Lights/LightsManager.h"
 #include "glm/glm/glm.hpp"
-
 namespace Engine
 {
 	class EXPORT_API GameBase
@@ -24,6 +24,7 @@ namespace Engine
 		CollisionManager* _collisionManager;
 		Camera* _camera;
 	public:
+		LightManager* _lightManager;
 		GameBase();
 		~GameBase();
 
@@ -38,6 +39,7 @@ namespace Engine
 
 		Renderer* GetRenderer();
 		CollisionManager* GetCollisionManager();
+		LightManager* GetLightManager();
 	};
 }
 

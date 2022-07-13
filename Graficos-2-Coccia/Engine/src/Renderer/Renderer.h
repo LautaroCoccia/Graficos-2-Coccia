@@ -34,7 +34,7 @@ namespace Engine
 		float _quadratic;
 	};
 
-	struct SpotLightData
+	struct SpotlightData
 	{
 		glm::vec3 _position;
 		glm::vec3 _direction;
@@ -99,7 +99,7 @@ namespace Engine
 		void UpdateLightData(LightData lightData);
 		void UpdateDirectLightData(LightData& light, DirectionLightData& directional);
 		void UpdatePointLight(LightData& light, PointLightData& point, int i);
-		void UpdateSpotLight(LightData& light, SpotLightData& spot, int i);
+		void UpdateSpotLight(LightData& light, SpotlightData& spot, int i);
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		void DrawCube(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
 		

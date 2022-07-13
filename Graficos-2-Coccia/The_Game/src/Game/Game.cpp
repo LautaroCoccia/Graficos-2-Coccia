@@ -49,10 +49,12 @@ namespace Engine
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
 		_camera->SetCameraMode(CameraMode::FlyCamera);
 
-		//_light = new Light(GetRenderer());
-		//_light->SetPosition(glm::vec3(10, 1, 10));
-		//_light->SetLightData(glm::vec3(1, 1, 1), glm::vec3(0.3, 1, 1), glm::vec3(0.5, 0.5, 0.5));
-		//_light->SetLightColorAmbient(glm::vec3(1, 1, 1), 1);
+		_light = new Spotlight(GetRenderer(),vec3(1,1,1),vec3(1,1,0 ),vec3(1,1,1));
+		_light->SetPosition(glm::vec3(0, 1, 0));
+		_light->SetLightData(glm::vec3(1, 1, 1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.5, 0.5, 0.5), vec3(1,0,0));
+		_light->SetCutOffs(5, 10);
+
+		_light2 = new DirectionalLight(GetRenderer(), vec3(1, 0, 0), vec3(1, 0, 0));
 		//For TPCamera (pos y rot)
 		_camera->SetCameraPosition(0, 0, -3);
 		_camera->SetCameraRotation(4.37f, 1, 0);
@@ -63,6 +65,11 @@ namespace Engine
 		
 		GetRenderer()->SetCurrentCamera(_camera);
 
+		GetLightManager()->AddNewPoint(GetRenderer(), glm::vec3(1, 1, 1), glm::vec3(5, 1, 5));
+		GetLightManager()->AddNewPoint(GetRenderer(), glm::vec3(1, 1, 1), glm::vec3(2, 1, -2));
+
+		GetLightManager()->AddNewSpot(GetRenderer(), glm::vec3(1, 1, 1), _camera->GetPosition(), _camera->_transform.forward);
+		GetLightManager()->GetSpot(0)->SetSpotValues(0.01f, 0.3f, 0.1f);
 		//_quad = new Shape(GetRenderer());
 		//_quad->InitShape(TypeOfShape::Quad);
 		//_quad->SetColor(ENTITY_COLOR::WHITE);
@@ -92,7 +99,7 @@ namespace Engine
 		
 		_player3D = new Player3D(10, "res/wall.png","res/container2_specular.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
-		_player3D->GetLight()->SetLightData(glm::vec3(0.5, 0.5, 0.5), glm::vec3(1,1,1), glm::vec3(1, 1, 1), glm::vec3(0,0,1));
+		_player3D->GetLight()->SetLightData(glm::vec3(1, 1, 1), glm::vec3(1,1,1), glm::vec3(1, 1, 1), glm::vec3(1,1,1));
 		// --------------------------------
 
 		//_box = new Sprite(GetRenderer());
@@ -122,7 +129,7 @@ namespace Engine
 		//_cubito = new Cubo("res/box2.png", "res/container2_specular.png" ,GetRenderer());
 		_cubito = new Cubo("res/box2.png", "res/container2_specular.png",GetRenderer());
 		//_cubito = new Cubo("res/matrix.jpg", "res/matrix.jpg","res/matrix.jpg" ,GetRenderer());
-		_cubito->SetMaterial(glm::vec3(0), glm::vec3(0), glm::vec3(0), 32);
+		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1,1,1), glm::vec3(1,1,1), 32);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 		_cubito->SetScale(10, 10, 10);
@@ -145,8 +152,9 @@ namespace Engine
 
 		//_quad->Draw();
 
-		
-		//_light->Draw();
+		//_light2->SetLightData(vec3(1, 1, 1), vec3(1, 1, 1), vec3(1, 1, 1), vec3(1, 1, 1));
+		//_light->Draw(1);
+		//_light2->Draw(1);
 		_cubito->Draw();
 		if (_camera->GetCurrentMode() != CameraMode::FlyCamera)
 		{
@@ -163,6 +171,10 @@ namespace Engine
 		//_box->Draw();
 		
 		//GetCollisionManager()->CheckAllCollisions();
+		//GetLightManager()->GetSpot(0)->SetDirection(_camera->_transform.forward);
+		//GetLightManager()->GetSpot(0)->SetPosition(_camera->GetPosition());
+		//
+		//GetLightManager()->DrawLights();
 	}
 
 	void Game::End()

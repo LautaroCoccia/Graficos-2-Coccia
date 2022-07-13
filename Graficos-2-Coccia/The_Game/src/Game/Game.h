@@ -19,7 +19,8 @@ namespace Engine
 		Camera* _camera;
 		Player* _roboBob;
 		Player3D* _player3D;
-		Light* _light;
+		Spotlight* _light;
+		DirectionalLight* _light2;
 		//Cube* _cube;
 
 	public:

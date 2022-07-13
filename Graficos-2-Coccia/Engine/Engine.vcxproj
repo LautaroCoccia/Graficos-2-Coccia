@@ -161,7 +161,9 @@
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Lights\DirectionalLight.cpp" />
     <ClCompile Include="src\Lights\Light.cpp" />
+    <ClCompile Include="src\Lights\LightsManager.cpp" />
     <ClCompile Include="src\Lights\PointLight.cpp" />
+    <ClCompile Include="src\Lights\Spotlight.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Shader\Shader.cpp" />
     <ClCompile Include="src\Shape2D\Shape2D.cpp" />
@@ -185,7 +187,9 @@
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Lights\DirectionalLight.h" />
     <ClInclude Include="src\Lights\Light.h" />
+    <ClInclude Include="src\Lights\LightsManager.h" />
     <ClInclude Include="src\Lights\PointLight.h" />
+    <ClInclude Include="src\Lights\Spotlight.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\Shape2D\Shape2D.h" />

@@ -260,7 +260,7 @@ namespace Engine
 
 		glUseProgram(0);
 	}
-	void Renderer::UpdateSpotLight(LightData& light, SpotLightData& spot, int i)
+	void Renderer::UpdateSpotLight(LightData& light, SpotlightData& spot, int i)
 	{
 		glUseProgram(_shader->GetShader());
 

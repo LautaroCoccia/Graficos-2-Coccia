@@ -19,7 +19,7 @@ namespace Engine
 	}
 	Player3D::Player3D(float movementSpeed, const char* texture, const char* texture2, Renderer* renderer) : Entity()
 	{
-		_dLight = new PointLight(renderer, glm::vec3(0,0,0), _transform.position);
+		_dLight = new Spotlight(renderer, glm::vec3(1,1,1), _transform.position,_transform.forward);
 		_movementSpeed = movementSpeed;
 		SetCubeModel(texture, texture2, renderer);
 		_transform.position = vec3(0, 0, 0);
@@ -42,7 +42,7 @@ namespace Engine
 	void Player3D::SetCubeModel(const char* diffuseMap, const char* specularMap , Renderer* renderer)
 	{
 		_cubeModel = new Cubo(diffuseMap, specularMap , renderer);
-		_cubeModel->SetMaterial(glm::vec3(0.2, 0.2, 0.2), glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.7, 0.7, 0.7), 32);
+		_cubeModel->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 32);
 
 		_cubeModel->SetPosition(_transform.position);
 		_cubeModel->SetRotation(_transform.rotation);
@@ -54,6 +54,7 @@ namespace Engine
 	}
 	void Player3D::Move(float deltaTime) 
 	{
+		_dLight->SetLightData(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1));
 		_transform.forward = glm::normalize(_transform.rotation);
 		_transform.right = glm::cross(glm::vec3(0, 1, 0), _transform.forward);
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
@@ -67,7 +68,7 @@ namespace Engine
 		if (Input::GetKey(Keycode::D))
 			_transform.position += glm::cross(_transform.forward, _transform.up) * _movementSpeed * deltaTime;
 		
-		//_dLight->SetDirection(_transform.forward);
+		_dLight->SetDirection(_transform.forward);
 		_dLight->SetPosition(_transform.position);
 		std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << endl;
 		

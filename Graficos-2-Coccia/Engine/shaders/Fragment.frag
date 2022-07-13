@@ -132,14 +132,14 @@ void main()
 
     if (directionLight.isActive != 0)
     {
-        resultColor += CalculateDirectionData(normal, viewDirection);
     }
+        //resultColor += CalculateDirectionData(normal, viewDirection);
 
     for (int i = 0; i < MAX_LIGHTS; i++)
     {
         if (pointLight[i].isActive != 0)
         {
-            resultColor += CalculatePointLight(pointLight[i], normal, viewDirection);
+            resultColor += CalculatePointLight(pointLight[0], normal, viewDirection);
         }
     }
 
@@ -147,10 +147,10 @@ void main()
     {
         if (spotLight[i].isActive != 0)
         {
-            resultColor += CalculateSpotLight(spotLight[i], normal, viewDirection);
         }
     }
-    resultColor += CalculatePointLight(pointLight[0], normal, viewDirection);
+            resultColor += CalculateSpotLight(spotLight[0], normal, viewDirection);
+    //resultColor += CalculatePointLight(pointLight[0], normal, viewDirection);
     gl_FragColor = resultColor ;
 
 }
