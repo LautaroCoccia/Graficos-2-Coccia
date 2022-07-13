@@ -214,7 +214,7 @@ namespace Engine
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glUseProgram(0);
 	}
-	void Renderer::UpdateDirectionalLight(LightData& light, DirectionLightData& directional)
+	void Renderer::UpdateDirectLightData(LightData& light, DirectionLightData& directional)
 	{
 		glUseProgram(_shader->GetShader());
 

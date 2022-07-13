@@ -26,10 +26,26 @@ struct Light {
 
 uniform Light light;  
 
+struct DirectionLight
+{
+    vec3 color;
+    vec3 direction;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+
+    int isActive;
+};
+uniform DirectionLight directionLight;
+
+
 uniform vec3 viewPos; 
 //uniform vec3 lightPos; 
 //uniform vec3 lightColor; // color + ambient
 uniform vec3 objectColor;
+
+vec4 CalculateDirectionData(vec3 normal, vec3 viewDirection);
 
 void main()
 {
@@ -55,20 +71,49 @@ void main()
 	//gl_FragColor = texture(ourTexture, TexCoords) * (outColor * vec4(result,1.0));
 	//FragColor= texture(ourTexture, TexCoords) * (outColor * vec4(lightColor,1.0));
    
-    vec3 ambient = light.ambient * texture(material.diffuse, TexCoords).rgb;
-  	
-    // diffuse 
-    vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(light.position - FragPos);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.diffuse * diff * texture(material.diffuse, TexCoords).rgb;  
-    
+    //vec3 ambient = light.ambient * texture(material.diffuse, TexCoords).rgb;
+  	//
+    //// diffuse 
+    //vec3 norm = normalize(Normal);
+    //vec3 lightDir = normalize(light.position - FragPos);
+    //float diff = max(dot(norm, lightDir), 0.0);
+    //vec3 diffuse = light.diffuse * diff * texture(material.diffuse, TexCoords).rgb;  
+    //
+    //// specular
+    //vec3 viewDir = normalize(viewPos - FragPos);
+    //vec3 reflectDir = reflect(-lightDir, norm);  
+    //float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    //vec3 specular = light.specular * spec * texture(material.specular, TexCoords).rgb;  
+    //    
+    //vec3 result = ambient + diffuse + specular ;
+
+    vec4 resultColor = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+    vec3 normal = normalize(Normal);
+    vec3 viewDirection = normalize(viewPos - FragPos);
+
+    //if (directionLight.isActive != 0)
+    //{
+    //    resultColor += CalculateDirectionData(normal, viewDirection);
+    //}
+       resultColor += CalculateDirectionData(normal, viewDirection);
+    gl_FragColor = resultColor;
+
+
+}
+vec4 CalculateDirectionData(vec3 normal, vec3 viewDirection)
+{
+    // ambient
+    vec3 ambient = directionLight.ambient * vec3(texture(material.diffuse, TexCoords));
+
+    // diffuse
+    vec3 lightDir = normalize(-directionLight.direction);
+    float diff = max(dot(normal, lightDir), 0.0);
+    vec3 diffuse = directionLight.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
+
     // specular
-    vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = light.specular * spec * texture(material.specular, TexCoords).rgb;  
-        
-    vec3 result = ambient + diffuse + specular ;
-    gl_FragColor = vec4(result, 1.0);
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDirection, reflectDir), 0.0), material.shininess);
+    vec3 specular = directionLight.specular * spec * vec3(texture(material.specular, TexCoords));
+
+    return vec4((ambient + diffuse + specular), 1.0f);
 }

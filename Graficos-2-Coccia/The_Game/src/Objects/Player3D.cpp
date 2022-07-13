@@ -66,8 +66,8 @@ namespace Engine
 		if (Input::GetKey(Keycode::D))
 			_transform.position += glm::cross(_transform.forward, _transform.up) * _movementSpeed * deltaTime;
 		
+		_dLight->SetDirection(_transform.forward);
 		_dLight->SetPosition(_transform.position);
-
 		std::cout << _transform.position.x << " " << _transform.position.y << " " << _transform.position.z << endl;
 		
 		if (_cubeModel != NULL)
