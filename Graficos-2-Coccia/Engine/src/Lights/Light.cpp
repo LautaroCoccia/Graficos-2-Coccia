@@ -3,22 +3,16 @@
 using namespace std;
 namespace Engine
 {
-	Light::Light(Renderer* renderer) 
+	Light::Light(Renderer* renderer, glm::vec3 color) 
 	{
 		_lightData._position = glm::vec3(0, 0, 0);
-		_ambient.color = glm::vec3(1.0f, 1.0f, 1.0);
-		_ambient.strength = 1.0f;
 
-		//_material._ambient = glm::vec3(0.31f, 0.2f, 1.0f);
-		//_material._diffuse = glm::vec3(0.31f, 0.2f, 1.0f);
-		//_material._ambient = glm::vec3(1.0f, 1.0f, 1.0f);
-		//_material._diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-		//_material._specular = glm::vec3(0.5f, 0.5f, 0.5f);
-		//_material._shininess = 32.0f;
+		_lightData._color = color;
 
-		_lightData._ambient = glm::vec3(0.2, 0.2, 0.2);
-		_lightData._diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-		_lightData._specular = glm::vec3(1, 1, 1);
+		_lightData._diffuse = _lightData._color * glm::vec3(0.5f);
+		_lightData._ambient = _lightData._diffuse * glm::vec3(0.2f);
+
+		_lightData._specular = { 1.0f, 1.0f, 1.0f };
 
 		_renderer = renderer;
 
@@ -31,8 +25,8 @@ namespace Engine
 	}
 	void Light::SetLightColorAmbient(glm::vec3 lightColor, float ambientStrength)
 	{
-		_ambient.color = lightColor;
-		_ambient.strength = ambientStrength;
+		//_ambient.color = lightColor;
+		//_ambient.strength = ambientStrength;
 	}
 	void Light::SetLightData(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
 	{
@@ -48,7 +42,7 @@ namespace Engine
 
 	void Light::Draw()
 	{
-		glm::vec3 lightColor = _ambient.color * _ambient.strength;
-		_renderer->DrawLight(_lightData, lightColor);
+		//glm::vec3 lightColor = _ambient.color * _ambient.strength;
+		_renderer->DrawLight(_lightData, _lightData._color);
 	}
 }

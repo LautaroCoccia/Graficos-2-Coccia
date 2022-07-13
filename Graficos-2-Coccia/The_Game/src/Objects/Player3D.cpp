@@ -19,7 +19,7 @@ namespace Engine
 	}
 	Player3D::Player3D(float movementSpeed, const char* texture, const char* texture2, Renderer* renderer) : Entity()
 	{
-		_light = new Light(renderer);
+		_light = new Light(renderer, glm::vec3(1,1,1));
 		_movementSpeed = movementSpeed;
 		SetCubeModel(texture, texture2, renderer);
 		_transform.position = vec3(0, 0, 0);

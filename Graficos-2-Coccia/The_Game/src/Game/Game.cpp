@@ -121,7 +121,7 @@ namespace Engine
 		//_cube->SetPosition(0, 0, 0);
 
 		//_cubito = new Cubo("res/box2.png", "res/container2_specular.png" ,GetRenderer());
-		_cubito = new Cubo("res/BOB-ESPONJA-1-22.png", "res/container2_specular.png",GetRenderer());
+		_cubito = new Cubo("res/box2.png", "res/container2_specular.png",GetRenderer());
 		//_cubito = new Cubo("res/matrix.jpg", "res/matrix.jpg","res/matrix.jpg" ,GetRenderer());
 		_cubito->SetMaterial(glm::vec3(0), glm::vec3(0), glm::vec3(0), 32);
 		//_cubito->SetScale(1, 1, 1);

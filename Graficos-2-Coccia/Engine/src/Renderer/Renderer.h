@@ -11,15 +11,14 @@ namespace Engine
 {
 	struct LightData
 	{
-		glm::vec3 _position;
-
 		glm::vec3 _color;
-
+		glm::vec3 _position;
+		
 		glm::vec3 _ambient;
 		glm::vec3 _diffuse;
 		glm::vec3 _specular;
 
-		int _isActive;
+		//int _isActive;
 	};
 	struct Material
 	{
