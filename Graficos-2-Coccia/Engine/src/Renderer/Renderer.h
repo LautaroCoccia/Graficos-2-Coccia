@@ -69,6 +69,7 @@ namespace Engine
 		void CreateShader();
 		void BindTexture(unsigned int& texture);
 		void BindTexture2(unsigned int& texture1, unsigned int& texture2);
+		void BindTexture3(unsigned int& texture1, unsigned int& texture2, unsigned int& texture3);
 		void DisableTexture();
 		void DrawLight(LightData lightData, glm::vec3& lightColor);
 		void Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);

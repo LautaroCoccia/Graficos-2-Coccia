@@ -109,6 +109,46 @@ namespace Engine
         //_material._specular = glm::vec3(0.1, 0.1f, 0.1f);
         //_material._shininess = 32;
     }
+    Cubo::Cubo(const char* diffuse, const char* specular, const char* emission, Renderer* renderer) : Entity()
+    {
+        _renderer = renderer;
+
+        TI.ImportTexture(_renderer, diffuse, _diffuseMap);
+        if (specular != NULL)
+        {
+            TI.ImportTexture(_renderer, specular, _specularMap);
+        }
+        else
+        {
+            TI.ImportTexture(_renderer, diffuse, _specularMap);
+        }
+        TI.ImportTexture(_renderer, emission, _emissionMap);
+        
+
+        _vertexSize = sizeof(_vertices);
+
+        _renderer->SetVertexBuffer(_vertexSize, _vertices, _vao, _vbo);
+        _renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
+
+        _renderer->SetCubeVertexAttribPointer(_modelUniform);
+        //_renderer->BindTexture2(_diffuseMap, _specularMap);
+        _renderer->BindTexture3(_diffuseMap, _specularMap, _emissionMap);
+
+        _renderer->SetVertexAttribPointer(false, _modelUniform);
+    }
+    void Cubo::SetEmission(const char* emmision)
+    {
+        TI.ImportTexture(_renderer, emmision, _emissionMap);
+        _vertexSize = sizeof(_vertices);
+
+        _renderer->SetVertexBuffer(_vertexSize, _vertices, _vao, _vbo);
+        _renderer->SetIndexBuffer(_vertexSize, _index, _ebo);
+
+        _renderer->SetCubeVertexAttribPointer(_modelUniform);
+        _renderer->BindTexture(_emissionMap);
+
+        _renderer->SetVertexAttribPointer(false, _modelUniform);
+    }
     /*Cubo::Cubo(const char* filePath, Renderer* renderer) : Entity()
     {
         _renderer = renderer;
@@ -155,9 +195,10 @@ namespace Engine
     }
 	void Cubo::Draw()
 	{
-		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+	    _renderer->BindTexture2(_diffuseMap, _specularMap);
         _renderer->UpdateMaterial(_material);
-		_renderer->BindTexture2(_diffuseMap, _specularMap);
+		_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+		//_renderer->BindTexture2(_diffuseMap, _specularMap);
 
 		//_renderer->SetCubeVertexAttribPointer(_modelUniform);
 		_renderer->Draw(_alpha,_vao, _vbo, _ebo, _vertices, _vertexSize, sizeof(_index) / sizeof(float));

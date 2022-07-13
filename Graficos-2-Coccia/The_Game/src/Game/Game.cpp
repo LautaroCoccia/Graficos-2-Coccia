@@ -49,10 +49,10 @@ namespace Engine
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
 		_camera->SetCameraMode(CameraMode::FlyCamera);
 
-		_light = new Light(GetRenderer());
-		_light->SetPosition(glm::vec3(10, 1, 10));
-		_light->SetLightData(glm::vec3(1, 1, 1), glm::vec3(0.3, 1, 1), glm::vec3(0.5, 0.5, 0.5));
-		_light->SetLightColorAmbient(glm::vec3(1, 1, 1), 1);
+		//_light = new Light(GetRenderer());
+		//_light->SetPosition(glm::vec3(10, 1, 10));
+		//_light->SetLightData(glm::vec3(1, 1, 1), glm::vec3(0.3, 1, 1), glm::vec3(0.5, 0.5, 0.5));
+		//_light->SetLightColorAmbient(glm::vec3(1, 1, 1), 1);
 		//For TPCamera (pos y rot)
 		_camera->SetCameraPosition(0, 0, -3);
 		_camera->SetCameraRotation(4.37f, 1, 0);
@@ -93,7 +93,7 @@ namespace Engine
 		_player3D = new Player3D(10, "res/wall.png","res/container2_specular.png", GetRenderer());
 		_player3D->SetPosition(0, 0, 0);
 		_player3D->GetLight()->SetLightData(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1,1,1), glm::vec3(1, 1, 1));
-		_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.31,1,1), 1);
+		_player3D->GetLight()->SetLightColorAmbient(glm::vec3(0.2,0.2,0.2), 0.2);
 		// --------------------------------
 
 		//_box = new Sprite(GetRenderer());
@@ -120,8 +120,10 @@ namespace Engine
 		//_cube = new Cube("res/crate1_diffuse.png", GetRenderer());
 		//_cube->SetPosition(0, 0, 0);
 
-		_cubito = new Cubo("res/box2.png", NULL, GetRenderer());
-		_cubito->SetMaterial(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), 256);
+		//_cubito = new Cubo("res/box2.png", "res/container2_specular.png" ,GetRenderer());
+		_cubito = new Cubo("res/BOB-ESPONJA-1-22.png", "res/container2_specular.png",GetRenderer());
+		//_cubito = new Cubo("res/matrix.jpg", "res/matrix.jpg","res/matrix.jpg" ,GetRenderer());
+		_cubito->SetMaterial(glm::vec3(0), glm::vec3(0), glm::vec3(0), 32);
 		//_cubito->SetScale(1, 1, 1);
 		_cubito->SetPosition(0, 0, 0);
 		_cubito->SetScale(10, 10, 10);
@@ -145,16 +147,13 @@ namespace Engine
 		//_quad->Draw();
 
 		
+		//_light->Draw();
 		_cubito->Draw();
-		_light->Draw();
 		if (_camera->GetCurrentMode() != CameraMode::FlyCamera)
 		{
 			_player3D->Move(deltaTime);
-
 		}
-
 		_camera->CameraInput(deltaTime,  _player3D->_transform);
-		
 
 		if (_camera->GetCurrentMode() != CameraMode::FPCamera)
 		{

@@ -153,6 +153,7 @@ namespace Engine
 
 		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.diffuse"), 0);
 		glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.specular"), 1);
+		//glUniform1i(glGetUniformLocation(_shader->GetShader(), "material.emmision"), 2);
 		SetIndex(_shader->GetShader());
 	}
 	
@@ -174,6 +175,17 @@ namespace Engine
 		glBindTexture(GL_TEXTURE_2D, texture1);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
+	}
+	void Renderer::BindTexture3(unsigned int& texture1, unsigned int& texture2, unsigned int& texture3)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2);
+
+		// bind emission map
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, texture3);
 	}
 	void Renderer::DisableTexture()
 	{
@@ -205,7 +217,7 @@ namespace Engine
 	void Renderer::Draw(bool alpha, unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
 		glUseProgram(_shader->GetShader());
-		if (alpha)
+		if (true)
 		{
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
