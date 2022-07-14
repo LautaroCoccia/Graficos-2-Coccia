@@ -6,7 +6,7 @@
 #include "..\Shader\Shader.h"
 #include "..\Camera\Camera.h"
 #include "glm\glm\mat4x4.hpp"
-
+using namespace glm;
 namespace Engine
 {
 	struct LightData
@@ -95,6 +95,8 @@ namespace Engine
 		void BindTexture(unsigned int& texture);
 		void BindTexture2(unsigned int& texture1, unsigned int& texture2);
 		void BindTexture3(unsigned int& texture1, unsigned int& texture2, unsigned int& texture3);
+		void UpdateProgram(mat4 model);
+
 		void DisableTexture();
 		void UpdateLightData(LightData lightData);
 		void UpdateDirectLightData(LightData& light, DirectionLightData& directional);

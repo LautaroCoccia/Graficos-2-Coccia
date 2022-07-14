@@ -20,7 +20,6 @@ namespace Engine
 		_transform.forward = glm::vec3(0, 0, 1);
 		_transform.up = glm::vec3(0, 1, 0);
 		_transform.right = glm::vec3(0, 1, 0);
-
 	}
 
 	Entity::~Entity()

@@ -3,7 +3,7 @@
 
 #include "..\Export\Export.h"
 #include "..\Renderer\Renderer.h"
-
+#include <string>
 namespace Engine
 {
 	struct TextureData
@@ -28,6 +28,8 @@ namespace Engine
 
 		void ImportTexture(Renderer* renderer, const char* name, unsigned int& texture);
 		void ImportTexture(Renderer* renderer, const char* filePath, TextureData& _textureData);
+		unsigned int TextureFromFile(const char* path, std::string const& directory, bool gamma = false);
+
 		//void ImportTextures(Renderer* renderer, const char* filePath, TextureData& _textureData);
 	};
 }

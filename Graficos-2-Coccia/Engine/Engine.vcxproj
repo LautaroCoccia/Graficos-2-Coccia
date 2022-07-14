@@ -91,14 +91,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_WINDLL;GraficosEngine_Exports;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glm;$(ProjectDir)lib\GLFW\include;$(ProjectDir)lib\GLEW\include;$(ProjectDir)lib\glm;$(ProjectDir)lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\assimp\lib;$(ProjectDir)lib\glm;$(ProjectDir)lib\GLFW\include;$(ProjectDir)lib\GLEW\include;$(ProjectDir)lib\glm;$(ProjectDir)lib</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\GLFW\lib-vc2019;$(ProjectDir)lib\GLEW\lib\Win32;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\assimp\lib;$(ProjectDir)lib\GLFW\lib-vc2019;$(ProjectDir)lib\GLEW\lib\Win32;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;assimp-vc140-mt.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>"$(ProjectDir)tools\postCompile.bat" "$(ProjectDir)bin\Debug" "$(SolutionDir)The_Game\bin\Debug"</Command>
@@ -149,6 +149,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\3D\Mesh.cpp" />
+    <ClCompile Include="src\3D\Model.cpp" />
     <ClCompile Include="src\Animation\Animation.cpp" />
     <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="src\CollisionManager\CollisionManager.cpp" />
@@ -164,6 +166,7 @@
     <ClCompile Include="src\Lights\LightsManager.cpp" />
     <ClCompile Include="src\Lights\PointLight.cpp" />
     <ClCompile Include="src\Lights\Spotlight.cpp" />
+    <ClCompile Include="src\ModelImporter\ModelImporter.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Shader\Shader.cpp" />
     <ClCompile Include="src\Shape2D\Shape2D.cpp" />
@@ -174,6 +177,8 @@
     <ClCompile Include="src\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\3D\Mesh.h" />
+    <ClInclude Include="src\3D\Model.h" />
     <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\CollisionManager\CollisionManager.h" />
@@ -190,6 +195,7 @@
     <ClInclude Include="src\Lights\LightsManager.h" />
     <ClInclude Include="src\Lights\PointLight.h" />
     <ClInclude Include="src\Lights\Spotlight.h" />
+    <ClInclude Include="src\ModelImporter\ModelImporter.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\Shape2D\Shape2D.h" />

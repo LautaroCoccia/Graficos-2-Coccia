@@ -132,8 +132,8 @@ void main()
 
     if (directionLight.isActive != 0)
     {
+        resultColor += CalculateDirectionData(normal, viewDirection);
     }
-        //resultColor += CalculateDirectionData(normal, viewDirection);
 
     for (int i = 0; i < MAX_LIGHTS; i++)
     {
@@ -147,9 +147,9 @@ void main()
     {
         if (spotLight[i].isActive != 0)
         {
+            resultColor += CalculateSpotLight(spotLight[0], normal, viewDirection);
         }
     }
-            resultColor += CalculateSpotLight(spotLight[0], normal, viewDirection);
     //resultColor += CalculatePointLight(pointLight[0], normal, viewDirection);
     gl_FragColor = resultColor ;
 
@@ -230,5 +230,5 @@ vec4 CalculateSpotLight(SpotLight spotLight, vec3 normal, vec3 viewDirection)
     diffuse *= attenuation;
     specular *= attenuation;
 
-    return vec4((ambient + diffuse + specular) *spotLight.color, 1.0f);
+    return vec4((ambient + diffuse + specular) * spotLight.color, 1.0f);
 }

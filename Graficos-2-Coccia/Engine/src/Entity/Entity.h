@@ -37,6 +37,7 @@ namespace Engine
 		glm::mat4 rotateY;
 		glm::mat4 rotateZ;
 		glm::mat4 scale;
+		
 
 	};
 
@@ -51,6 +52,7 @@ namespace Engine
 
 	protected:
 		//Renderer* _renderer;
+		glm::mat4 TRS;
 		GeneralMatrix _generalMatrix;
 
 		bool _isTrigger;

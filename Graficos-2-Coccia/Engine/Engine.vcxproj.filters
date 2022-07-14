@@ -58,6 +58,12 @@
     <Filter Include="Cube">
       <UniqueIdentifier>{d37eb62f-7053-45d4-bd08-5e8736953289}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3D">
+      <UniqueIdentifier>{15949cc6-40db-4af2-8401-246288a3679b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ModelImporter">
+      <UniqueIdentifier>{bc312c69-4a6e-435d-b6ac-3a3e72066d4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp">
@@ -128,6 +134,15 @@
     </ClCompile>
     <ClCompile Include="src\Lights\LightsManager.cpp">
       <Filter>Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3D\Mesh.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3D\Model.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ModelImporter\ModelImporter.cpp">
+      <Filter>ModelImporter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +220,15 @@
     </ClInclude>
     <ClInclude Include="src\Lights\LightsManager.h">
       <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3D\Mesh.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3D\Model.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ModelImporter\ModelImporter.h">
+      <Filter>ModelImporter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

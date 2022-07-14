@@ -49,6 +49,12 @@ namespace Engine
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
 		_camera->SetCameraMode(CameraMode::FlyCamera);
 
+		_model = new Model(GetRenderer(),"res/Models/Knuckles/Knuckles.fbx",false,false);
+		_model->SetPosition(0, 0, 0);
+
+		//_model2 = new Model(GetRenderer(),"res/Models/Skate/characterMedium.fbx", false,false);
+		//_model2->SetPosition(0, 1, 0);
+
 		_light = new Spotlight(GetRenderer(),vec3(1,1,1),vec3(1,1,0 ),vec3(1,1,1));
 		_light->SetPosition(glm::vec3(0, 1, 0));
 		_light->SetLightData(glm::vec3(1, 1, 1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.5, 0.5, 0.5), vec3(1,0,0));
@@ -151,10 +157,14 @@ namespace Engine
 		//_cube->Draw();
 
 		//_quad->Draw();
-
+		_light2->SetDirection(_player3D->_transform.forward);
 		//_light2->SetLightData(vec3(1, 1, 1), vec3(1, 1, 1), vec3(1, 1, 1), vec3(1, 1, 1));
 		//_light->Draw(1);
-		//_light2->Draw(1);
+		_light2->Draw(1);
+		//_model->Draw();
+		//_model->SetPosition(_player3D->GetPosition());
+
+		_model2->Draw();
 		_cubito->Draw();
 		if (_camera->GetCurrentMode() != CameraMode::FlyCamera)
 		{

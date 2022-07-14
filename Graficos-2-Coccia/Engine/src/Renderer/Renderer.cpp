@@ -187,6 +187,12 @@ namespace Engine
 		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_2D, texture3);
 	}
+	void Renderer::UpdateProgram(mat4 model)
+	{
+		unsigned int transformLocation = glGetUniformLocation(_shader->GetShader(), "Model");
+		glUseProgram(_shader->GetShader());
+		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, value_ptr(model));
+	}
 	void Renderer::DisableTexture()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -229,7 +235,7 @@ namespace Engine
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "directionLight.ambient"), 1, &light._ambient[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "directionLight.diffuse"), 1, &light._diffuse[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "directionLight.specular"), 1, &light._specular[0]);
-
+		light._isActive = 1;
 		glUniform1i(glGetUniformLocation(_shader->GetShader(), "directionLight.isActive"), light._isActive);
 
 		glUseProgram(0);
@@ -242,9 +248,11 @@ namespace Engine
 
 		std::string fragComand = "pointLight[" + (char)i;
 		std::cout << light._color.x << " " << light._color.y << " " << light._color.z << std::endl;
+		
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "color"), 1, &color[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "viewPos"), 1, &_camera->GetPosition()[0]);
-
+		light._isActive = 1;
+		glUniform1f(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].isActive").c_str()), light._isActive);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].color").c_str()), 1, &light._color[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].position").c_str()), 1, &point._position[0]);
 
@@ -271,11 +279,13 @@ namespace Engine
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].color").c_str()), 1, &u_color[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].viewPos").c_str()), 1, &_camera->GetPosition()[0]);
 
+		light._isActive = 1;
+		glUniform1f(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].isActive").c_str()), light._isActive);
+
+		glUniform1f(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].cutOff").c_str()), spot._cutOff);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].color").c_str()), 1, &light._color[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].position").c_str()), 1, &spot._position[0]);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].direction").c_str()), 1, &spot._direction[0]);
-
-		glUniform1f(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].cutOff").c_str()), spot._cutOff);
 		glUniform1f(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].outerCutOff").c_str()), spot._outerCutOff);
 
 		glUniform1f(glGetUniformLocation(_shader->GetShader(), std::string(fragComand + "].constant").c_str()), spot._constant);

@@ -29,7 +29,6 @@ namespace Engine
 		_transform.rotation.z = 1;
 
 		_dLight->SetPosition(glm::vec3(0, 0, 0));
-
 	}
 
 	Player3D::~Player3D()
