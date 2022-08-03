@@ -420,4 +420,8 @@ namespace Engine
 	{
 		_camera = camera;
 	}
+	void Renderer::UpdateModelUniform(glm::mat4 modelMatrix,unsigned int shaderId)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(shaderId, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	}
 }

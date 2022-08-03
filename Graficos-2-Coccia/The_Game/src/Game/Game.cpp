@@ -51,6 +51,7 @@ namespace Engine
 
 		_model = new Model(GetRenderer(),"res/Models/backpack/backpack.obj",false,false);
 		_model->SetPosition(0, 0, 0);
+		//_model->SetScale(0.25, 0.25, 0.25);
 
 		//_model2 = new Model(GetRenderer(),"res/Models/Skate/characterMedium.fbx", false,false);
 		//_model2->SetPosition(0, 1, 0);
@@ -143,11 +144,17 @@ namespace Engine
 	
 	void Game::Play()
 	{
-		UpdateEngine(0.0f, 0.0f, 0.0f, 1);
+		UpdateEngine(0.5f, 0.5f, 0.5f, 1);
 	}
 
 	void Game::Update(float deltaTime)
 	{
+		if (Input::GetKey(Keycode::ALPHA1))
+		{
+			glm::vec3 algo =(_model->_transform.scale += deltaTime, _model->_transform.scale += deltaTime, _model->_transform.scale += deltaTime);
+			_model->ScaleModel(algo.x, algo.y, algo.z);
+		}
+		//_model->ScaleModel(0,0,0);
 		//_camera->SetCameraPosition(_roboBob->_transform.position);
 		//_roboBob->Move(deltaTime);
 		//_camera->CameraInput(deltaTime,  _roboBob->_transform);

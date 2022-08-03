@@ -117,6 +117,7 @@ namespace Engine
 		void UpdateMVP(glm::mat4 model);
 		unsigned int GetShader();
 		void SetCurrentCamera(Camera* camera);
+		void UpdateModelUniform(glm::mat4 modelMatrix, unsigned int shaderId);
 	};
 }
 #endif

@@ -17,10 +17,13 @@ namespace Engine
 	{
 	private:
 		bool gammaCorrection;
+		std::vector<Mesh> _meshes;
 	public:
 		Model(Renderer* rend, string const& path, bool flipUVs, bool gamma);
 
 		ModelData _model;
+		void MoveModel(glm::vec3 direction);
+		void ScaleModel(float x, float y, float z);
 
 		void Draw();
 		void TriggerCollision(Entity* other);

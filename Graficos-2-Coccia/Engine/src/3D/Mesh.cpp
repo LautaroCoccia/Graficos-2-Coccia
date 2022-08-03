@@ -72,6 +72,8 @@ void Mesh::Draw()
 	unsigned int specularNr = 1;
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
+
+
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -92,7 +94,7 @@ void Mesh::Draw()
 		// and finally bind the texture
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
-
+	_renderer->UpdateModelUniform(_generalMatrix.model,_renderer->GetShader());
 	// draw mesh
 	glBindVertexArray(_vao);
 	glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
