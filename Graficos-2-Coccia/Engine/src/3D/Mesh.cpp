@@ -64,7 +64,7 @@ void Mesh::Draw()
 	// -------------------------------------
 
 	//_modelUniform = glGetUniformLocation(_renderer->GetShader(), "model");
-	_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
+	//_renderer->UpdateModel(_generalMatrix.model, _modelUniform);
 	glUniform1i(glGetUniformLocation(_renderer->GetShader(), "model"), 0);
 
 	// bind appropriate textures

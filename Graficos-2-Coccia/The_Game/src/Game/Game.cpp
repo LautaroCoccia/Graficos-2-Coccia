@@ -49,7 +49,7 @@ namespace Engine
 		_camera = new Camera(CameraType::Perspective, 0.1f, 100.0f, 1200, 600, 0.5f);
 		_camera->SetCameraMode(CameraMode::FlyCamera);
 
-		_model = new Model(GetRenderer(),"res/Models/Knuckles/Knuckles.fbx",false,false);
+		_model = new Model(GetRenderer(),"res/Models/backpack/backpack.obj",false,false);
 		_model->SetPosition(0, 0, 0);
 
 		//_model2 = new Model(GetRenderer(),"res/Models/Skate/characterMedium.fbx", false,false);
@@ -163,8 +163,8 @@ namespace Engine
 		_light2->Draw(1);
 		//_model->Draw();
 		//_model->SetPosition(_player3D->GetPosition());
-
-		_model2->Draw();
+		_model->Draw();
+		//_model2->Draw();
 		_cubito->Draw();
 		if (_camera->GetCurrentMode() != CameraMode::FlyCamera)
 		{

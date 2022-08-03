@@ -3,8 +3,8 @@
 #include "GL\glew.h"
 #include "glm\glm.hpp"
 
-#define STB_IMAGE_IMPLEMENTATION
 #include "..\TextureImporter\stb_image.h"
+#define STB_IMAGE_IMPLEMENTATION
 #include <iostream>
 
 using namespace std;
