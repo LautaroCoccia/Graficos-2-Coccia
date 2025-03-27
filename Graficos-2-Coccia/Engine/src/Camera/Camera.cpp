@@ -39,7 +39,8 @@ namespace Engine
 	void Camera::UpdateMVP(glm::mat4 model)
 	{
 		UpdateView();
-		glUniformMatrix4fv(_modelInd, 1, GL_FALSE, glm::value_ptr(model));
+		//Mover a renderer?
+		glUniformMatrix4fv(_modelInd, 1, GL_FALSE, glm::value_ptr(model));//Reemplazar con un getter de model 
 		glUniformMatrix4fv(_viewInd, 1, GL_FALSE, glm::value_ptr(_view));
 		glUniformMatrix4fv(_projectionInd, 1, GL_FALSE, glm::value_ptr(_projection));
 	}

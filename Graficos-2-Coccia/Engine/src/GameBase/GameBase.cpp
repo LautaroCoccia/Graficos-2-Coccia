@@ -31,10 +31,6 @@ namespace Engine
 		if (!glfwInit())
 			return -1;
 
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 		_window->CreateWindow(width, height, windowName, NULL);
 		_window->InitWindow();
 
@@ -71,12 +67,12 @@ namespace Engine
 
 	void GameBase::SetCamera(CameraType type, float near, float far)
 	{
-		_renderer->SetCameraValues(type, near, far);
+		_renderer->SetCameraValues(type, near, far); //???
 	}
 
 	void GameBase::SetCameraPosition(float x, float y, float z)
 	{
-		_renderer->SetCameraPosition(x, y, z);
+		_renderer->SetCameraPosition(x, y, z); //???
 	}
 
 	Renderer* GameBase::GetRenderer()
