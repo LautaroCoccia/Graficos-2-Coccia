@@ -1,6 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include <list>
 #include <string>
 #include "..\Export\Export.h"
 #include "..\Shader\Shader.h"
@@ -18,7 +19,8 @@ namespace Engine
 	{
 	private:
 		Shader* _shader;
-		Camera* _camera;
+		Camera* _currentCamera;
+		std::list<Camera*>lista;
 
 	public:
 		Renderer();
@@ -37,9 +39,13 @@ namespace Engine
 		void StopShader();
 		void DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int& ebo);
 
-		void SetCameraValues(CameraType type, float near, float far);
-		void SetCameraPosition(float x, float y, float z);
 		unsigned int GetShader();
+		
+		void SetDefaultCamera();
+		 
+		//Tiene logica llamar al renderer para pasarle a la camara sus atributos??
+		//void SetCameraValues(CameraType type, float near, float far);
+		//void SetCameraPosition(float x, float y, float z);
 	};
 }
 #endif

@@ -30,8 +30,9 @@ namespace Engine
 		StartEngine(1200, 600, "Coccia Graficos 2");
 		srand(time(NULL));
 
-		SetCamera(CameraType::Perspective, 0.1f, 100.0f);
-		SetCameraPosition(0, 0, 5);
+		// sugerencia: Podria settear una camara por defecto?
+		//SetCamera(CameraType::Perspective, 0.1f, 100.0f);
+		//SetCameraPosition(0, 0, 5);
 
 		// --------------------------------
 		

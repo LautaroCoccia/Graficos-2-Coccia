@@ -38,6 +38,11 @@ namespace Engine
 
 		_renderer->InitGlew();
 		_renderer->CreateShader();
+
+		_renderer->SetDefaultCamera();
+		//Setear camara por defecto!
+		//_renderer->SetCameraValues(type, near, far);
+		//_renderer->SetCameraPosition(x, y, z);
 	}
 
 	void GameBase::UpdateEngine(float r, float g, float b, float a)
@@ -65,7 +70,7 @@ namespace Engine
 
 	//===========================================
 
-	void GameBase::SetCamera(CameraType type, float near, float far)
+	/*void GameBase::SetCamera(CameraType type, float near, float far)
 	{
 		_renderer->SetCameraValues(type, near, far); //???
 	}
@@ -73,7 +78,7 @@ namespace Engine
 	void GameBase::SetCameraPosition(float x, float y, float z)
 	{
 		_renderer->SetCameraPosition(x, y, z); //???
-	}
+	}*/
 
 	Renderer* GameBase::GetRenderer()
 	{

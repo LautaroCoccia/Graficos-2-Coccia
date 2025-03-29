@@ -9,7 +9,7 @@ namespace Engine
 	Renderer::Renderer()
 	{		
 		_shader = new Shader();
-		_camera = new Camera();
+		_currentCamera = new Camera();
 	}
 
 	Renderer::~Renderer()
@@ -20,10 +20,10 @@ namespace Engine
 			_shader = NULL;
 		}
 		
-		if (_camera != NULL)
+		if (_currentCamera != NULL)
 		{
-			delete _camera;
-			_camera = NULL;
+			delete _currentCamera;
+			_currentCamera = NULL;
 		}
 	}
 
@@ -88,7 +88,7 @@ namespace Engine
 		_shader->SetShader("../Engine/shaders/Vertex.shader", "../Engine/shaders/Fragment.shader");
 		glUseProgram(_shader->GetShader());
 
-		_camera->SetIndex(_shader->GetShader());
+		_currentCamera->SetIndex(_shader->GetShader());//REVISAR
 	}
 	
 	void Renderer::BindTexture(unsigned int& texture)
@@ -124,7 +124,7 @@ namespace Engine
 		glUseProgram(_shader->GetShader());
 		glUniformMatrix4fv(modelUniform, 1, GL_FALSE, glm::value_ptr(model));
 
-		_camera->UpdateMVP(model);
+		_currentCamera->UpdateMVP(model);
 
 		glUseProgram(0);
 	}
@@ -144,15 +144,6 @@ namespace Engine
 		glDeleteBuffers(1, &ebo);
 	}
 
-	void Renderer::SetCameraValues(CameraType type, float near, float far)
-	{
-		_camera->SetCameraValues(type, near, far);
-	}
-
-	void Renderer::SetCameraPosition(float x, float y, float z)
-	{
-		_camera->SetCameraPosition(x, y, z);
-	}
 
 	// ----------------------------
 
@@ -160,4 +151,21 @@ namespace Engine
 	{
 		return _shader->GetShader();
 	}
+
+	void Renderer::SetDefaultCamera()
+	{
+		_currentCamera->SetCameraValues(CameraType::Perspective, 0.1f, 100.0f);
+		_currentCamera->SetCameraPosition(0, 0, 5);
+	}
+	
+	/*void Renderer::SetCameraValues(CameraType type, float near, float far)
+	{
+		_camera->SetCameraValues(type, near, far);
+	}
+
+	void Renderer::SetCameraPosition(float x, float y, float z)
+	{
+		_camera->SetCameraPosition(x, y, z);
+	}*/
+
 }
