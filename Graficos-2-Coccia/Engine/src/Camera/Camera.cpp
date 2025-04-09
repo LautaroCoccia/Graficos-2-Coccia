@@ -52,8 +52,10 @@ namespace Engine
 		_projectionInd = glGetUniformLocation(shaderId, "projection");
 	}
 
-	void Camera::SetCameraValues(CameraType type, float near, float far)
+	void Camera::SetValues(CameraType type, float near, float far, std::string tag)
 	{
+		_tag = tag;
+
 		switch (type)
 		{
 		case CameraType::Perspective:
@@ -61,13 +63,14 @@ namespace Engine
 			break;
 
 		case CameraType::Ortho:
-			_projection = glm::ortho(-1.5f, 1.5f, -1.0f, 1.0f, near, far);
+			_projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, near, far);
 			break;
 		}
 		_view = glm::mat4(1.0f);
+
 	}
 
-	void Camera::SetCameraPosition(float x, float y, float z)
+	void Camera::SetPosition(float x, float y, float z)
 	{
 		_cameraPos = glm::vec3(x, y, z);
 	}

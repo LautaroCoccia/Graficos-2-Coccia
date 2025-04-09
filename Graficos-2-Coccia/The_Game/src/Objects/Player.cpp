@@ -14,7 +14,7 @@ namespace Engine
 
 	void Player::Move(float deltaTime)
 	{
-		if (Input::GetKey(Keycode::W))
+		if (Input::GetKey(Keycode::UP))
 		{
 			GetAnimation()->UpdateFrame(deltaTime);
 			DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));
@@ -22,7 +22,7 @@ namespace Engine
 
 			SetPosition(_transform.position.x, _transform.position.y + (_speed * deltaTime), _transform.position.z);
 		}
-		else if (Input::GetKey(Keycode::S))
+		else if (Input::GetKey(Keycode::DOWN))
 		{
 			GetAnimation()->UpdateFrame(deltaTime);
 			DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));
@@ -30,7 +30,7 @@ namespace Engine
 
 			SetPosition(_transform.position.x, _transform.position.y - (_speed * deltaTime), _transform.position.z);
 		}
-		else if (Input::GetKey(Keycode::A))
+		else if (Input::GetKey(Keycode::LEFT))
 		{
 			GetAnimation()->UpdateFrame(deltaTime);
 			DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));
@@ -38,7 +38,7 @@ namespace Engine
 		
 			SetPosition(_transform.position.x - (_speed * deltaTime), _transform.position.y, _transform.position.z);
 		}
-		else if (Input::GetKey(Keycode::D))
+		else if (Input::GetKey(Keycode::RIGHT))
 		{
 			GetAnimation()->UpdateFrame(deltaTime);
 			DrawAnimation(GetAnimation()->GetUVsFromVector(GetAnimation()->GetCurrentFrame()));

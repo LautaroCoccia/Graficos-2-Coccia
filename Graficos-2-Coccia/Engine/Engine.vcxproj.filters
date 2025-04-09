@@ -49,6 +49,9 @@
     <Filter Include="Window">
       <UniqueIdentifier>{853dbf4a-5b8f-414a-b251-0ee8240d79db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SpriteCube">
+      <UniqueIdentifier>{4e6ac1b4-dd3f-4398-96ec-d3c21df03093}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteCube\Cube.cpp">
+      <Filter>SpriteCube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="src\Renderer\Renderer.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SpriteCube\Cube.h">
+      <Filter>SpriteCube</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

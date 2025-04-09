@@ -154,8 +154,8 @@ namespace Engine
 
 	void Renderer::SetDefaultCamera()
 	{
-		_currentCamera->SetCameraValues(CameraType::Perspective, 0.1f, 100.0f);
-		_currentCamera->SetCameraPosition(0, 0, 5);
+		_currentCamera->SetValues(CameraType::Perspective, 0.1f, 100.0f, "default");
+		_currentCamera->SetPosition(0, 0, 5);
 	}
 	
 	/*void Renderer::SetCameraValues(CameraType type, float near, float far)

@@ -27,7 +27,7 @@ namespace Engine
 
 	void Game::Start()
 	{
-		StartEngine(1200, 600, "Coccia Graficos 2");
+		StartEngine(800, 600, "Coccia Graficos 2");
 		srand(time(NULL));
 
 		// sugerencia: Podria settear una camara por defecto?
@@ -69,6 +69,8 @@ namespace Engine
 		_roboBob->ImportTexture("res/character_robot_sheet.png");
 		_roboBob->SetPosition(-1.8, 0, 0);
 		GetCollisionManager()->AddNewObject(_roboBob);
+
+		_testCube = new Cube(GetRenderer(), "res/wall.jpg", 0, 0, 0);
 	}
 	
 	void Game::Play()
@@ -81,14 +83,15 @@ namespace Engine
 		_roboBob->Move(deltaTime);
 
 		GetCollisionManager()->CheckAllCollisions();
-
-		_wall1->Draw();
-		_wall2->Draw();
-		_box->Draw();
+		_testCube->Draw();
+		//_wall1->Draw();
+		//_wall2->Draw();
+		//_box->Draw();
 	}
 
 	void Game::End()
 	{
 		EndEngine();
 	}
+	
 }

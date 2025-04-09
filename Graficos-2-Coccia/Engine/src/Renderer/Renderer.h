@@ -20,7 +20,7 @@ namespace Engine
 	private:
 		Shader* _shader;
 		Camera* _currentCamera;
-		std::list<Camera*>lista;
+		
 
 	public:
 		Renderer();

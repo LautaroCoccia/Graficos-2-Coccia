@@ -67,7 +67,10 @@ namespace Engine
 		_renderer->StopShader();
 		glfwTerminate();
 	}
+	void GameBase::AddCamera(CameraType type, float near, float far, std::string tag)
+	{
 
+	}
 	//===========================================
 
 	/*void GameBase::SetCamera(CameraType type, float near, float far)

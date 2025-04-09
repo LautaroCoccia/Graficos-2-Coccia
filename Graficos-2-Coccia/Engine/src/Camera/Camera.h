@@ -16,9 +16,12 @@ namespace Engine
 	class EXPORT_API Camera
 	{
 	private:
+
 		unsigned int _modelInd;
 		unsigned int _viewInd;
 		unsigned int _projectionInd;
+
+		std::string _tag;
 
 		glm::mat4 _projection;
 		glm::mat4 _view;
@@ -35,9 +38,11 @@ namespace Engine
 		void UpdateView();
 		void UpdateMVP(glm::mat4 model);
 		void SetIndex(unsigned int shaderId);
-		void SetCameraValues(CameraType type, float near, float far);
+		void SetValues(CameraType type, float near, float far, std::string tag);
 
-		void SetCameraPosition(float x, float y, float z);
+		void SetPosition(float x, float y, float z);
+		
+		std::string GetTag();
 	};
 }
 

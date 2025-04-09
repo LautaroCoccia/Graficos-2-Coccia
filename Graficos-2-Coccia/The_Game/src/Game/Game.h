@@ -15,6 +15,7 @@ namespace Engine
 		Sprite* _box;
 
 		Player* _roboBob;
+		Cube* _testCube;
 
 	public:
 		Game();
