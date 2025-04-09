@@ -44,7 +44,6 @@ namespace Engine
 		GetCollisionManager()->AddNewObject(_wall1);
 		
 		// --------------------------------
-
 		_wall2 = new Sprite(GetRenderer());
 		_wall2->InitTexture();
 		_wall2->ImportTexture("res/wall.jpg");

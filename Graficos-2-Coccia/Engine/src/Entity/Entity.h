@@ -3,7 +3,6 @@
 
 #include <string>
 #include "..\Export\Export.h"
-#include "..\Renderer\Renderer.h"
 #include "glm\glm\vec3.hpp"
 #include "glm\glm\mat4x4.hpp"
 
@@ -24,6 +23,10 @@ namespace Engine
 		glm::vec3 preb_position;
 		glm::vec3 preb_rotation;
 		glm::vec3 preb_scale;
+		glm::vec3 foward;
+		glm::vec3 up;
+		glm::vec3 right;
+
 	};
 
 	struct GeneralMatrix
@@ -46,14 +49,13 @@ namespace Engine
 		void SetPrebScale(glm::vec3 scale);
 
 	protected:
-		Renderer* _renderer;
 		GeneralMatrix _generalMatrix;
 
 		bool _isTrigger;
 		bool _isStatic;
 
 	public:
-		Entity(Renderer* renderer);
+		Entity();
 		~Entity();
 
 		Transform _transform;

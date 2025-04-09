@@ -21,4 +21,8 @@ namespace Engine
 	{
 		return (glfwGetKey(_window, key) == GLFW_RELEASE);
 	}
+	GLFWwindow* Input::GetWindow()
+	{
+		return _window;
+	}
 }

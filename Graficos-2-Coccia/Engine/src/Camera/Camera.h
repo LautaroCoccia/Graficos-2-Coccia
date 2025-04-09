@@ -13,7 +13,7 @@ namespace Engine
 		Ortho
 	};
 
-	class EXPORT_API Camera
+	class EXPORT_API Camera 
 	{
 	private:
 

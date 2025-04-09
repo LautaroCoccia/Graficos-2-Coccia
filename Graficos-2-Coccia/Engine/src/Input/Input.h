@@ -137,6 +137,8 @@ namespace Engine
 			static void SetWindow(GLFWwindow* window);
 			static bool GetKey(Keycode key);
 			static bool GetKeyUp(Keycode key);
+			static GLFWwindow* GetWindow();
+
 	};
 }
 

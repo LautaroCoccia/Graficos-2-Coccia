@@ -2,7 +2,7 @@
 
 namespace Engine
 {
-	Cube::Cube(Renderer* renderer, const char* name, float x, float y, float z) : Entity (renderer)
+	Cube::Cube(Renderer* renderer, const char* name, float x, float y, float z) : Entity ()
 	{
 		walls = new Sprite(renderer);
 		walls->InitTexture();

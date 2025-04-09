@@ -20,17 +20,6 @@ namespace Engine
 
 	}
 
-	//void Camera::UpdateCameraVectors()
-	//{
-	//	  glm::vec3 front;
-	//	  front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	//	  front.y = sin(glm::radians(pitch));
-	//	  front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	//	  cameraFront = glm::normalize(front);
-	//	  right = glm::normalize(glm::cross(cameraFront, cameraUp));
-	//	  up = glm::normalize(glm::cross(right, cameraFront));
-	//}
-
 	void Camera::UpdateView()
 	{
 		_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
