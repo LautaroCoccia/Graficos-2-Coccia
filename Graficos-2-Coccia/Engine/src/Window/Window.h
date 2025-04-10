@@ -20,6 +20,7 @@ namespace Engine
 		void InitWindow();
 		void DestroyWindow();
 		int WindowShouldClose();
+		void SetWindowShouldClose();
 		void SwapBuffers();
 		void ClearWindow(float r, float g, float b, float a);
 		GLFWwindow* ReturnWindow();

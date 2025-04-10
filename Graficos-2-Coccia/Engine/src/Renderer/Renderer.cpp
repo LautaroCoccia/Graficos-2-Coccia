@@ -157,6 +157,12 @@ namespace Engine
 		_currentCamera->SetValues(CameraType::Perspective, 0.1f, 100.0f, "default");
 		_currentCamera->SetPosition(0, 0, 5);
 	}
+	void Renderer::SetCurrentCamera(Camera* currentCamera)
+	{
+		_currentCamera = currentCamera;
+		_currentCamera->SetIndex(_shader->GetShader());//REVISAR
+
+	}
 	
 	/*void Renderer::SetCameraValues(CameraType type, float near, float far)
 	{

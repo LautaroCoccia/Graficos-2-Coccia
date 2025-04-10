@@ -23,7 +23,8 @@ namespace Engine
 		glm::vec3 preb_position;
 		glm::vec3 preb_rotation;
 		glm::vec3 preb_scale;
-		glm::vec3 foward;
+
+		glm::vec3 forward;
 		glm::vec3 up;
 		glm::vec3 right;
 

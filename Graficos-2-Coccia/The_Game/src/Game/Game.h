@@ -16,6 +16,7 @@ namespace Engine
 
 		Player* _roboBob;
 		Cube* _testCube;
+		Camera* _camera;
 
 	public:
 		Game();

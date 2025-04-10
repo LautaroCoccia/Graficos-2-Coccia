@@ -33,6 +33,7 @@ namespace Engine
 	void Window::InitWindow()
 	{
 		glfwMakeContextCurrent(_window);
+		
 	}
 
 	void Window::DestroyWindow()
@@ -44,7 +45,10 @@ namespace Engine
 	{
 		return glfwWindowShouldClose(_window);
 	}
-
+	void Window::SetWindowShouldClose()
+	{
+		glfwSetWindowShouldClose(_window, true);
+	}
 	void Window::SwapBuffers()
 	{
 		glfwSwapBuffers(_window);

@@ -33,7 +33,7 @@ namespace Engine
 
 		_window->CreateWindow(width, height, windowName, NULL);
 		_window->InitWindow();
-
+		//glfwSetCursorPosCallback(_window, Input::mouse_callback);
 		Input::SetWindow(_window->ReturnWindow());
 
 		_renderer->InitGlew();
@@ -49,6 +49,9 @@ namespace Engine
 	{
 		while (!_window->WindowShouldClose())
 		{
+			if (Input::GetKey(ESCAPE))
+				_window->SetWindowShouldClose();
+
 			/* Render here */
 			_window->ClearWindow(r, g, b, a);
 			Time::DeltaTime(deltaTime);

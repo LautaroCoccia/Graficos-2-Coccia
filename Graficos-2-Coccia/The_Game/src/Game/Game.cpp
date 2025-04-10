@@ -10,7 +10,7 @@ namespace Engine
 		_wall1 = NULL;
 		_wall2 = NULL;
 		_box = NULL;
-		
+		_camera = NULL;
 	}
 
 	Game::~Game()
@@ -23,6 +23,8 @@ namespace Engine
 			delete _wall2;
 		if (_box != NULL)
 			delete _box;
+		if (_camera != NULL)
+			delete _camera;
 	}
 
 	void Game::Start()
@@ -34,12 +36,15 @@ namespace Engine
 		//SetCamera(CameraType::Perspective, 0.1f, 100.0f);
 		//SetCameraPosition(0, 0, 5);
 
+		_camera = new Camera();
+		_camera->SetValues(CameraType::Perspective, 2, 100, "FPS");
+		GetRenderer()->SetCurrentCamera(_camera);
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer());
 		_wall1->InitTexture();
 		_wall1->ImportTexture("res/wall.jpg");
-		_wall1->SetPosition(0, 1.2, 0);
+		_wall1->SetPosition(0, 1.2, -5);
 		_wall1->SetStaticState(true);
 		GetCollisionManager()->AddNewObject(_wall1);
 		
@@ -79,13 +84,16 @@ namespace Engine
 
 	void Game::Update(float deltaTime)
 	{
+		_camera->CameraInput(deltaTime);
 		_roboBob->Move(deltaTime);
 
 		GetCollisionManager()->CheckAllCollisions();
 		_testCube->Draw();
-		//_wall1->Draw();
-		//_wall2->Draw();
-		//_box->Draw();
+
+
+		_wall1->Draw();
+		_wall2->Draw();
+		_box->Draw();
 	}
 
 	void Game::End()

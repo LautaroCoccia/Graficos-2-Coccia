@@ -2,9 +2,11 @@
 #define CAMERA_H
 
 #include <string>
+#include "..\Export\Export.h"
+#include "..\Entity\Entity.h"
 #include "glm\glm\mat4x4.hpp"
 #include "..\Shader\Shader.h"
-#include "..\Export\Export.h"
+#include "..\Window\Window.h"
 
 namespace Engine
 {
@@ -13,7 +15,7 @@ namespace Engine
 		Ortho
 	};
 
-	class EXPORT_API Camera 
+	class EXPORT_API Camera : public Entity
 	{
 	private:
 
@@ -25,24 +27,30 @@ namespace Engine
 
 		glm::mat4 _projection;
 		glm::mat4 _view;
+		
+		const float cameraSpeed = 10.0f; // adjust accordingly
 
-		glm::vec3 _cameraPos;
-		glm::vec3 _cameraFront;
-		glm::vec3 _cameraUp;
+		void DefaultSettings();
 
 	public:
 		Camera();
+		Camera(CameraType type, float near, float far, float height, float width, float sensibility);
 		~Camera();
-
 		//void UpdateCameraVectors();
 		void UpdateView();
 		void UpdateMVP(glm::mat4 model);
 		void SetIndex(unsigned int shaderId);
 		void SetValues(CameraType type, float near, float far, std::string tag);
-
 		void SetPosition(float x, float y, float z);
+		void CameraInput(float deltaTime);
 		
+
 		std::string GetTag();
+
+		static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
+		void SetColor(ENTITY_COLOR color);
+		void SetColor(float r, float g, float b);
+		void TriggerCollision(Entity* other);
 	};
 }
 
