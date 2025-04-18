@@ -39,7 +39,7 @@ namespace Engine
 		_renderer->InitGlew();
 		_renderer->CreateShader();
 
-		_renderer->SetDefaultCamera();
+		_renderer->SetDefaultCamera(width, height);
 		//Setear camara por defecto!
 		//_renderer->SetCameraValues(type, near, far);
 		//_renderer->SetCameraPosition(x, y, z);
@@ -86,6 +86,10 @@ namespace Engine
 		_renderer->SetCameraPosition(x, y, z); //???
 	}*/
 
+	void GameBase::ChangeWindowSize(int width, int height)
+	{
+		_window->SetWindowSize(width, height);
+	}
 	Renderer* GameBase::GetRenderer()
 	{
 		return _renderer;

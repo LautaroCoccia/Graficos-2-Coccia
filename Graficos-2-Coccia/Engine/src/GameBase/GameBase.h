@@ -33,6 +33,7 @@ namespace Engine
 		void AddCamera(CameraType type, float near, float far, std::string tag);
 		//void SetCamera(CameraType type, float near, float far);
 		//void SetCameraPosition(float x, float y, float z);
+		void ChangeWindowSize(int width, int height);
 
 		Renderer* GetRenderer();
 		CollisionManager* GetCollisionManager();

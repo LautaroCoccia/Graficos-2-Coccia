@@ -28,6 +28,8 @@ namespace Engine
 		glm::mat4 _projection;
 		glm::mat4 _view;
 		
+		float _width;
+		float _height;
 		const float cameraSpeed = 10.0f; // adjust accordingly
 
 		void DefaultSettings();
@@ -40,7 +42,8 @@ namespace Engine
 		void UpdateView();
 		void UpdateMVP(glm::mat4 model);
 		void SetIndex(unsigned int shaderId);
-		void SetValues(CameraType type, float near, float far, std::string tag);
+		void SetValues(CameraType type, float near, float far, std::string tag, int windowWidth, int WindowHeight);
+		void SetWidthHeight(int width, int height);
 		void SetPosition(float x, float y, float z);
 		void CameraInput(float deltaTime);
 		

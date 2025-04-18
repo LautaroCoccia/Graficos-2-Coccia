@@ -8,6 +8,8 @@ namespace Engine
 {
 	Renderer::Renderer()
 	{		
+		_width = 0;
+		_height = 0;
 		_shader = new Shader();
 		_currentCamera = new Camera();
 	}
@@ -152,14 +154,15 @@ namespace Engine
 		return _shader->GetShader();
 	}
 
-	void Renderer::SetDefaultCamera()
+	void Renderer::SetDefaultCamera(int width, int height)
 	{
-		_currentCamera->SetValues(CameraType::Perspective, 0.1f, 100.0f, "default");
+		_currentCamera->SetValues(CameraType::Perspective, 0.1f, 100.0f, "default", width, height);
 		_currentCamera->SetPosition(0, 0, 5);
 	}
 	void Renderer::SetCurrentCamera(Camera* currentCamera)
 	{
 		_currentCamera = currentCamera;
+		//_currentCamera->SetWidthHeight();
 		_currentCamera->SetIndex(_shader->GetShader());//REVISAR
 
 	}

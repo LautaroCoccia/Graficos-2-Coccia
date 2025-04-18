@@ -10,7 +10,8 @@ namespace Engine
 		_wall1 = NULL;
 		_wall2 = NULL;
 		_box = NULL;
-		_camera = NULL;
+		_fpcamera = NULL;
+		_tpcamera = NULL;
 	}
 
 	Game::~Game()
@@ -23,8 +24,10 @@ namespace Engine
 			delete _wall2;
 		if (_box != NULL)
 			delete _box;
-		if (_camera != NULL)
-			delete _camera;
+		if (_fpcamera != NULL)
+			delete _fpcamera;
+		if (_tpcamera != NULL)
+			delete _tpcamera;
 	}
 
 	void Game::Start()
@@ -36,9 +39,15 @@ namespace Engine
 		//SetCamera(CameraType::Perspective, 0.1f, 100.0f);
 		//SetCameraPosition(0, 0, 5);
 
-		_camera = new Camera();
-		_camera->SetValues(CameraType::Perspective, 2, 100, "FPS");
-		GetRenderer()->SetCurrentCamera(_camera);
+		_fpcamera = new Camera();
+		_fpcamera->SetValues(CameraType::Perspective, 0.1, 100, "FPS", 800, 600);
+		_fpcamera->SetPosition(0, 0, 5);
+		GetRenderer()->SetCurrentCamera(_fpcamera);
+
+
+		_tpcamera = new Camera();
+		_tpcamera->SetValues(CameraType::Perspective, 0.1, 100, "TPC", 800, 600);
+		_tpcamera->SetPosition(0, 0, 10);
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer());
@@ -84,7 +93,8 @@ namespace Engine
 
 	void Game::Update(float deltaTime)
 	{
-		_camera->CameraInput(deltaTime);
+	
+		_fpcamera->CameraInput(deltaTime);
 		_roboBob->Move(deltaTime);
 
 		GetCollisionManager()->CheckAllCollisions();
@@ -94,6 +104,12 @@ namespace Engine
 		_wall1->Draw();
 		_wall2->Draw();
 		_box->Draw();
+		if (Input::GetKey(Keycode::KP_1))
+		{
+			 //ChangeWindowSize(1376, 720);
+			// _fpcamera->SetWidthHeight(1376, 720);
+			 GetRenderer()->SetCurrentCamera(_tpcamera);
+		}
 	}
 
 	void Game::End()

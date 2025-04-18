@@ -20,6 +20,8 @@ namespace Engine
 	private:
 		Shader* _shader;
 		Camera* _currentCamera;
+		int _width;
+		int _height;
 		
 
 	public:
@@ -41,7 +43,7 @@ namespace Engine
 
 		unsigned int GetShader();
 		
-		void SetDefaultCamera();
+		void SetDefaultCamera(int width, int height);
 		void SetCurrentCamera(Camera* currentCamera);
 		//Tiene logica llamar al renderer para pasarle a la camara sus atributos??
 		//void SetCameraValues(CameraType type, float near, float far);

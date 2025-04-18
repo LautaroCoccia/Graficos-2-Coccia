@@ -22,12 +22,6 @@ namespace Engine
 	Camera::Camera() : Entity()
 	{
 		DefaultSettings();
-		//_projection = glm::mat4(1.0f);
-		//_view = glm::mat4(1.0f);
-		//
-		//_transform.position = glm::vec3(0.0f, 0.0f, 3.0f);
-		//_transform.forward = glm::vec3(0.0f, 0.0f, -1.0f);
-		//_transform.up = glm::vec3(0.0f, 1.0f, 0.0f);
 	}
 
 	Camera::~Camera()
@@ -56,14 +50,17 @@ namespace Engine
 		_projectionInd = glGetUniformLocation(shaderId, "projection");
 	}
 
-	void Camera::SetValues(CameraType type, float near, float far, std::string tag)
+	void Camera::SetValues(CameraType type, float near, float far, std::string tag,int windowWidth,int WindowHeight)
 	{
 		_tag = tag;
-
+		_width = windowWidth;
+		_height = WindowHeight;
+		_lastX = windowWidth / 2;
+		_lastY = WindowHeight / 2;
 		switch (type)
 		{
 		case CameraType::Perspective:
-			_projection = glm::perspective(glm::radians(45.0f), 1366.0f / 768.0f, near, far);
+			_projection = glm::perspective(glm::radians(45.0f),(_width / _height), near, far);
 			break;
 
 		case CameraType::Ortho:
@@ -73,7 +70,13 @@ namespace Engine
 		_view = glm::mat4(1.0f);
 
 	}
-
+	void Camera::SetWidthHeight(int width, int height)
+	{
+		_width = width;
+		_height = height;
+		_lastX = _width / 2;
+		_lastY = _height / 2;
+	}
 	void Camera::SetPosition(float x, float y, float z)
 	{
 		_transform.position = glm::vec3(x, y, z);
@@ -81,11 +84,9 @@ namespace Engine
 
 	void Camera::DefaultSettings()
 	{
-		//_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-		//_transform.rotation.y = sin(glm::radians(_pitch));
-		//_transform.rotation.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 
-		_transform.rotation.x = 0;
+
+		/*_transform.rotation.x = 0;
 		_transform.rotation.y = 0;
 		_transform.rotation.z = 5;
 		
@@ -93,33 +94,31 @@ namespace Engine
 		_transform.forward = glm::vec3(0.0f, 0.0f, -1.0f);
 		_transform.up = glm::vec3(0.0f, 1.0f, 0.0f);
 		_transform.up = glm::cross(_transform.rotation, _transform.right);
-		//_transform.position = glm::vec3(0.0f, 0.0f, 3.0f);
-
-		//_transform.rotation = glm::vec3(0.0f, 1.0f, 0.0f);;
-
-		//_transform.up = glm::vec3(0.0f, 1.0f, 0.0f);
 		_transform.right = glm::cross(_transform.up, _transform.rotation);
 
-
-
 		_transform.forward = glm::vec3(0.0f, 0.0f, 1.0f);
+		*/
+		_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+		_transform.rotation.y = sin(glm::radians(_pitch));
+		_transform.rotation.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 
+		_transform.forward = glm::normalize(_transform.rotation);
+		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
+		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 		std::cout << _transform.right.x << " " << _transform.right.y << " " << _transform.right.z << std::endl;
 		std::cout << _transform.rotation.x << " " << _transform.rotation.y << " " << _transform.rotation.z << std::endl;
 
-		_projection = glm::perspective(glm::radians(45.0f), 1200.0f / 600.0f, 0.1f, 100.0f);
+		_projection = glm::perspective(glm::radians(45.0f), _width / _height, 0.1f, 100.0f);
 		_view = glm::lookAt(_transform.position, _transform.position, _transform.up);
 		_view = glm::mat4(1.0f);
-
+		
 		//_currentMode = CameraMode::FlyCamera;
 	}
 	void Camera::CameraInput(float deltaTime)
 	{
-		std::cout << _yaw << " " << _pitch << " " << std::endl;
 		glfwSetInputMode(Input::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetCursorPosCallback(Input::GetWindow(), MouseCallback);
 
-		std::cout << _transform.rotation.x << " " << _transform.rotation.y << " " << _transform.rotation.z << std::endl;
 		_transform.rotation.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 		_transform.rotation.y = sin(glm::radians(_pitch));
 		_transform.rotation.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
@@ -127,7 +126,8 @@ namespace Engine
 		_transform.forward = glm::normalize(_transform.rotation);
 		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
-		
+
+//----------------------------------------------------------------------------------------------		
 		if (Input::GetKey(Keycode::W))
 			_transform.position += cameraSpeed * _transform.forward * deltaTime;
 		if (Input::GetKey(Keycode::S))
@@ -136,7 +136,6 @@ namespace Engine
 			_transform.position -= glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
 		if (Input::GetKey(Keycode::D))
 			_transform.position += glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
-		std::cout << _transform.forward.x << " " << _transform.forward.y << " " << _transform.forward.z << std::endl;
 
 	}
 	void Camera::MouseCallback(GLFWwindow* window, double xpos, double ypos)
