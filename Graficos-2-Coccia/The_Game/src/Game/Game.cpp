@@ -12,6 +12,8 @@ namespace Engine
 		_box = NULL;
 		_fpcamera = NULL;
 		_tpcamera = NULL;
+
+		_currentCamera = NULL;
 	}
 
 	Game::~Game()
@@ -28,6 +30,8 @@ namespace Engine
 			delete _fpcamera;
 		if (_tpcamera != NULL)
 			delete _tpcamera;
+		if (_currentCamera != NULL)
+			delete _currentCamera;
 	}
 
 	void Game::Start()
@@ -39,11 +43,12 @@ namespace Engine
 		//SetCamera(CameraType::Perspective, 0.1f, 100.0f);
 		//SetCameraPosition(0, 0, 5);
 
-		_fpcamera = new Camera();
+		_fpcamera = new FPCamera();
 		_fpcamera->SetValues(CameraType::Perspective, 0.1, 100, "FPS", 800, 600);
 		_fpcamera->SetPosition(0, 0, 5);
+		
+		_currentCamera = _fpcamera;
 		GetRenderer()->SetCurrentCamera(_fpcamera);
-
 
 		_tpcamera = new Camera();
 		_tpcamera->SetValues(CameraType::Perspective, 0.1, 100, "TPC", 800, 600);
@@ -94,7 +99,7 @@ namespace Engine
 	void Game::Update(float deltaTime)
 	{
 	
-		_fpcamera->CameraInput(deltaTime);
+		_currentCamera->CameraInput(deltaTime);
 		_roboBob->Move(deltaTime);
 
 		GetCollisionManager()->CheckAllCollisions();
@@ -108,6 +113,7 @@ namespace Engine
 		{
 			 //ChangeWindowSize(1376, 720);
 			// _fpcamera->SetWidthHeight(1376, 720);
+			_currentCamera = _tpcamera;
 			 GetRenderer()->SetCurrentCamera(_tpcamera);
 		}
 	}

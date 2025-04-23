@@ -1,12 +1,14 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <iostream>
 #include <string>
 #include "..\Export\Export.h"
 #include "..\Entity\Entity.h"
 #include "glm\glm\mat4x4.hpp"
 #include "..\Shader\Shader.h"
 #include "..\Window\Window.h"
+#include "..\Input\Input.h"
 
 namespace Engine
 {
@@ -17,7 +19,7 @@ namespace Engine
 
 	class EXPORT_API Camera : public Entity
 	{
-	private:
+	protected:
 
 		unsigned int _modelInd;
 		unsigned int _viewInd;
@@ -45,7 +47,7 @@ namespace Engine
 		void SetValues(CameraType type, float near, float far, std::string tag, int windowWidth, int WindowHeight);
 		void SetWidthHeight(int width, int height);
 		void SetPosition(float x, float y, float z);
-		void CameraInput(float deltaTime);
+		virtual void CameraInput(float deltaTime);
 		
 
 		std::string GetTag();

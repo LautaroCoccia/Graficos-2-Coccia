@@ -19,6 +19,7 @@ namespace Engine
 		Camera* _fpcamera;
 		Camera* _tpcamera;
 
+		Camera* _currentCamera;
 	public:
 		Game();
 		~Game();

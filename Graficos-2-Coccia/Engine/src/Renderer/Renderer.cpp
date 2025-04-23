@@ -164,7 +164,6 @@ namespace Engine
 		_currentCamera = currentCamera;
 		//_currentCamera->SetWidthHeight();
 		_currentCamera->SetIndex(_shader->GetShader());//REVISAR
-
 	}
 	
 	/*void Renderer::SetCameraValues(CameraType type, float near, float far)

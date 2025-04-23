@@ -2,7 +2,6 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include "glm\gtc\type_ptr.hpp"
-#include "..\Input\Input.h"
 #include <iostream>
 namespace Engine
 {
@@ -52,7 +51,6 @@ namespace Engine
 
 	void Camera::SetValues(CameraType type, float near, float far, std::string tag,int windowWidth,int WindowHeight)
 	{
-		_tag = tag;
 		_width = windowWidth;
 		_height = WindowHeight;
 		_lastX = windowWidth / 2;
@@ -128,14 +126,14 @@ namespace Engine
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 
 //----------------------------------------------------------------------------------------------		
-		if (Input::GetKey(Keycode::W))
+		/*if (Input::GetKey(Keycode::W))
 			_transform.position += cameraSpeed * _transform.forward * deltaTime;
 		if (Input::GetKey(Keycode::S))
 			_transform.position -= cameraSpeed * _transform.forward * deltaTime;
 		if (Input::GetKey(Keycode::A))
 			_transform.position -= glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
 		if (Input::GetKey(Keycode::D))
-			_transform.position += glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;
+			_transform.position += glm::normalize(glm::cross(_transform.forward, _transform.up)) * cameraSpeed * deltaTime;*/
 
 	}
 	void Camera::MouseCallback(GLFWwindow* window, double xpos, double ypos)
