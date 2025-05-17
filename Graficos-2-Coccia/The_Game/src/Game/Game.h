@@ -17,7 +17,7 @@ namespace Engine
 		Player* _roboBob;
 		Cube* _testCube;
 		Camera* _fpcamera;
-		Camera* _tpcamera;
+		TPCamera* _tpcamera;
 
 		Camera* _currentCamera;
 	public:

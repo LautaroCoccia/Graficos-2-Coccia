@@ -9,6 +9,7 @@ namespace Engine
     {
     public:
         FPCamera();
+        ~FPCamera();
         void CameraInput(float deltatime);
     };
 

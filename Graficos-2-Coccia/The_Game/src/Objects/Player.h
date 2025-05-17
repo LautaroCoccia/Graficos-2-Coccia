@@ -14,7 +14,7 @@ namespace Engine
 		~Player();
 
 		void Move(float deltaTime);
-		void TriggerCollision(Entity* other) override;
+		void TriggerCollision(Entity* other);
 	};
 }
 

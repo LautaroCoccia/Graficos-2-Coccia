@@ -52,8 +52,11 @@
     <Filter Include="SpriteCube">
       <UniqueIdentifier>{4e6ac1b4-dd3f-4398-96ec-d3c21df03093}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FPCamera">
+    <Filter Include="Camera\FPCamera">
       <UniqueIdentifier>{bfbf6808-7ad4-4843-b6b6-0916ed4a3889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera\TPCamera">
+      <UniqueIdentifier>{1e4aa026-da05-48c1-8c24-ca1a0e52bb5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +109,10 @@
       <Filter>SpriteCube</Filter>
     </ClCompile>
     <ClCompile Include="src\Camera\FPCamera.cpp">
-      <Filter>FPCamera</Filter>
+      <Filter>Camera\FPCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\TPCamera.cpp">
+      <Filter>Camera\TPCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +171,10 @@
       <Filter>SpriteCube</Filter>
     </ClInclude>
     <ClInclude Include="src\Camera\FPCamera.h">
-      <Filter>FPCamera</Filter>
+      <Filter>Camera\FPCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera\TPCamera.h">
+      <Filter>Camera\TPCamera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
 #include "../Sprite/Sprite.h"
 #include "../SpriteCube/Cube.h" //prueba
 #include "../Camera/FPCamera.h"
+#include "../Camera/TPCamera.h"
 #include "../Animation/Animation.h"
 #include "../Input/Input.h"
 #include "../Time/Time.h"

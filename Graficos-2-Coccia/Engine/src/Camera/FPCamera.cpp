@@ -6,6 +6,10 @@ namespace Engine
 	{
 		DefaultSettings();
 	}
+	FPCamera::~FPCamera()
+	{
+
+	}
 	void FPCamera::CameraInput(float deltaTime)
 	{
 		Camera::CameraInput(deltaTime);

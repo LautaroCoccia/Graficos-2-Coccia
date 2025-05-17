@@ -46,13 +46,14 @@ namespace Engine
 		_fpcamera = new FPCamera();
 		_fpcamera->SetValues(CameraType::Perspective, 0.1, 100, "FPS", 800, 600);
 		_fpcamera->SetPosition(0, 0, 5);
-		
+		 
 		_currentCamera = _fpcamera;
 		GetRenderer()->SetCurrentCamera(_fpcamera);
 
-		_tpcamera = new Camera();
+		_tpcamera = new TPCamera();
 		_tpcamera->SetValues(CameraType::Perspective, 0.1, 100, "TPC", 800, 600);
 		_tpcamera->SetPosition(0, 0, 10);
+		_tpcamera->SetOffset(1000);
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer());
@@ -89,6 +90,8 @@ namespace Engine
 		GetCollisionManager()->AddNewObject(_roboBob);
 
 		_testCube = new Cube(GetRenderer(), "res/wall.jpg", 0, 0, 0);
+		//_tpcamera->SetTransform(_roboBob);
+
 	}
 	
 	void Game::Play()
@@ -99,8 +102,8 @@ namespace Engine
 	void Game::Update(float deltaTime)
 	{
 	
-		_currentCamera->CameraInput(deltaTime);
 		_roboBob->Move(deltaTime);
+		_currentCamera->CameraInput(deltaTime);
 
 		GetCollisionManager()->CheckAllCollisions();
 		_testCube->Draw();
