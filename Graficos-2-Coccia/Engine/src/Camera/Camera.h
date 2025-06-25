@@ -47,6 +47,8 @@ namespace Engine
 		void SetValues(CameraType type, float near, float far, std::string tag, int windowWidth, int WindowHeight);
 		void SetWidthHeight(int width, int height);
 		void SetPosition(float x, float y, float z);
+		void ProcessMouseMovement();
+
 		virtual void CameraInput(float deltaTime);
 		
 

@@ -10,6 +10,7 @@ namespace Engine
 		_wall1 = NULL;
 		_wall2 = NULL;
 		_box = NULL;
+		_freeCamera = NULL;
 		_fpcamera = NULL;
 		_tpcamera = NULL;
 
@@ -26,6 +27,8 @@ namespace Engine
 			delete _wall2;
 		if (_box != NULL)
 			delete _box;
+		if (_freeCamera != NULL)
+			delete _freeCamera;
 		if (_fpcamera != NULL)
 			delete _fpcamera;
 		if (_tpcamera != NULL)
@@ -43,12 +46,16 @@ namespace Engine
 		//SetCamera(CameraType::Perspective, 0.1f, 100.0f);
 		//SetCameraPosition(0, 0, 5);
 
+		_freeCamera = new Camera();
+		_freeCamera->SetValues(CameraType::Perspective, 0.1, 100, "FPS", 800, 600);
+		_freeCamera->SetPosition(0, 0, 5);
+		
 		_fpcamera = new FPCamera();
 		_fpcamera->SetValues(CameraType::Perspective, 0.1, 100, "FPS", 800, 600);
 		_fpcamera->SetPosition(0, 0, 5);
 		 
-		_currentCamera = _fpcamera;
-		GetRenderer()->SetCurrentCamera(_fpcamera);
+		_currentCamera = _freeCamera;
+		GetRenderer()->SetCurrentCamera(_freeCamera);
 
 		_tpcamera = new TPCamera();
 		_tpcamera->SetValues(CameraType::Perspective, 0.1, 100, "TPC", 800, 600);
@@ -112,12 +119,23 @@ namespace Engine
 		_wall1->Draw();
 		_wall2->Draw();
 		_box->Draw();
-		if (Input::GetKey(Keycode::KP_1))
+		
+		if (Input::GetKey(Keycode::KP_1) && _currentCamera!= _tpcamera)
 		{
 			 //ChangeWindowSize(1376, 720);
 			// _fpcamera->SetWidthHeight(1376, 720);
 			_currentCamera = _tpcamera;
 			 GetRenderer()->SetCurrentCamera(_tpcamera);
+		}
+		else if (Input::GetKey(Keycode::KP_2)  &&_currentCamera != _fpcamera)
+		{
+			_currentCamera = _fpcamera;
+			GetRenderer()->SetCurrentCamera(_fpcamera);
+		}
+		else if (Input::GetKey(Keycode::KP_2) && _currentCamera != _freeCamera)
+		{
+			_currentCamera = _freeCamera;
+			GetRenderer()->SetCurrentCamera(_freeCamera);
 		}
 	}
 

@@ -48,8 +48,8 @@ namespace Engine
 	void TPCamera::CameraInput(float deltatime)
 	{
 		
-		Camera::CameraInput(deltatime);
-		
+		ProcessMouseMovement();
+
 		offset.x = (-_transform.rotation.x) * _distance;
 		offset.y = (-_transform.rotation.y) * _distance;
 		offset.z = (-_transform.rotation.z) * _distance;

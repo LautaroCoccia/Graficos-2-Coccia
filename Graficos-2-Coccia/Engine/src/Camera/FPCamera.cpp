@@ -12,7 +12,7 @@ namespace Engine
 	}
 	void FPCamera::CameraInput(float deltaTime)
 	{
-		Camera::CameraInput(deltaTime);
+		ProcessMouseMovement();
 
 		if (Input::GetKey(Keycode::W))
 			_transform.position += cameraSpeed * glm::vec3(_transform.forward.x, 0, _transform.forward.z) * deltaTime;
