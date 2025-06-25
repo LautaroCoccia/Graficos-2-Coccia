@@ -20,6 +20,8 @@ namespace Engine
 		FPCamera* _fpcamera;
 		TPCamera* _tpcamera;
 
+		Shape* _shape;
+		
 		Camera* _currentCamera;
 	public:
 		Game();

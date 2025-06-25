@@ -14,6 +14,8 @@ namespace Engine
 		_fpcamera = NULL;
 		_tpcamera = NULL;
 
+		_shape = NULL;
+
 		_currentCamera = NULL;
 	}
 
@@ -33,6 +35,8 @@ namespace Engine
 			delete _fpcamera;
 		if (_tpcamera != NULL)
 			delete _tpcamera;
+		if (_shape != NULL)
+			delete _shape;
 		if (_currentCamera != NULL)
 			delete _currentCamera;
 	}
@@ -99,6 +103,11 @@ namespace Engine
 		_testCube = new Cube(GetRenderer(), "res/wall.jpg", 0, 0, 0);
 		_tpcamera->SetTransform(&(_roboBob->_transform.position));
 
+		_shape = new Shape(GetRenderer());
+		_shape->InitShape(TypeOfShape::Quad);
+		_shape->SetColor(1.0f, 0.5f, 0.31);
+		_shape->SetPosition(0, 1, 0);
+
 	}
 	
 	void Game::Play()
@@ -119,7 +128,7 @@ namespace Engine
 		_wall1->Draw();
 		_wall2->Draw();
 		_box->Draw();
-		
+		_shape->Draw();
 		if (Input::GetKey(Keycode::KP_1) && _currentCamera!= _tpcamera)
 		{
 			 //ChangeWindowSize(1376, 720);

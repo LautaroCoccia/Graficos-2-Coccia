@@ -52,6 +52,8 @@ namespace Engine
 
 		void SetColor(ENTITY_COLOR color) override;
 		void SetColor(float r, float g, float b) override;
+		void TriggerCollision(Entity* other);
+
 	};
 }
 
