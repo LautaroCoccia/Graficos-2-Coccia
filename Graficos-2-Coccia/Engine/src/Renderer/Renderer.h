@@ -10,6 +10,50 @@
 
 namespace Engine
 {
+	struct LightData
+	{
+		glm::vec3 _color;
+		glm::vec3 _position;
+
+		glm::vec3 _ambient;
+		glm::vec3 _diffuse;
+		glm::vec3 _specular;
+
+		int _isActive;
+	};
+	struct DirectionLightData
+	{
+		glm::vec3 _direction;
+	};
+
+	struct PointLightData
+	{
+		glm::vec3 _position;
+
+		float _constant;
+		float _linear;
+		float _quadratic;
+	};
+
+	struct SpotlightData
+	{
+		glm::vec3 _position;
+		glm::vec3 _direction;
+
+		float _cutOff;
+		float _outerCutOff;
+
+		float _constant;
+		float _linear;
+		float _quadratic;
+	};
+	struct Material
+	{
+		glm::vec3 _ambient;
+		glm::vec3 _diffuse;
+		glm::vec3 _specular;
+		float _shininess;
+	};
 	enum class TypeOfShape {
 		Triangle,
 		Quad
@@ -45,6 +89,12 @@ namespace Engine
 		
 		void SetDefaultCamera(int width, int height);
 		void SetCurrentCamera(Camera* currentCamera);
+
+		//Light
+		void UpdateLightData(LightData lightData);
+		void UpdateDirectLightData(LightData& light, DirectionLightData& directional);
+		void UpdatePointLight(LightData& light, PointLightData& point, int i);
+		void UpdateSpotLight(LightData& light, SpotlightData& spot, int i);
 		//Tiene logica llamar al renderer para pasarle a la camara sus atributos??
 		//void SetCameraValues(CameraType type, float near, float far);
 		//void SetCameraPosition(float x, float y, float z);

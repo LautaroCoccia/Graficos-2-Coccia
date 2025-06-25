@@ -49,6 +49,8 @@ namespace Engine
 		void SetPosition(float x, float y, float z);
 		void ProcessMouseMovement();
 
+		glm::vec3 GetPosition();
+
 		virtual void CameraInput(float deltaTime);
 		
 

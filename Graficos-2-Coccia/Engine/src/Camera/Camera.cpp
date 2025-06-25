@@ -128,6 +128,11 @@ namespace Engine
 		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 	}
+
+	glm::vec3 Camera::GetPosition()
+	{
+		return _transform.position;
+	}
 	void Camera::CameraInput(float deltaTime)
 	{
 		ProcessMouseMovement();
