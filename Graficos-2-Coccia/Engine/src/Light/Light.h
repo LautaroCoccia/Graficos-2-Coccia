@@ -1,16 +1,24 @@
-#ifndef LIGHT_H 
+#ifndef LIGHT_H
 #define LIGHT_H
+
+#include "../Export/Export.h"
+#include "../Renderer/Renderer.h"
+
 namespace Engine
 {
-	class Light
+	class EXPORT_API Light
 	{
-		unsigned int lightVAO;
-		unsigned int VBO;
+	private:
+		glm::vec3 _light;
+		Renderer* _renderer;
+		unsigned int _vao; // Vertex Array Obj
+		unsigned int _vbo; // Vertex Buffer Obj
+		unsigned int _ebo; // Index Buffer Obj
 
 	public:
-		//void set
+		Light(Renderer* renderer);
+		~Light();
+		void Draw();
 	};
-
 }
-
 #endif

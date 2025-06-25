@@ -113,10 +113,7 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 		glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
-		GLfloat objectColor[] = { 1.0f, 0.5f, 0.31f };
-		GLfloat lightColor[] = { 1.0f, 1.0f, 1.0f };
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "objectColor"), 1, objectColor);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.diffuse"), 1, lightColor);
+		
 		glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 
 		glBindVertexArray(0);
@@ -124,7 +121,22 @@ namespace Engine
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glUseProgram(0);
 	}
+	void Renderer::DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3& _lightColor)
+	{
+		glUseProgram(_shader->GetShader());
+		glBindVertexArray(vao);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"), 1, &_lightColor[0]);
+		//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
+		//
+		//glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+
+		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glUseProgram(0);
+	}
 	void Renderer::UpdateModel(glm::mat4 model, unsigned int modelUniform)
 	{
 		glUseProgram(_shader->GetShader());
@@ -168,7 +180,7 @@ namespace Engine
 		GLfloat objectColor[] = { 1.0f, 0.5f, 0.31f };
 		GLfloat lightColor[] = { 1.0f, 1.0f, 1.0f };
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "objectColor"), 1, objectColor);
-		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.diffuse"), 1, lightColor);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"), 1, lightColor);
 		
 	}
 

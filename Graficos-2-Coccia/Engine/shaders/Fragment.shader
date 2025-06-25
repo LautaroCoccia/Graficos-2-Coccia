@@ -17,7 +17,8 @@ void main()
 		discard;
 
 	gl_FragColor = texture(ourTexture, TexCoord);
+	
 	//light
-	//FragColor = vec4(lightColor * objectColor, 1.0);
-	FragColor = vec4(lightColor * objectColor * texColor.rgb, texColor.a);
+	//FragColor = vec4(lightColor * objectColor * texColor.rgb, texColor.a);
+	gl_FragColor = vec4(lightColor * objectColor * texColor.rgb, texColor.a);
 }
