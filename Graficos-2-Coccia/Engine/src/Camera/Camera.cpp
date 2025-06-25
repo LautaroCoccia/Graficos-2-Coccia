@@ -82,7 +82,10 @@ namespace Engine
 
 	void Camera::DefaultSettings()
 	{
-
+		_width = 800;
+		_height = 600;
+		_lastX = _width / 2;
+		_lastY = _height / 2;
 
 		/*_transform.rotation.x = 0;
 		_transform.rotation.y = 0;

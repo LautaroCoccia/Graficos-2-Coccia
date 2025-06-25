@@ -5,10 +5,10 @@ namespace Engine
 {
 	TPCamera::TPCamera()
 	{
-		_offset = 10;
+		_distance = 10;
 		DefaultSettings();
-		
-		_transformObj.position = glm::vec3(0, 0, 0);
+		_targetPosition = nullptr;
+		/*_transformObj.position = glm::vec3(0, 0, 0);
 		_transformObj.rotation = glm::vec3(0, 0, 0);
 		_transformObj.scale = glm::vec3(1, 1, 1);
 
@@ -18,57 +18,61 @@ namespace Engine
 		
 		_transformObj.forward = glm::vec3(0, 0, 1);
 		_transformObj.up = glm::vec3(0, 1, 0);
-		_transformObj.right = glm::vec3(0, 1, 0);
+		_transformObj.right = glm::vec3(0, 1, 0);*/
 	}
-	TPCamera::TPCamera(Transform& transformObj)
+	TPCamera::TPCamera(glm::vec3* transformObj)
 	{
-		_offset = 10;
-		_transformObj = transformObj;
 
+		_distance = 10;
+		_targetPosition = transformObj;
 	}
 
 	TPCamera::~TPCamera()
 	{
 
 	}
-	void TPCamera::SetOffset(float offset)
+	void TPCamera::SetOffset(float distance)
 	{
-		_offset = offset;
+		_distance = distance;
 	}
 	void TPCamera::SetTransform(Transform& transformObj)
 	{
 
-		_transformObj = transformObj;
 		 std::cout<<"trns" << "x " << transformObj.position.x << " y " << transformObj.position.y << "z" << transformObj.position.z<< std::endl;
+	}
+	void TPCamera::SetTransform(glm::vec3* transformObj)
+	{
+		_targetPosition = transformObj;
 	}
 
 	void TPCamera::CameraInput(float deltatime)
 	{
 		
 		Camera::CameraInput(deltatime);
-		glm::vec3 asd = _transform.rotation;
 		
-		_transform.rotation.x = (-_transform.rotation.x) * _offset;
-		_transform.rotation.y = (-_transform.rotation.y) * _offset;
-		_transform.rotation.z = (-_transform.rotation.z) * _offset;
+		offset.x = (-_transform.rotation.x) * _distance;
+		offset.y = (-_transform.rotation.y) * _distance;
+		offset.z = (-_transform.rotation.z) * _distance;
 		
 		_transform.forward = glm::normalize(_transform.rotation);
 
 		_transform.right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), _transform.forward));
 		_transform.up = glm::normalize(glm::cross(_transform.forward, _transform.right));
 
-		_transform.position = asd + _transformObj.position;
-		std::cout<<"obj " << "x " << _transformObj.position.x << " y " << _transformObj.position.y << "z" << _transformObj.position.z<< std::endl;
+		_transform.position = offset + *_targetPosition;
+		std::cout<<"obj " << "x " << _targetPosition->x << " y " << _targetPosition->y << "z" << _targetPosition->z<< std::endl;
 		//_transform.position = (_transform.rotation)*= + _transformObj.position;
 
 
 
-		_transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
+		//_transformObj.rotation = glm::vec3(_transform.rotation.x, 0, _transform.rotation.z);
 
 	}
 	void TPCamera::UpdateView()
 	{
-		_view = glm::lookAt(_transform.position, _transformObj.position, _transform.up);
+		
+		_view = glm::lookAt(_transform.position, *_targetPosition, _transform.up);
+		//_view = glm::lookAt(_transform.position, _transformObj.position, _transform.up);
 
 	}
 }

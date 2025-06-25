@@ -53,7 +53,7 @@ namespace Engine
 		_tpcamera = new TPCamera();
 		_tpcamera->SetValues(CameraType::Perspective, 0.1, 100, "TPC", 800, 600);
 		_tpcamera->SetPosition(0, 0, 10);
-		_tpcamera->SetOffset(1000);
+		_tpcamera->SetOffset(4);
 		// --------------------------------
 		
 		_wall1 = new Sprite(GetRenderer());
@@ -90,7 +90,7 @@ namespace Engine
 		GetCollisionManager()->AddNewObject(_roboBob);
 
 		_testCube = new Cube(GetRenderer(), "res/wall.jpg", 0, 0, 0);
-		//_tpcamera->SetTransform(_roboBob);
+		_tpcamera->SetTransform(&(_roboBob->_transform.position));
 
 	}
 	
