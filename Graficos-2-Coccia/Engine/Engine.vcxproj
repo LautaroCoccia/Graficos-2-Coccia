@@ -189,6 +189,10 @@
     <ClInclude Include="src\Time\Time.h" />
     <ClInclude Include="src\Window\Window.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\Fragment.shader" />
+    <None Include="shaders\Vertex.shader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

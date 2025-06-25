@@ -103,7 +103,7 @@ namespace Engine
 	
 	void Game::Play()
 	{
-		UpdateEngine(0.0f, 0.0f, 0.0f, 1);
+		UpdateEngine(0.2f, 0.3f, 0.3f, 1);
 	}
 
 	void Game::Update(float deltaTime)

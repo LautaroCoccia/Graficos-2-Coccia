@@ -177,4 +177,12 @@
       <Filter>Camera\TPCamera</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\Fragment.shader">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="shaders\Vertex.shader">
+      <Filter>Shader</Filter>
+    </None>
+  </ItemGroup>
 </Project>
