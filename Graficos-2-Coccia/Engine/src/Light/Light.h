@@ -8,7 +8,7 @@ namespace Engine
 		unsigned int VBO;
 
 	public:
-		void set
+		//void set
 	};
 
 }

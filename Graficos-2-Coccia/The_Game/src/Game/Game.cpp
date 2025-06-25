@@ -117,7 +117,7 @@ namespace Engine
 
 	void Game::Update(float deltaTime)
 	{
-	
+		//GetRenderer()->UpdateLight();
 		_roboBob->Move(deltaTime);
 		_currentCamera->CameraInput(deltaTime);
 

@@ -40,7 +40,8 @@ namespace Engine
 
 		void StopShader();
 		void DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int& ebo);
-
+		void BindLight(unsigned int& lightVAO);
+		void UpdateLight();
 		unsigned int GetShader();
 		
 		void SetDefaultCamera(int width, int height);

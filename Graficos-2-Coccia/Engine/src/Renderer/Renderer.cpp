@@ -113,7 +113,10 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 		glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
-
+		GLfloat objectColor[] = { 1.0f, 0.5f, 0.31f };
+		GLfloat lightColor[] = { 1.0f, 1.0f, 1.0f };
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "objectColor"), 1, objectColor);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.diffuse"), 1, lightColor);
 		glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 
 		glBindVertexArray(0);
@@ -147,15 +150,26 @@ namespace Engine
 		glDeleteBuffers(1, &ebo);
 	}
 
-	void Renderer::BindLight()
+	void Renderer::BindLight(unsigned int& lightVAO)
 	{
 		glGenVertexArrays(1, &lightVAO);
 		glBindVertexArray(lightVAO);
+		
 		// we only need to bind to the VBO, the container's VBO's data already contains the data.
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		
 		// set the vertex attribute 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
+	}
+	void Renderer::UpdateLight()
+	{
+		glUseProgram(GetShader());
+		GLfloat objectColor[] = { 1.0f, 0.5f, 0.31f };
+		GLfloat lightColor[] = { 1.0f, 1.0f, 1.0f };
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "objectColor"), 1, objectColor);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "light.diffuse"), 1, lightColor);
+		
 	}
 
 	// ----------------------------

@@ -9,6 +9,7 @@ out vec4 FragColor;
 uniform vec3 objectColor;
 uniform vec3 lightColor;
 
+
 void main()
 {
 	vec4 texColor = texture(ourTexture, TexCoord);
@@ -17,5 +18,6 @@ void main()
 
 	gl_FragColor = texture(ourTexture, TexCoord);
 	//light
-	FragColor = vec4(lightColor * objectColor, 1.0);
+	//FragColor = vec4(lightColor * objectColor, 1.0);
+	FragColor = vec4(lightColor * objectColor * texColor.rgb, texColor.a);
 }
