@@ -61,6 +61,9 @@
     <Filter Include="Light">
       <UniqueIdentifier>{a8d8aca9-f454-4f27-b7b7-fc7e3a78d42f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cube3D">
+      <UniqueIdentifier>{8ef3a5c0-230f-47c1-b0cb-2da6aa6199cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp">
@@ -119,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="src\Light\Light.cpp">
       <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cube3D\Cube3D.cpp">
+      <Filter>Cube3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="src\Light\Light.h">
       <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cube3D\Cube3D.h">
+      <Filter>Cube3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,13 +15,13 @@ namespace Engine
 		Sprite* _box;
 
 		Player* _roboBob;
-		Cube* _testCube;
 		Camera* _freeCamera;
 		FPCamera* _fpcamera;
 		TPCamera* _tpcamera;
-
 		Shape* _shape;
-		
+
+		Cube3D* _testCube;
+
 		Camera* _currentCamera;
 	public:
 		Game();

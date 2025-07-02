@@ -6,6 +6,7 @@
 #include "../Shape/Shape.h"
 #include "../Sprite/Sprite.h"
 #include "../SpriteCube/Cube.h" //prueba
+#include "../Cube3D/Cube3D.h"
 #include "../Camera/FPCamera.h"
 #include "../Camera/TPCamera.h"
 #include "../Animation/Animation.h"

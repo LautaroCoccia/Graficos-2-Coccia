@@ -85,7 +85,23 @@ namespace Engine
 
 		model = glGetUniformLocation(GetShader(), "model");
 	}
+	void Renderer::SetCubeVertexAttribPointer(unsigned int& model)
+	{
+		//Position
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
+		glEnableVertexAttribArray(0);
+		//Normal
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(3);
 
+		//Texture coordinates
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(2);
+
+		glBindVertexArray(0);
+
+		model = glGetUniformLocation(GetShader(), "model");
+	}
 	void Renderer::CreateShader()
 	{
 		_shader->SetShader("../Engine/shaders/Vertex.shader", "../Engine/shaders/Fragment.shader");
@@ -115,7 +131,21 @@ namespace Engine
 		glBufferData(GL_ARRAY_BUFFER, vertexSize, vertex, GL_STATIC_DRAW);
 		
 		glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glUseProgram(0);
+	}
 
+	void Renderer::DrawCube(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertices, int indices)
+	{
+		glUseProgram(_shader->GetShader());
+		glBindVertexArray(vao);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glDrawElements(GL_TRIANGLES, indices, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -179,8 +209,13 @@ namespace Engine
 		glUseProgram(GetShader());
 		GLfloat objectColor[] = { 1.0f, 0.5f, 0.31f };
 		GLfloat lightColor[] = { 1.0f, 1.0f, 1.0f };
+		GLfloat lightPos[] = { 0,0,-10 };
+		GLfloat camPos[] = { _currentCamera->_transform.position.x,_currentCamera->_transform.position.y,_currentCamera->_transform.position.z };
+		
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "objectColor"), 1, objectColor);
 		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightColor"), 1, lightColor);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "lightPos"),1, lightPos);
+		glUniform3fv(glGetUniformLocation(_shader->GetShader(), "viewPos"),1, camPos);
 		
 	}
 

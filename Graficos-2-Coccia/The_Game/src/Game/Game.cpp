@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <time.h>
-
+using namespace std;
 namespace Engine
 {
 	Game::Game(): GameBase()
@@ -13,8 +13,9 @@ namespace Engine
 		_freeCamera = NULL;
 		_fpcamera = NULL;
 		_tpcamera = NULL;
-
 		_shape = NULL;
+
+		_testCube = NULL;
 
 		_currentCamera = NULL;
 	}
@@ -39,6 +40,8 @@ namespace Engine
 			delete _shape;
 		if (_currentCamera != NULL)
 			delete _currentCamera;
+		if (_testCube != NULL)
+			delete _testCube;
 	}
 
 	void Game::Start()
@@ -78,7 +81,8 @@ namespace Engine
 		_wall2 = new Sprite(GetRenderer());
 		_wall2->InitTexture();
 		_wall2->ImportTexture("res/wall.jpg");
-		_wall2->SetPosition(0, -1.2, 0);
+		_wall2->SetPosition(0, -1, 0);
+		_wall2->SetRotation(90, 0,0 );
 		_wall2->SetStaticState(true);
 		GetCollisionManager()->AddNewObject(_wall2);
 		
@@ -100,13 +104,15 @@ namespace Engine
 		_roboBob->SetPosition(-1.8, 0, 0);
 		GetCollisionManager()->AddNewObject(_roboBob);
 
-		_testCube = new Cube(GetRenderer(), "res/wall.jpg", 0, 0, 0);
 		_tpcamera->SetTransform(&(_roboBob->_transform.position));
 
 		_shape = new Shape(GetRenderer());
 		_shape->InitShape(TypeOfShape::Quad);
 		_shape->SetColor(1.0f, 0.5f, 0.31);
 		_shape->SetPosition(0, 1, 0);
+
+		//_testCube = new Cube3D(GetRenderer(), "res/wall.png", 1,1,1);
+		_testCube = new Cube3D(GetRenderer());
 
 	}
 	
@@ -117,18 +123,20 @@ namespace Engine
 
 	void Game::Update(float deltaTime)
 	{
-		//GetRenderer()->UpdateLight();
+		 GetRenderer()->UpdateLight();
 		_roboBob->Move(deltaTime);
 		_currentCamera->CameraInput(deltaTime);
 
 		GetCollisionManager()->CheckAllCollisions();
-		_testCube->Draw();
 
 
 		_wall1->Draw();
 		_wall2->Draw();
 		_box->Draw();
 		_shape->Draw();
+		_testCube->Draw();
+		cout << "position x: " << _testCube->_transform.position.x << " y: " << _testCube->_transform.position.y << " z: " << _testCube->_transform.position.z << endl;
+
 		if (Input::GetKey(Keycode::KP_1) && _currentCamera!= _tpcamera)
 		{
 			 //ChangeWindowSize(1376, 720);

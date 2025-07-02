@@ -32,10 +32,15 @@ namespace Engine
 		void SetVertexBuffer(int size, float* vertex, unsigned int &vao, unsigned int &vbo);
 		void SetIndexBuffer(int size, unsigned int* index, unsigned int &ebo);
 		void SetVertexAttribPointer(bool shape, unsigned int &model);
+		void SetCubeVertexAttribPointer(unsigned int& model);
+
+
 		void CreateShader();
 		void BindTexture(unsigned int& texture);
 		void DisableTexture();
 		void Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount);
+		void DrawCube(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertices, int indices);
+
 		void DrawLight(unsigned int& vao, unsigned int& vbo, glm::vec3& _lightColor);
 
 		void UpdateModel(glm::mat4 model, unsigned int updateShape);
