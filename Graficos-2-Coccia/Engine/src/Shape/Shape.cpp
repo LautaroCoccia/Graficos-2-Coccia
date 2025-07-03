@@ -35,6 +35,13 @@ namespace Engine
 			_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
 			_renderer->SetIndexBuffer(_vertexSize, _indexPos, _ebo);
 			break;
+		case TypeOfShape::Cube:
+			_vertex = _cubeVetices;
+			_vertexSize = sizeof(_cubeVetices);
+
+			_renderer->SetVertexBuffer(_vertexSize, _vertex, _vao, _vbo);
+			_renderer->SetIndexBuffer(_vertexSize, _cubeIndices, _ebo);
+			break;
 		}
 
 		_renderer->SetVertexAttribPointer(true, _modelUniform);
@@ -55,6 +62,8 @@ namespace Engine
 		case TypeOfShape::Quad:
 			_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_indexPos) / sizeof(float));
 			break;
+		case TypeOfShape::Cube:
+			_renderer->Draw(_vao, _vbo, _ebo, _vertex, _vertexSize, sizeof(_cubeIndices) / sizeof(float));
 		}
 	}
 
@@ -77,6 +86,12 @@ namespace Engine
 					for (int j = 0; j < 4; j++)
 						_quadVertex[3 + j * 6 + i] = 1.0f;
 			}
+			else if (_shape == TypeOfShape::Cube)
+			{
+				for (int i = 0; i < 3; i++)
+					for (int j = 0; j < 4; j++)
+						_cubeVetices[3 + j * 6 + i] = 1.0f;
+			}
 			break;
 
 		case ENTITY_COLOR::BLACK:
@@ -92,6 +107,12 @@ namespace Engine
 					for (int j = 0; j < 4; j++)
 						_quadVertex[3 + j * 6 + i] = 0.0f;
 			}
+			else if (_shape == TypeOfShape::Cube)
+			{
+				for (int i = 0; i < 3; i++)
+					for (int j = 0; j < 4; j++)
+						_cubeVetices[3 + j * 6 + i] = 0.0f;
+			}
 			break;
 
 		case ENTITY_COLOR::GRAY:
@@ -106,6 +127,12 @@ namespace Engine
 				for (int i = 0; i < 3; i++)
 					for (int j = 0; j < 4; j++)
 						_quadVertex[3 + j * 6 + i] = 0.5f;
+			}
+			else if (_shape == TypeOfShape::Cube)
+			{
+				for (int i = 0; i < 3; i++)
+					for (int j = 0; j < 4; j++)
+						_cubeVetices[3 + j * 6 + i] = 0.5f;
 			}
 			break;
 
@@ -123,6 +150,17 @@ namespace Engine
 				_quadVertex[15] = 1.0f; _quadVertex[16] = 0.0f; _quadVertex[17] = 0.0f;
 				_quadVertex[21] = 1.0f; _quadVertex[22] = 0.0f; _quadVertex[23] = 0.0f;
 			}
+			else if (_shape == TypeOfShape::Cube)
+			{
+				_cubeVetices[3]  = 1.0f;  _cubeVetices[4] = 0.0f;  _cubeVetices[5] = 0.0f;
+				_cubeVetices[9]  = 1.0f; _cubeVetices[10] = 0.0f; _cubeVetices[11] = 0.0f;
+				_cubeVetices[15] = 1.0f; _cubeVetices[16] = 0.0f; _cubeVetices[17] = 0.0f;
+				_cubeVetices[21] = 1.0f; _cubeVetices[22] = 0.0f; _cubeVetices[23] = 0.0f;
+				_cubeVetices[27] = 1.0f; _cubeVetices[28] = 0.0f; _cubeVetices[29] = 0.0f;
+				_cubeVetices[33] = 1.0f; _cubeVetices[34] = 0.0f; _cubeVetices[35] = 0.0f;
+				_cubeVetices[39] = 1.0f; _cubeVetices[40] = 0.0f; _cubeVetices[41] = 0.0f;
+				_cubeVetices[45] = 1.0f; _cubeVetices[46] = 0.0f; _cubeVetices[47] = 0.0f;
+			}
 			break;
 
 		case ENTITY_COLOR::GREEN:
@@ -139,6 +177,17 @@ namespace Engine
 				_quadVertex[15] = 0.0f; _quadVertex[16] = 1.0f; _quadVertex[17] = 0.0f;
 				_quadVertex[21] = 0.0f; _quadVertex[22] = 1.0f; _quadVertex[23] = 0.0f;
 			}
+			else if (_shape == TypeOfShape::Cube)
+			{
+				_cubeVetices[3]  = 0.0f;  _cubeVetices[4] = 1.0f;  _cubeVetices[5] = 0.0f;
+				_cubeVetices[9]  = 0.0f; _cubeVetices[10] = 1.0f; _cubeVetices[11] = 0.0f;
+				_cubeVetices[15] = 0.0f; _cubeVetices[16] = 1.0f; _cubeVetices[17] = 0.0f;
+				_cubeVetices[21] = 0.0f; _cubeVetices[22] = 1.0f; _cubeVetices[23] = 0.0f;
+				_cubeVetices[27] = 0.0f; _cubeVetices[28] = 1.0f; _cubeVetices[29] = 0.0f;
+				_cubeVetices[33] = 0.0f; _cubeVetices[34] = 1.0f; _cubeVetices[35] = 0.0f;
+				_cubeVetices[39] = 0.0f; _cubeVetices[40] = 1.0f; _cubeVetices[41] = 0.0f;
+				_cubeVetices[45] = 0.0f; _cubeVetices[46] = 1.0f; _cubeVetices[47] = 0.0f;
+			}
 			break;
 
 		case ENTITY_COLOR::BLUE:
@@ -154,6 +203,17 @@ namespace Engine
 				_quadVertex[9] =  0.0f; _quadVertex[10] = 0.0f; _quadVertex[11] = 1.0f;
 				_quadVertex[15] = 0.0f; _quadVertex[16] = 0.0f; _quadVertex[17] = 1.0f;
 				_quadVertex[21] = 0.0f; _quadVertex[22] = 0.0f; _quadVertex[23] = 1.0f;
+			}
+			else if (_shape == TypeOfShape::Cube)
+			{
+				_cubeVetices[3]  = 0.0f;  _cubeVetices[4] = 0.0f;  _cubeVetices[5] = 1.0f;
+				_cubeVetices[9]  = 0.0f; _cubeVetices[10] = 0.0f; _cubeVetices[11] = 1.0f;
+				_cubeVetices[15] = 0.0f; _cubeVetices[16] = 0.0f; _cubeVetices[17] = 1.0f;
+				_cubeVetices[21] = 0.0f; _cubeVetices[22] = 0.0f; _cubeVetices[23] = 1.0f;
+				_cubeVetices[27] = 0.0f; _cubeVetices[28] = 0.0f; _cubeVetices[29] = 1.0f;
+				_cubeVetices[33] = 0.0f; _cubeVetices[34] = 0.0f; _cubeVetices[35] = 1.0f;
+				_cubeVetices[39] = 0.0f; _cubeVetices[40] = 0.0f; _cubeVetices[41] = 1.0f;
+				_cubeVetices[45] = 0.0f; _cubeVetices[46] = 0.0f; _cubeVetices[47] = 1.0f;
 			}
 			break;
 		}
@@ -173,6 +233,17 @@ namespace Engine
 			_quadVertex[9] = r; _quadVertex[10] = g; _quadVertex[11] = b;
 			_quadVertex[15] = r; _quadVertex[16] = g; _quadVertex[17] = b;
 			_quadVertex[21] = r; _quadVertex[22] = g; _quadVertex[23] = b;
+		}
+		else if (_shape == TypeOfShape::Cube)
+		{
+			_cubeVetices[3]  = r;  _cubeVetices[4] = g;  _cubeVetices[5] = b;
+			_cubeVetices[9]  = r; _cubeVetices[10] = g; _cubeVetices[11] = b;
+			_cubeVetices[15] = r; _cubeVetices[16] = g; _cubeVetices[17] = b;
+			_cubeVetices[21] = r; _cubeVetices[22] = g; _cubeVetices[23] = b;
+			_cubeVetices[27] = r; _cubeVetices[28] = g; _cubeVetices[29] = b;
+			_cubeVetices[33] = r; _cubeVetices[34] = g; _cubeVetices[35] = b;
+			_cubeVetices[39] = r; _cubeVetices[40] = g; _cubeVetices[41] = b;
+			_cubeVetices[45] = r; _cubeVetices[46] = g; _cubeVetices[47] = b;
 		}
 	}
 	void Shape::TriggerCollision(Entity* other)

@@ -56,11 +56,11 @@ namespace Engine
 		_freeCamera = new Camera();
 		_freeCamera->SetValues(CameraType::Perspective, 0.1, 100, "FPS", 800, 600);
 		_freeCamera->SetPosition(0, 0, 5);
-		
+
 		_fpcamera = new FPCamera();
 		_fpcamera->SetValues(CameraType::Perspective, 0.1, 100, "FPS", 800, 600);
 		_fpcamera->SetPosition(0, 0, 5);
-		 
+
 		_currentCamera = _freeCamera;
 		GetRenderer()->SetCurrentCamera(_freeCamera);
 
@@ -69,25 +69,25 @@ namespace Engine
 		_tpcamera->SetPosition(0, 0, 10);
 		_tpcamera->SetOffset(4);
 		// --------------------------------
-		
+
 		_wall1 = new Sprite(GetRenderer());
 		_wall1->InitTexture();
 		_wall1->ImportTexture("res/wall.jpg");
 		_wall1->SetPosition(0, 1.2, -5);
 		_wall1->SetStaticState(true);
 		GetCollisionManager()->AddNewObject(_wall1);
-		
+
 		// --------------------------------
 		_wall2 = new Sprite(GetRenderer());
 		_wall2->InitTexture();
 		_wall2->ImportTexture("res/wall.jpg");
 		_wall2->SetPosition(0, -1, 0);
-		_wall2->SetRotation(90, 0,0 );
+		_wall2->SetRotation(90, 0, 0);
 		_wall2->SetStaticState(true);
 		GetCollisionManager()->AddNewObject(_wall2);
-		
+
 		// --------------------------------
-		
+
 		_box = new Sprite(GetRenderer());
 		_box->InitTexture();
 		_box->ImportTexture("res/crate1_diffuse.png");
@@ -96,7 +96,7 @@ namespace Engine
 
 		// --------------------------------
 
-		_roboBob = new Player(GetRenderer(), ivec2(9,5), 2);
+		_roboBob = new Player(GetRenderer(), ivec2(9, 5), 2);
 		_roboBob->GetAnimation()->AddFrame(0.5, 0, 7);
 
 		_roboBob->InitTexture();
@@ -107,9 +107,10 @@ namespace Engine
 		_tpcamera->SetTransform(&(_roboBob->_transform.position));
 
 		_shape = new Shape(GetRenderer());
-		_shape->InitShape(TypeOfShape::Quad);
+		_shape->InitShape(TypeOfShape::Cube);
 		_shape->SetColor(1.0f, 0.5f, 0.31);
 		_shape->SetPosition(0, 1, 0);
+		_shape->SetScale(0.5, 0.5, 0.5);
 
 		//_testCube = new Cube3D(GetRenderer(), "res/wall.png", 1,1,1);
 		_testCube = new Cube3D(GetRenderer());
@@ -133,10 +134,11 @@ namespace Engine
 		_wall1->Draw();
 		_wall2->Draw();
 		_box->Draw();
-		_shape->Draw();
 		_testCube->Draw();
 		cout << "position x: " << _testCube->_transform.position.x << " y: " << _testCube->_transform.position.y << " z: " << _testCube->_transform.position.z << endl;
 
+		_shape->Draw();
+		
 		if (Input::GetKey(Keycode::KP_1) && _currentCamera!= _tpcamera)
 		{
 			 //ChangeWindowSize(1376, 720);

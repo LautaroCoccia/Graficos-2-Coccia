@@ -40,6 +40,10 @@ namespace Engine
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK);
+		//glFrontFace(GL_CCW);
 	}
 
 	void Renderer::SetVertexBuffer(int size, float* vertex, unsigned int& vao, unsigned int& vbo)
@@ -64,11 +68,12 @@ namespace Engine
 	{
 		if (shape)
 		{
+			//Posicion
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)0);
 			glEnableVertexAttribArray(0);
 
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+			glEnableVertexAttribArray(3);
 		}
 		else
 		{
@@ -91,8 +96,8 @@ namespace Engine
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
 		glEnableVertexAttribArray(0);
 		//Normal
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
 
 		//Texture coordinates
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
@@ -124,6 +129,8 @@ namespace Engine
 
 	void Renderer::Draw(unsigned int& vao, unsigned int& vbo, unsigned int& ebo, float* vertex, float vertexSize, int vertexCount)
 	{
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 		glUseProgram(_shader->GetShader());
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
